@@ -1,4 +1,4 @@
-package com.example.projet_finance.Banque;
+package com.example.projet_finance.back_end.Banque;
 
 public class Banque {
     public String nom;
