@@ -3,9 +3,9 @@ package com.example.projet_finance.back_end.Entite;
 import com.example.projet_finance.back_end.Action;
 import com.example.projet_finance.back_end.Banque.CompteCourant;
 
-public class Portefeuille {
+abstract class Portefeuille {
     protected Action[] actions;
-    protected Banque userBanque;
+    protected  userBanque;
     protected List<CompteEpargne> userCompteEpargne;
     protected List<CompteCourant> useCompteCourant;
     protected List<Action> userAction;
