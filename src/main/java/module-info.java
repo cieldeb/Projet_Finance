@@ -3,6 +3,6 @@ module com.example.projet_finance {
     requires javafx.fxml;
 
 
-    opens com.example.projet_finance to javafx.fxml;
-    exports com.example.projet_finance;
+    opens front_end_Authentification to javafx.fxml;
+    exports front_end_Authentification;
 }
