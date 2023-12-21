@@ -1,5 +1,6 @@
 package front_end_Authentification;
 
+import com.example.projet_finance.back_end.Entite.Entite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static com.example.projet_finance.back_end.Entite.Entite.entites;
 
 public class F_Inscription_Controller {
     @FXML
@@ -42,7 +45,7 @@ public class F_Inscription_Controller {
 
 
         if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas deja.
-
+            //Remplissage du fichier CSV permettant de faire l'authentification
             File fichier = new File("files/listeInscrits.csv");
             FileWriter file = new FileWriter(fichier,true);
             BufferedWriter bw = new BufferedWriter(file);
@@ -59,6 +62,10 @@ public class F_Inscription_Controller {
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
+
+            //Création des objets entités.
+            entites.add(new Entite( id , mdp1 ,mail,tel));
+
         }
         else{
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");
