@@ -3,7 +3,7 @@ package com.example.projet_finance.back_end.Entite;
 import java.util.LinkedList;
 
 public class Entite {
-    static public LinkedList<Entite> entites = new LinkedList<>();
+    static public Entite current_authentificated;
     private String userName;
     private String passWord;
     private String adressMail;
@@ -15,4 +15,20 @@ public class Entite {
         this.adressMail = adressMail;
         this.tel = tel;
     }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    //Pas utile en soit
+    @Override
+    public String toString() {
+        return "Entite{" +
+                "userName='" + userName + '\''+
+                ", adressMail='" + adressMail + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
+    }
 }
+
+

@@ -15,8 +15,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static com.example.projet_finance.back_end.Entite.Entite.entites;
-
 public class F_Inscription_Controller {
     @FXML
     private TextField nomField;
@@ -59,12 +57,10 @@ public class F_Inscription_Controller {
             bw.write(SEPARATOR);
             bw.close();
 
+
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
-
-            //Création des objets entités.
-            entites.add(new Entite( id , mdp1 ,mail,tel));
 
         }
         else{
