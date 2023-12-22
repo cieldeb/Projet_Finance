@@ -17,6 +17,4 @@ public class F_ErrAuthentification_Controller {
         secondStage.setScene(scene);
         secondStage.show();
     }
-
-
 }
