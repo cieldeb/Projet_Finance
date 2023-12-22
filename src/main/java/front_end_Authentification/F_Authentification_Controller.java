@@ -3,7 +3,9 @@ package front_end_Authentification;
 import com.example.projet_finance.back_end.Entite.Entite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,7 +30,12 @@ public class F_Authentification_Controller {
         else{
             initialisation_CurrentEntite(idCurrentUser);
             //System.out.println(current_authentificated.toString()); //on verifie que l'objet entité créée possède bien l'attribu qui sont dans le fichier listeInscrit.csv
+            front_end_Authentification.Accueil.F_Accueil_Controleur.afficher_F_Accueil();
         }
+
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
 
     }
     @FXML
