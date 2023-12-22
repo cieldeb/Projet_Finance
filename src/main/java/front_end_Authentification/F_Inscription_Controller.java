@@ -38,10 +38,7 @@ public class F_Inscription_Controller {
         String mdp2 = mdp2Field.getText();
         errSetUpMdp.setText("");
 
-
-
-
-        if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas deja.
+        if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas déja.
 
             File fichier = new File("files/listeInscrits.csv");
             FileWriter file = new FileWriter(fichier,true);
@@ -63,7 +60,6 @@ public class F_Inscription_Controller {
         else{
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");
         }
-
     }
     @FXML
     protected void btnClear(){
