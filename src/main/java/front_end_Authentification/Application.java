@@ -2,12 +2,17 @@ package front_end_Authentification;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 public class Application extends javafx.application.Application {
 
@@ -40,4 +45,5 @@ public class Application extends javafx.application.Application {
         String data = stringBuilder.toString();
         lines = data.split("\n");
     }
+
 }
