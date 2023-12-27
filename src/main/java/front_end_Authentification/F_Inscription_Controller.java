@@ -1,5 +1,6 @@
 package front_end_Authentification;
 
+import com.example.projet_finance.back_end.Entite.Entite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +39,11 @@ public class F_Inscription_Controller {
         String mdp2 = mdp2Field.getText();
         errSetUpMdp.setText("");
 
-        if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas déja.
 
+
+
+        if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas deja.
+            //Remplissage du fichier CSV permettant de faire l'authentification
             File fichier = new File("files/listeInscrits.csv");
             FileWriter file = new FileWriter(fichier,true);
             BufferedWriter bw = new BufferedWriter(file);
@@ -53,13 +57,16 @@ public class F_Inscription_Controller {
             bw.write(SEPARATOR);
             bw.close();
 
+
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
+
         }
         else{
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");
         }
+
     }
     @FXML
     protected void btnClear(){
