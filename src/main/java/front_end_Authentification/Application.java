@@ -25,7 +25,7 @@ public class Application extends javafx.application.Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("F_Authentification.fxml"));
         Scene firstScene = new Scene(fxmlLoader.load());
 
-        primaryStage.setTitle("Formulaire d'authentification");
+        primaryStage.setTitle("Se connecter");
         primaryStage.setScene(firstScene);
         primaryStage.show();
     }

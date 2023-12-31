@@ -5,9 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -32,7 +29,7 @@ public class F_Authentification_Controller {
         }
         else{
             initialisation_CurrentEntite(idCurrentUser);
-            //System.out.println(current_authentificated.toString()); //on verifie que l'objet entité créée possède bien l'attribu qui sont dans le fichier listeInscrit.csv
+            //System.out.println(current_authentificated.toString()); //on verifie que l'objet entité créée possède bien l'attribut qui sont dans le fichier listeInscrit.csv
             front_end_Authentification.Accueil.F_Accueil_Controleur.afficher_F_Accueil();
         }
 
@@ -42,7 +39,7 @@ public class F_Authentification_Controller {
 
     }
     @FXML
-    protected void btnNoAcount(ActionEvent e) throws IOException {
+    protected void btnNoAccount(ActionEvent e) throws IOException {
         F_Inscription_Controller.afficherInscription();
 
     }

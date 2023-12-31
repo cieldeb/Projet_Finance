@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -31,13 +32,26 @@ public class F_Virement_Controller {
     private final String ADD_NEW_RECEIVER = "Ajouter un nouveau destinataire";
 
     public F_Virement_Controller() {
+    }
+    @FXML
+    private void initialize(){
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
         vir_dest.setTooltip(new Tooltip("Sélectionner un destinataire"));
+
+        loadCSVIntoChoiceBox(vir_dest, "files/listedestinataires.csv");
+        loadCSVIntoChoiceBox(vir_account, "files/listecomptes.csv");
+
+        try (Scanner scanner = new Scanner(new File("listedestinataires.csv"))) {
+            while (scanner.hasNextLine()) {
+                destinataires.addAll(getRecordFromLine(scanner.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        vir_account.setItems(FXCollections.observableArrayList(destinataires));
     }
 
     private void start(Stage virement) {
-        loadCSVIntoChoiceBox(vir_dest, "files/listedestinataires.csv");
-        loadCSVIntoChoiceBox(vir_account, "files/listecomptes.csv");
 
         vir_dest.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (ADD_NEW_RECEIVER.equals(newValue)) {
@@ -73,18 +87,6 @@ public class F_Virement_Controller {
         });
     }
 
-    @FXML
-    private void initialize() {
-        try (Scanner scanner = new Scanner(new File("listedestinataires.csv"))) {
-            while (scanner.hasNextLine()) {
-                destinataires.addAll(getRecordFromLine(scanner.nextLine()));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        vir_account.setItems(FXCollections.observableArrayList(destinataires));
-    }
-
     private List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<>();
         try (Scanner rowScanner = new Scanner(line)) {
@@ -94,9 +96,6 @@ public class F_Virement_Controller {
             }
         }
         return values;
-    }
-
-    protected static void afficherVirement() throws IOException{
     }
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
@@ -108,5 +107,16 @@ public class F_Virement_Controller {
         }else{
 
         }*/
+    }
+
+    public static void afficher_F_Virement() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/front_end_Virement/F_Virement.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage stage = new Stage();
+        stage.setTitle("Effectuer un virement");
+        stage.setScene(scene);
+        stage.show();
+
     }
 }

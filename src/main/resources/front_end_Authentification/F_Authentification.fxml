@@ -21,7 +21,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Button mnemonicParsing="false" onAction="#btnValider" prefWidth="91.0" text="Valider" textFill="#12ab1f" />
-            <Button fx:id="btnNew" mnemonicParsing="false" onAction="#btnNoAcount" prefHeight="24.0" prefWidth="117.0" text="Je n'ai pas de compte" textFill="#867777">
+            <Button fx:id="btnNew" mnemonicParsing="false" onAction="#btnNoAccount" prefHeight="24.0" prefWidth="117.0" text="Je n'ai pas de compte" textFill="#867777">
                <font>
                   <Font size="10.0" />
                </font>

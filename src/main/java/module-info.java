@@ -5,4 +5,6 @@ module com.example.projet_finance {
 
     opens front_end_Authentification to javafx.fxml;
     exports front_end_Authentification;
+    opens front_end_Authentification.Accueil to javafx.fxml;
+    exports front_end_Authentification.Accueil to javafx.fxml;
 }
