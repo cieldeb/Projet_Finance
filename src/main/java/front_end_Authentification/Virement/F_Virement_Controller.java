@@ -1,11 +1,10 @@
-package front_end_Authentification;
+package front_end_Authentification.Virement;
 
+import front_end_Authentification.Application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -21,13 +20,13 @@ import java.io.IOException;
 
 public class F_Virement_Controller {
     @FXML
-    private ChoiceBox<String> vir_dest;
+    private ComboBox<String> vir_dest;
     @FXML
     private TextField vir_montant;
     @FXML
     private Text montant;
     @FXML
-    private ChoiceBox<String> vir_account;
+    private ComboBox<String> vir_account;
     private List<String> destinataires = new ArrayList<>();
     private final String ADD_NEW_RECEIVER = "Ajouter un nouveau destinataire";
 
@@ -37,9 +36,15 @@ public class F_Virement_Controller {
     private void initialize(){
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
         vir_dest.setTooltip(new Tooltip("Sélectionner un destinataire"));
+        vir_montant.setTooltip(new Tooltip("Entrer un montant"));
 
-        loadCSVIntoChoiceBox(vir_dest, "files/listedestinataires.csv");
-        loadCSVIntoChoiceBox(vir_account, "files/listecomptes.csv");
+        vir_account.setVisibleRowCount(3);
+        vir_dest.setVisibleRowCount(3);
+
+        loadCSVIntoComboBox(vir_dest, "files/listedestinataires.csv");
+        vir_dest.getItems().add(ADD_NEW_RECEIVER); // Add this line after loading the CSV
+
+        loadCSVIntoComboBox(vir_account, "files/listecomptes.csv");
 
         try (Scanner scanner = new Scanner(new File("listedestinataires.csv"))) {
             while (scanner.hasNextLine()) {
@@ -52,21 +57,26 @@ public class F_Virement_Controller {
     }
 
     private void start(Stage virement) {
-
         vir_dest.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (ADD_NEW_RECEIVER.equals(newValue)) {
-                promptForNewReceiver(vir_dest);
+                try {
+                    newDestinataire();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                vir_dest.getSelectionModel().clearSelection();
             }
         });
     }
 
-    private void loadCSVIntoChoiceBox(ChoiceBox<String> choiceBox, String filePath) {
+    private void loadCSVIntoComboBox(ComboBox<String> comboBox, String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(";");
+                String[] values = line.split("\n");
                 for (String value : values) {
-                    choiceBox.getItems().add(value.trim());
+                    comboBox.getItems().add(value.trim());
                 }
             }
         } catch (IOException e) {
@@ -74,17 +84,12 @@ public class F_Virement_Controller {
         }
     }
 
-    private void promptForNewReceiver(ChoiceBox<String> choiceBox) {
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Ajouter un destinataire");
-        dialog.setHeaderText("Ajouter un nouveau destinataire");
-        dialog.setContentText("Entrez le nom du destinataire");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(receiverName -> {
-            choiceBox.getItems().add(choiceBox.getItems().size() - 1, receiverName);
-            choiceBox.getSelectionModel().select(receiverName);
-        });
+    private void newDestinataire() {
+        try {
+            F_NewDestinataire_Controller.afficher_F_NewDestinataire();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<String> getRecordFromLine(String line) {
@@ -117,6 +122,5 @@ public class F_Virement_Controller {
         stage.setTitle("Effectuer un virement");
         stage.setScene(scene);
         stage.show();
-
     }
 }

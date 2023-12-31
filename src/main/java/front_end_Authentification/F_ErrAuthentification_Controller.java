@@ -13,7 +13,7 @@ public class F_ErrAuthentification_Controller {
 
         Stage secondStage = new Stage();
 
-        secondStage.setTitle("Erreur authentification");
+        secondStage.setTitle("Erreur d'authentification");
         secondStage.setScene(scene);
         secondStage.show();
     }

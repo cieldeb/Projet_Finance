@@ -1,6 +1,7 @@
 package front_end_Authentification;
 
 import com.example.projet_finance.back_end.Entite.Entite;
+import front_end_Authentification.Accueil.F_Accueil_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -30,7 +31,7 @@ public class F_Authentification_Controller {
         else{
             initialisation_CurrentEntite(idCurrentUser);
             //System.out.println(current_authentificated.toString()); //on verifie que l'objet entité créée possède bien l'attribut qui sont dans le fichier listeInscrit.csv
-            front_end_Authentification.Accueil.F_Accueil_Controleur.afficher_F_Accueil();
+            F_Accueil_Controller.afficher_F_Accueil();
         }
 
         Node button = (Node) e.getSource();
