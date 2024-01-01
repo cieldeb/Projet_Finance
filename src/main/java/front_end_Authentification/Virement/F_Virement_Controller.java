@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -57,16 +58,6 @@ public class F_Virement_Controller {
     }
 
     private void start(Stage virement) {
-        vir_dest.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (ADD_NEW_RECEIVER.equals(newValue)) {
-                try {
-                    newDestinataire();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                vir_dest.getSelectionModel().clearSelection();
-            }
-        });
     }
 
     private void loadCSVIntoComboBox(ComboBox<String> comboBox, String filePath) {
@@ -81,14 +72,6 @@ public class F_Virement_Controller {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void newDestinataire() {
-        try {
-            F_NewDestinataire_Controller.afficher_F_NewDestinataire();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -122,5 +105,12 @@ public class F_Virement_Controller {
         stage.setTitle("Effectuer un virement");
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    public void btnNewDestinataire(ActionEvent e) throws IOException {
+        F_NewDestinataire_Controller.afficher_F_NewDestinataire();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
 }

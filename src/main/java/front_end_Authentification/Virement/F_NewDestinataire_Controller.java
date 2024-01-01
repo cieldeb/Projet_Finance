@@ -1,6 +1,7 @@
 package front_end_Authentification.Virement;
 
 import front_end_Authentification.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,6 +17,12 @@ public class F_NewDestinataire_Controller {
         stage.setTitle("Ajouter un destinataire");
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    public void btnClear(ActionEvent actionEvent) {
+    }
+    public void btnNewDestOk(ActionEvent actionEvent){
 
     }
 }

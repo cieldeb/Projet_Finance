@@ -15,7 +15,7 @@
          <children>
             <VBox prefHeight="70.0" prefWidth="269.0">
                <children>
-                  <Label text="Nom et prénom" />
+                  <Label text="Nom et Prénom" />
                   <Label text="IBAN">
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -42,7 +42,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnNewDestinataire" text="Ajouter" />
+            <Button mnemonicParsing="false" onAction="#btnNewDestOk" text="Ajouter" />
             <Rectangle arcHeight="1.0" arcWidth="1.0" fill="DODGERBLUE" height="25.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
             <Button mnemonicParsing="false" onAction="#btnClear" text="Clear" />
          </children>
