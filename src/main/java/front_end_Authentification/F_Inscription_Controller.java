@@ -61,7 +61,6 @@ public class F_Inscription_Controller {
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
-
         }
         else{
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");

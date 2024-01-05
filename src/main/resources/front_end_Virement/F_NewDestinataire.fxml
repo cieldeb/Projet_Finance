@@ -30,9 +30,9 @@
             </VBox>
             <VBox prefHeight="70.0" prefWidth="278.0">
                <children>
-                  <TextField fx:id="nomField" />
-                  <TextField fx:id="telField" />
-                  <TextField fx:id="mailField" />
+                  <TextField fx:id="NPField" />
+                  <TextField fx:id="IBANField" />
+                  <TextField fx:id="BICField" />
                </children>
             </VBox>
          </children>
