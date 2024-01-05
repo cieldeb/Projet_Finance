@@ -1,5 +1,6 @@
 package front_end_Authentification.Virement;
 
+import front_end_Authentification.F_ErrAuthentification_Controller;
 import front_end_Authentification.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +35,9 @@ public class F_NewDestinataire_Controller {
     }
 
     public void btnClear(ActionEvent actionEvent) {
+        NPField.clear();
+        IBANField.clear();
+        BICField.clear();
     }
     @FXML
     public void btnNewDestOk(ActionEvent actionEvent) throws IOException {

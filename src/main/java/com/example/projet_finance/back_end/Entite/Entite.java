@@ -1,18 +1,16 @@
 package com.example.projet_finance.back_end.Entite;
 
-import java.util.LinkedList;
-
 public class Entite {
-    static public Entite current_authentificated;
+    static public Entite current_authenticated;
     private String userName;
     private String passWord;
-    private String adressMail;
+    private String adresseMail;
     private String tel;
 
     public Entite(String userName , String passWord , String adressMail , String tel){
         this.userName = userName;
         this.passWord = passWord;
-        this.adressMail = adressMail;
+        this.adresseMail = adressMail;
         this.tel = tel;
     }
 
@@ -25,7 +23,7 @@ public class Entite {
     public String toString() {
         return "Entite{" +
                 "userName='" + userName + '\''+
-                ", adressMail='" + adressMail + '\'' +
+                ", adresseMail='" + adresseMail + '\'' +
                 ", tel='" + tel + '\'' +
                 '}';
     }

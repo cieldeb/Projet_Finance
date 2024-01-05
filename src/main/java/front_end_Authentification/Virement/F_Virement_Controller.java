@@ -43,8 +43,6 @@ public class F_Virement_Controller {
         vir_dest.setVisibleRowCount(3);
 
         loadCSVIntoComboBox(vir_dest, "files/listedestinataires.csv");
-        vir_dest.getItems().add(ADD_NEW_RECEIVER); // Add this line after loading the CSV
-
         loadCSVIntoComboBox(vir_account, "files/listecomptes.csv");
 
         try (Scanner scanner = new Scanner(new File("listedestinataires.csv"))) {
