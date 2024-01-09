@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
@@ -28,6 +29,8 @@ public class F_Inscription_Controller {
     private TextField mdp2Field;
     @FXML
     private Label errSetUpMdp;
+    @FXML
+    private Text auth_wrongchar;
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = "\n";
     @FXML
@@ -38,9 +41,6 @@ public class F_Inscription_Controller {
         String mdp1 = mdpField.getText();
         String mdp2 = mdp2Field.getText();
         errSetUpMdp.setText("");
-
-
-
 
         if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas deja.
             //Remplissage du fichier CSV permettant de faire l'authentification
@@ -66,6 +66,15 @@ public class F_Inscription_Controller {
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");
         }
 
+    }
+    public void start(){
+        telField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.matches("[a-zA-Z]")) {
+                auth_wrongchar.setText("Entrez des chiffres");
+            } else {
+                auth_wrongchar.setText(" ");
+            }
+        });
     }
     @FXML
     protected void btnClear(){

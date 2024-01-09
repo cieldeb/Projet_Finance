@@ -8,12 +8,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class F_NewDestinataire_Controller {
     @FXML
@@ -24,6 +28,8 @@ public class F_NewDestinataire_Controller {
     private TextField BICField;
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = "\n";
+    public void start(){
+    }
     public static void afficher_F_NewDestinataire() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/front_end_Virement/F_NewDestinataire.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
