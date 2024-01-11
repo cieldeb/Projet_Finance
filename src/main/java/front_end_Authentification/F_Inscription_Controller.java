@@ -57,7 +57,6 @@ public class F_Inscription_Controller {
             bw.write(SEPARATOR);
             bw.close();
 
-
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
@@ -65,7 +64,6 @@ public class F_Inscription_Controller {
         else{
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");
         }
-
     }
     public void start(){
         telField.textProperty().addListener((observable, oldValue, newValue) -> {

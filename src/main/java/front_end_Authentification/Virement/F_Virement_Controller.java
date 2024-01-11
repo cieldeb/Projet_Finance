@@ -11,10 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,11 +25,7 @@ public class F_Virement_Controller {
     private Text montant;
     @FXML
     private ComboBox<String> vir_account;
-    private List<String> destinataires = new ArrayList<>();
-    private final String ADD_NEW_RECEIVER = "Ajouter un nouveau destinataire";
-
-    public F_Virement_Controller() {
-    }
+    Map<String, String[]> dataMap = new HashMap<>();
     @FXML
     private void initialize(){
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
@@ -42,52 +35,75 @@ public class F_Virement_Controller {
         vir_account.setVisibleRowCount(3);
         vir_dest.setVisibleRowCount(3);
 
-        loadCSVIntoComboBox(vir_dest, "files/listedestinataires.csv");
-        loadCSVIntoComboBox(vir_account, "files/listecomptes.csv");
-
-        try (Scanner scanner = new Scanner(new File("listedestinataires.csv"))) {
-            while (scanner.hasNextLine()) {
-                destinataires.addAll(getRecordFromLine(scanner.nextLine()));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        vir_account.setItems(FXCollections.observableArrayList(destinataires));
-    }
-
-    private void start(Stage virement) {
-    }
-
-    private void loadCSVIntoComboBox(ComboBox<String> comboBox, String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            br.readLine();
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split("\n");
-                for (String value : values) {
-                    comboBox.getItems().add(value.trim());
+        try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
+            String headerLine = br.readLine();
+            if (headerLine != null) {
+                Map<String, String[]> dataMap = new HashMap<>();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(";");
+                    if (values.length == 3) {
+                        dataMap.put(values[0].trim(), values);
+                    } else {
+                        System.err.println("Skipping line: " + line);
+                    }
+                }
+                for (Map.Entry<String, String[]> entry : dataMap.entrySet()) {
+                    String id = entry.getKey();
+                    String[] values = entry.getValue();
+                    StringBuilder displayValue = new StringBuilder(id + " - ");
+                    displayValue.append("IBAN: ");
+                    displayValue.append(values[1].trim()).append(" ");
+                    displayValue.append("BIC: ");
+                    displayValue.append(values[2].trim()).append(" ");
+                    vir_dest.getItems().add(displayValue.toString().trim());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
+            String headerLine = br.readLine();
+            if (headerLine != null) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    String[] values = line.split(";");
+                    if (values.length == 4) {
+                        dataMap.put(values[0].trim(), values);
+                    } else {
+                        System.err.println("Skipping line: " + line);
+                    }
+                }
+                for (Map.Entry<String, String[]> entry : dataMap.entrySet()) {
+                    String id = entry.getKey();
+                    String[] values = entry.getValue();
+                    StringBuilder displayValue = new StringBuilder("Compte" + id + " - ");
+                    int acc_type = Integer.parseInt(values[3]);
+                    if (acc_type == 1){
+                        displayValue.append("Compte Courant");
+                    }else{
+                        displayValue.append("Compte Epargne");
+                    }
+                    vir_account.getItems().add(displayValue.toString().trim());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private List<String> getRecordFromLine(String line) {
-        List<String> values = new ArrayList<>();
-        try (Scanner rowScanner = new Scanner(line)) {
-            rowScanner.useDelimiter(";");
-            while (rowScanner.hasNext()) {
-                values.add(rowScanner.next());
-            }
-        }
-        return values;
+    @FXML
+    protected void vir_account_select(ActionEvent e) throws IOException{
+
     }
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
         String destinataire = vir_dest.getValue();
         String montantValue = vir_montant.getText();
         String compteDebite = vir_account.getValue();
+        System.out.println(compteDebite);
         /*if (vir_montant > vir_account.toString()){
             prompt "erreur : Montant inscrit supérieur au montant disponible"
         }else{
