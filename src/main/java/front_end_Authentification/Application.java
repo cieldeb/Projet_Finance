@@ -28,6 +28,7 @@ public class Application extends javafx.application.Application {
         primaryStage.setTitle("Se connecter");
         primaryStage.setScene(firstScene);
         primaryStage.show();
+
     }
 
     static String[] lines; //Variable permettant de parcourir le fichier CSV avec tous les comptes "Entité".
