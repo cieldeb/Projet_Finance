@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.F_Authentification_Controller">
+<VBox alignment="CENTER_LEFT" prefHeight="205.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.F_Authentification_Controller">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="274.0" text="Connexion">
          <font>
@@ -19,9 +19,9 @@
       <TextField fx:id="idField" prefHeight="25.0" prefWidth="222.0" />
       <Label fx:id="mdpLB" text="Mot de passe" />
       <PasswordField fx:id="mdpField" />
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" prefHeight="97.0" prefWidth="215.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnValider" prefWidth="91.0" text="Valider" textFill="#12ab1f">
+            <Button fx:id="btnValid" mnemonicParsing="false" onAction="#btnValider" prefWidth="91.0" text="Valider">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin></Button>

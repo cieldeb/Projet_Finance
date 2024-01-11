@@ -1,6 +1,8 @@
 package front_end_Authentification.Virement;
 
+import front_end_Authentification.F_Authentification_Controller;
 import front_end_Authentification.F_ErrAuthentification_Controller;
+import com.example.projet_finance.back_end.Entite.Entite;
 import front_end_Authentification.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,8 @@ public class F_NewDestinataire_Controller {
     private TextField BICField;
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = "\n";
+    private int compteAssocie =
+
     public void start(){
     }
     public static void afficher_F_NewDestinataire() throws IOException {
@@ -51,6 +55,7 @@ public class F_NewDestinataire_Controller {
         String NP = NPField.getText();
         String IBAN = IBANField.getText();
         String BIC = BICField.getText();
+        String C_A =  ;
 
         File fichier = new File("files/listeInscrits.csv");
         FileWriter file = new FileWriter(fichier,true);

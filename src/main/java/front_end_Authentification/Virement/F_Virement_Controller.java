@@ -1,31 +1,33 @@
 package front_end_Authentification.Virement;
 
 import front_end_Authentification.Application;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import java.io.*;
+
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class F_Virement_Controller {
+    Map<String, String[]> dataMap = new HashMap<>();
     @FXML
     private ComboBox<String> vir_dest;
     @FXML
     private TextField vir_montant;
     @FXML
-    private Text montant;
+    private Text vir_account_montant;
     @FXML
     private ComboBox<String> vir_account;
-    Map<String, String[]> dataMap = new HashMap<>();
+    @FXML
+    private Button btnValid;
     @FXML
     private void initialize(){
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
@@ -34,6 +36,14 @@ public class F_Virement_Controller {
 
         vir_account.setVisibleRowCount(3);
         vir_dest.setVisibleRowCount(3);
+
+        btnValid.hoverProperty().addListener((ov, oldValue, newValue) -> {
+            if (newValue) {
+                btnValid.setTextFill(Color.web("#12ab1f"));
+            } else if (oldValue) {
+                btnValid.setTextFill(Color.web("#000000"));
+            }
+        });
 
         try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
             String headerLine = br.readLine();
@@ -78,11 +88,11 @@ public class F_Virement_Controller {
                 for (Map.Entry<String, String[]> entry : dataMap.entrySet()) {
                     String id = entry.getKey();
                     String[] values = entry.getValue();
-                    StringBuilder displayValue = new StringBuilder("Compte" + id + " - ");
-                    int acc_type = Integer.parseInt(values[3]);
+                    StringBuilder displayValue = new StringBuilder("Compte " + id + " - ");
+                    int acc_type = Integer.parseInt(values[2]);
                     if (acc_type == 1){
                         displayValue.append("Compte Courant");
-                    }else{
+                    }else if (acc_type == 2){
                         displayValue.append("Compte Epargne");
                     }
                     vir_account.getItems().add(displayValue.toString().trim());
@@ -91,12 +101,24 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
     @FXML
-    protected void vir_account_select(ActionEvent e) throws IOException{
-
+    protected void vir_account_select(ActionEvent e) {
+        String selectedAccount = vir_account.getValue();
+        if (selectedAccount != null) {
+            String accountId = selectedAccount.split(" ")[1];
+            if (dataMap.containsKey(accountId)) {
+                String[] accountDetails = dataMap.get(accountId);
+                if (accountDetails.length > 3) {
+                    vir_account_montant.setText(accountDetails[3] + "€");
+                    vir_account_montant.setFill(Color.web("#000000"));
+                } else {
+                    vir_account_montant.setText("N/A");
+                }
+            } else {
+                System.out.println("Account ID not found in dataMap: " + accountId);
+            }
+        }
     }
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
@@ -104,13 +126,7 @@ public class F_Virement_Controller {
         String montantValue = vir_montant.getText();
         String compteDebite = vir_account.getValue();
         System.out.println(compteDebite);
-        /*if (vir_montant > vir_account.toString()){
-            prompt "erreur : Montant inscrit supérieur au montant disponible"
-        }else{
-
-        }*/
     }
-
     public static void afficher_F_Virement() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/front_end_Virement/F_Virement.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

@@ -18,7 +18,7 @@ public class Entite {
         return this.userName;
     }
 
-    //Pas utile en soit
+    //Pas utile en soi
     @Override
     public String toString() {
         return "Entite{" +
