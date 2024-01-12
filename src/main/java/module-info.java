@@ -5,10 +5,12 @@ module com.example.projet_finance {
     requires org.json;
 
 
-    opens front_end_Authentification to javafx.fxml;
-    exports front_end_Authentification;
-    opens front_end_Authentification.Accueil to javafx.fxml;
-    exports front_end_Authentification.Accueil to javafx.fxml;
-    exports front_end_Authentification.Virement;
-    opens front_end_Authentification.Virement to javafx.fxml;
+    opens front_end to javafx.fxml;
+    exports front_end;
+    opens front_end.Accueil to javafx.fxml;
+    exports front_end.Accueil to javafx.fxml;
+    exports front_end.Virement;
+    opens front_end.Virement to javafx.fxml;
+    exports front_end.Authentification;
+    opens front_end.Authentification to javafx.fxml;
 }
