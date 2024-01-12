@@ -34,7 +34,7 @@
                   <TextField fx:id="vir_montant" promptText="Entrer un montant" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#btnRetour" text="Retour">
+                        <Button mnemonicParsing="false" text="Retour">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

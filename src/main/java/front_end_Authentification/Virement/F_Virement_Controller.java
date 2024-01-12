@@ -1,6 +1,6 @@
 package front_end_Authentification.Virement;
-
 import front_end_Authentification.Application;
+
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +17,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import org.json.simple.*;
+import java.lang.Math;
+
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 
 public class F_Virement_Controller {
     Map<String, String[]> dataMap = new HashMap<>();
@@ -100,7 +103,6 @@ public class F_Virement_Controller {
             e.printStackTrace();
         }
 
-
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
             String headerLine = br.readLine();
             if (headerLine != null) {
@@ -131,6 +133,7 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
         try {
             JSONParser destParser = new JSONParser();
             JSONArray destData = (JSONArray) destParser.parse(new FileReader("files/comptes.json"));
@@ -140,6 +143,7 @@ public class F_Virement_Controller {
                     JSONObject entry = (JSONObject) entryObj;
 
                     String type = (String) entry.get("TYPE");
+                    String solde = (String) entry.get("SOLDE");
 
                     int tip = Integer.parseInt(type);
                     StringBuilder displayValue = new StringBuilder("Compte " + entree + " ");
@@ -161,26 +165,36 @@ public class F_Virement_Controller {
     protected void vir_account_select() {
         String selectedAccount = vir_account.getValue();
         if (selectedAccount != null) {
-            /*String accountId = selectedAccount.split(" ")[1];
-            if (dataMap.containsKey(accountId)) {
-                String[] accountDetails = dataMap.get(accountId);
-            } else {
-                System.out.println("Account ID not found in dataMap: " + accountId);
-            }*/
-            int montDispo = Integer.parseInt(selectedAccount);// A CHANGER
-            System.out.println(montDispo);
-            if (montDispo>0){
-                vir_account_montant.setText(montDispo + "€");
-                vir_account_montant.setFill(Color.web("#12ab1f"));
-            }else if (montDispo<0){
-                vir_account_montant.setText(montDispo + "€");
-                vir_account_montant.setFill(Color.web("#df0000"));
-            }else if (montDispo == 0){
-                vir_account_montant.setText("0€");
-                vir_account_montant.setFill(Color.web("#000000"));
+            try {
+                JSONParser parser = new JSONParser();
+                JSONArray accountsArray = (JSONArray) parser.parse(new FileReader("files/comptes.json"));
+                int accountIndex = Integer.parseInt(selectedAccount.split(" ")[1]);
+
+                if (accountIndex < accountsArray.size()) {
+                    JSONObject account = (JSONObject) accountsArray.get(accountIndex);
+                    String solde = (String) account.get("SOLDE");
+
+                    int montDispo = Integer.parseInt(solde);
+                    if (montDispo > 0) {
+                        vir_account_montant.setText("+" + montDispo + "€");
+                        vir_account_montant.setFill(Color.web("#12ab1f"));
+                    } else if (montDispo < 0) {
+                        int montDispoAbs = Math.abs(montDispo);
+                        vir_account_montant.setText("-" + montDispoAbs + "€");
+                        vir_account_montant.setFill(Color.web("#df0000"));
+                    } else {
+                        vir_account_montant.setText("0€");
+                        vir_account_montant.setFill(Color.web("#000000"));
+                    }
+                } else {
+                    System.err.println("Selected account index is out of bounds.");
+                }
+            } catch (IOException | ParseException | NumberFormatException e) {
+                e.printStackTrace();
             }
         }
     }
+
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
         String destinataire = vir_dest.getValue();
@@ -206,6 +220,5 @@ public class F_Virement_Controller {
     }
     @FXML
     public void btnRetour(ActionEvent e) throws IOException{
-
     }
 }
