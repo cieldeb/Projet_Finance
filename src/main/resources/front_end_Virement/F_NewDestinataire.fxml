@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="122.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.Virement.F_NewDestinataire_Controller">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="122.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Virement.F_NewDestinataire_Controller">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
