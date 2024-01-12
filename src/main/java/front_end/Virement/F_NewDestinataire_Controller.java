@@ -1,25 +1,18 @@
-package front_end_Authentification.Virement;
+package front_end.Virement;
 
-import front_end_Authentification.F_Authentification_Controller;
-import front_end_Authentification.F_ErrAuthentification_Controller;
-import com.example.projet_finance.back_end.Entite.Entite;
-import front_end_Authentification.Application;
+import front_end.Authentification.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import javafx.util.converter.DoubleStringConverter;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class F_NewDestinataire_Controller {
     @FXML

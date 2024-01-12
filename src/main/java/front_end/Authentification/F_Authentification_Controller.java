@@ -1,7 +1,7 @@
-package front_end_Authentification;
+package front_end.Authentification;
 
 import com.example.projet_finance.back_end.Entite.Entite;
-import front_end_Authentification.Accueil.F_Accueil_Controller;
+import front_end.Accueil.F_Accueil_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static com.example.projet_finance.back_end.Entite.Entite.current_authenticated;
-import static front_end_Authentification.Application.lines;
 
 public class F_Authentification_Controller {
     private int idCurrentUser;
@@ -61,8 +60,8 @@ public class F_Authentification_Controller {
     protected boolean verification(String id, String mdp) throws FileNotFoundException {
         boolean result = false;
         Application.lectureCSV_Authentification();
-        for (int i = 0 ; i < lines.length ; i++){
-            String[] line_n = lines[i].split(";");
+        for (int i = 0; i < Application.lines.length ; i++){
+            String[] line_n = Application.lines[i].split(";");
             if (line_n[0].equals(id) && line_n[3].equals(mdp)){
                 result = true;
                 setIdCurrentUser(i);
@@ -73,7 +72,7 @@ public class F_Authentification_Controller {
         return result;
     }
     protected void initialisation_CurrentEntite(int idCurrentUser){
-        String[] lineUser = lines[idCurrentUser].split(";");
+        String[] lineUser = Application.lines[idCurrentUser].split(";");
         current_authenticated = new Entite(lineUser[0],lineUser[3], lineUser[2], lineUser[1]);
     }
 

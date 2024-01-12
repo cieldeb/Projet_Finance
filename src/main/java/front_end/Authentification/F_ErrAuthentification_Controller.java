@@ -1,4 +1,4 @@
-package front_end_Authentification;
+package front_end.Authentification;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

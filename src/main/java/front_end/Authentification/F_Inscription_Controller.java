@@ -1,6 +1,5 @@
-package front_end_Authentification;
+package front_end.Authentification;
 
-import com.example.projet_finance.back_end.Entite.Entite;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
