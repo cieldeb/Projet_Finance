@@ -2,6 +2,7 @@ module com.example.projet_finance {
     requires javafx.controls;
     requires javafx.fxml;
     requires alphavantage.java;
+    requires org.json;
 
 
     opens front_end_Authentification to javafx.fxml;
