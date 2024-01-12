@@ -18,6 +18,6 @@ public class Application_crypto extends Application {
                 .timeOut(10)
                 .build();
         AlphaVantage.api().init(cfg);
-
+        
     }
 }
