@@ -18,6 +18,7 @@ import java.io.IOException;
 
 public class F_Virement_Controller {
     Map<String, String[]> dataMap = new HashMap<>();
+    int valNom;
     @FXML
     private ComboBox<String> vir_dest;
     @FXML
@@ -52,20 +53,20 @@ public class F_Virement_Controller {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(";");
-                    if (values.length == 3) {
+                    valNom = values.length;
+                    if (values.length == 4) {
                         dataMap.put(values[0].trim(), values);
                     } else {
                         System.err.println("Skipping line: " + line);
                     }
                 }
                 for (Map.Entry<String, String[]> entry : dataMap.entrySet()) {
-                    String id = entry.getKey();
                     String[] values = entry.getValue();
-                    StringBuilder displayValue = new StringBuilder(id + " - ");
+                    StringBuilder displayValue = new StringBuilder(values[2] + " - ");
                     displayValue.append("IBAN: ");
-                    displayValue.append(values[1].trim()).append(" ");
+                    displayValue.append(values[0].trim()).append(" ");
                     displayValue.append("BIC: ");
-                    displayValue.append(values[2].trim()).append(" ");
+                    displayValue.append(values[3].trim()).append(" ");
                     vir_dest.getItems().add(displayValue.toString().trim());
                 }
             }
@@ -79,17 +80,19 @@ public class F_Virement_Controller {
                 String line;
                 while ((line = br.readLine()) != null) {
                     String[] values = line.split(";");
-                    if (values.length == 4) {
+                    if (values.length == 3) {
                         dataMap.put(values[0].trim(), values);
                     } else {
                         System.err.println("Skipping line: " + line);
                     }
                 }
+                int entree = 0;
                 for (Map.Entry<String, String[]> entry : dataMap.entrySet()) {
+                    entree = entree + 1;
                     String id = entry.getKey();
                     String[] values = entry.getValue();
-                    StringBuilder displayValue = new StringBuilder("Compte " + id + " - ");
-                    int acc_type = Integer.parseInt(values[2]);
+                    StringBuilder displayValue = new StringBuilder("Compte " + entree + " - ");
+                    int acc_type = Integer.parseInt(values[1]);
                     if (acc_type == 1){
                         displayValue.append("Compte Courant");
                     }else if (acc_type == 2){
@@ -110,8 +113,17 @@ public class F_Virement_Controller {
             if (dataMap.containsKey(accountId)) {
                 String[] accountDetails = dataMap.get(accountId);
                 if (accountDetails.length > 3) {
-                    vir_account_montant.setText(accountDetails[3] + "€");
-                    vir_account_montant.setFill(Color.web("#000000"));
+                    int montDispo = Integer.parseInt(accountDetails[3]);
+                    if (montDispo>0){
+                        vir_account_montant.setText(accountDetails[3] + "€");
+                        vir_account_montant.setFill(Color.web("#12ab1f"));
+                    }else if (montDispo<0){
+                        vir_account_montant.setText(accountDetails[3] + "€");
+                        vir_account_montant.setFill(Color.web("#df0000"));
+                    }else if (montDispo == 0){
+                        vir_account_montant.setText("0€");
+                        vir_account_montant.setFill(Color.web("#000000"));
+                    }
                 } else {
                     vir_account_montant.setText("N/A");
                 }

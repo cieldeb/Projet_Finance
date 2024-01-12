@@ -30,7 +30,7 @@ public class F_NewDestinataire_Controller {
     private TextField BICField;
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = "\n";
-    private int compteAssocie =
+    private int compteAssocie = 5;
 
     public void start(){
     }
@@ -55,7 +55,7 @@ public class F_NewDestinataire_Controller {
         String NP = NPField.getText();
         String IBAN = IBANField.getText();
         String BIC = BICField.getText();
-        String C_A =  ;
+        String C_A = "salut";
 
         File fichier = new File("files/listeInscrits.csv");
         FileWriter file = new FileWriter(fichier,true);
