@@ -1,11 +1,11 @@
-package com.example.projet_finance.back_end.Crypto;
+package com.example.projet_finance.back_end.Actions;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.Config;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Application_crypto extends Application {
+public class Application_Action extends Application {
 
     public static void main(String[] args) {
         launch(args);
