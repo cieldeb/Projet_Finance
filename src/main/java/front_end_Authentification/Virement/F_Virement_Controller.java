@@ -112,13 +112,13 @@ public class F_Virement_Controller {
             String accountId = selectedAccount.split(" ")[1];
             if (dataMap.containsKey(accountId)) {
                 String[] accountDetails = dataMap.get(accountId);
-                if (accountDetails.length > 3) {
-                    int montDispo = Integer.parseInt(accountDetails[3]);
+                if (accountDetails.length > 2) {
+                    int montDispo = Integer.parseInt(accountDetails[2]);
                     if (montDispo>0){
-                        vir_account_montant.setText(accountDetails[3] + "€");
+                        vir_account_montant.setText(accountDetails[2] + "€");
                         vir_account_montant.setFill(Color.web("#12ab1f"));
                     }else if (montDispo<0){
-                        vir_account_montant.setText(accountDetails[3] + "€");
+                        vir_account_montant.setText(accountDetails[2] + "€");
                         vir_account_montant.setFill(Color.web("#df0000"));
                     }else if (montDispo == 0){
                         vir_account_montant.setText("0€");

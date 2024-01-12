@@ -30,7 +30,6 @@ public class F_NewDestinataire_Controller {
     private TextField BICField;
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = "\n";
-    private int compteAssocie = 5;
 
     public void start(){
     }
