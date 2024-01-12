@@ -11,10 +11,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class F_Virement_Controller {
     Map<String, String[]> dataMap = new HashMap<>();
@@ -30,7 +34,7 @@ public class F_Virement_Controller {
     @FXML
     private Button btnValid;
     @FXML
-    private void initialize(){
+    private void initialize() throws IOException, ParseException {
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
         vir_dest.setTooltip(new Tooltip("Sélectionner un destinataire"));
         vir_montant.setTooltip(new Tooltip("Entrer un montant"));
@@ -46,7 +50,7 @@ public class F_Virement_Controller {
             }
         });
 
-        try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
+        /*try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
             String headerLine = br.readLine();
             if (headerLine != null) {
                 Map<String, String[]> dataMap = new HashMap<>();
@@ -72,9 +76,32 @@ public class F_Virement_Controller {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+
+        try {
+            JSONParser destParser = new JSONParser();
+            JSONArray destData = (JSONArray) destParser.parse(new FileReader("files/destinataires.json"));
+            for (Object entryObj : destData){
+                if (entryObj instanceof JSONObject){
+                    JSONObject entry = (JSONObject) entryObj;
+
+                    String iban = (String) entry.get("IBAN");
+                    String bic = (String) entry.get("BIC");
+                    String c_a = (String) entry.get("COMPTE_ASSOCIE");
+                    String np = (String) entry.get("PRENOM_NOM");
+
+                    StringBuilder displayValue = new StringBuilder(np + " - ");
+                    displayValue.append("IBAN: " + iban + " ");
+                    displayValue.append("BIC: " + bic);
+                    vir_dest.getItems().add(displayValue.toString().trim());
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
+
+        /*try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
             String headerLine = br.readLine();
             if (headerLine != null) {
                 String line;
@@ -103,32 +130,54 @@ public class F_Virement_Controller {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }*/
+        try {
+            JSONParser destParser = new JSONParser();
+            JSONArray destData = (JSONArray) destParser.parse(new FileReader("files/comptes.json"));
+            int entree = 0;
+            for (Object entryObj : destData){
+                if (entryObj instanceof JSONObject){
+                    JSONObject entry = (JSONObject) entryObj;
+
+                    String type = (String) entry.get("TYPE");
+
+                    int tip = Integer.parseInt(type);
+                    StringBuilder displayValue = new StringBuilder("Compte " + entree + " ");
+                    if (tip == 1){
+                        displayValue.append("Courant");
+                    }else if (tip == 2){
+                        displayValue.append("Epargne");
+                    }
+                    vir_account.getItems().add(displayValue.toString().trim());
+                }
+                entree = entree + 1;
+            }
+        }catch (IOException e){
+            e.printStackTrace();
         }
     }
+
     @FXML
-    protected void vir_account_select(ActionEvent e) {
+    protected void vir_account_select() {
         String selectedAccount = vir_account.getValue();
         if (selectedAccount != null) {
-            String accountId = selectedAccount.split(" ")[1];
+            /*String accountId = selectedAccount.split(" ")[1];
             if (dataMap.containsKey(accountId)) {
                 String[] accountDetails = dataMap.get(accountId);
-                if (accountDetails.length > 2) {
-                    int montDispo = Integer.parseInt(accountDetails[2]);
-                    if (montDispo>0){
-                        vir_account_montant.setText(accountDetails[2] + "€");
-                        vir_account_montant.setFill(Color.web("#12ab1f"));
-                    }else if (montDispo<0){
-                        vir_account_montant.setText(accountDetails[2] + "€");
-                        vir_account_montant.setFill(Color.web("#df0000"));
-                    }else if (montDispo == 0){
-                        vir_account_montant.setText("0€");
-                        vir_account_montant.setFill(Color.web("#000000"));
-                    }
-                } else {
-                    vir_account_montant.setText("N/A");
-                }
             } else {
                 System.out.println("Account ID not found in dataMap: " + accountId);
+            }*/
+            int montDispo = Integer.parseInt(selectedAccount);// A CHANGER
+            System.out.println(montDispo);
+            if (montDispo>0){
+                vir_account_montant.setText(montDispo + "€");
+                vir_account_montant.setFill(Color.web("#12ab1f"));
+            }else if (montDispo<0){
+                vir_account_montant.setText(montDispo + "€");
+                vir_account_montant.setFill(Color.web("#df0000"));
+            }else if (montDispo == 0){
+                vir_account_montant.setText("0€");
+                vir_account_montant.setFill(Color.web("#000000"));
             }
         }
     }
@@ -154,5 +203,9 @@ public class F_Virement_Controller {
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
+    }
+    @FXML
+    public void btnRetour(ActionEvent e) throws IOException{
+
     }
 }
