@@ -11,16 +11,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.Actions_F.MainActionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.MainActionController">
    <children>
-      <Label fx:id="actionsLabel" alignment="TOP_CENTER" text="Actions">
+      <Label fx:id="actionsLabel" alignment="TOP_CENTER" prefHeight="35.0" prefWidth="118.0" text="Actions">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="164.0" prefWidth="754.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="239.0">
                <children>
@@ -31,10 +30,13 @@
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <VBox prefHeight="100.0" prefWidth="353.0">
+            <VBox prefHeight="107.0" prefWidth="511.0">
                <children>
-                  <Label fx:id="rechercheInfoActionLabel" prefHeight="63.0" prefWidth="346.0" text="Pour recherhcer un symbole cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrez le symbole exact correspondant et cocher &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true" />
-                  <Label fx:id="erreurLabel" />
+                  <Label fx:id="rechercheInfoActionLabel" prefHeight="160.0" prefWidth="510.0" text="Pour recherhcer un symbole cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrez le symbole exact correspondant et cocher &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Label>
+                  <Label fx:id="erreurLabel" prefHeight="17.0" prefWidth="510.0" />
                </children>
             </VBox>
          </children>
@@ -45,7 +47,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView prefHeight="161.0" prefWidth="600.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Nom" />
           <TableColumn prefWidth="75.0" text="Symbole" />
@@ -54,13 +56,13 @@
             <TableColumn prefWidth="89.0" text="Valeur Totale" />
         </columns>
       </TableView>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="71.0" prefWidth="660.0">
          <children>
             <Button mnemonicParsing="false" onAction="#acheterButton" prefHeight="44.0" prefWidth="95.0" text="Acheter" textFill="#5de434" />
             <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="42.0" prefWidth="92.0" text="Vendre" textFill="#d31818" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="44.0" prefWidth="660.0">
          <children>
             <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
          </children>

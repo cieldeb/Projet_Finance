@@ -2,14 +2,13 @@ package front_end_Authentification.Actions;
 
 import com.crazzyghost.alphavantage.AlphaVantage;
 import com.crazzyghost.alphavantage.Config;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Application_Action extends Application {
+public class Application_Action extends javafx.application.Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -23,7 +22,7 @@ public class Application_Action extends Application {
                 .build();
         AlphaVantage.api().init(cfg);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("F_mainActions.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_mainActions.fxml"));
         Scene Scene = new Scene(fxmlLoader.load());
 
         primaryStage.setTitle("Actions");
