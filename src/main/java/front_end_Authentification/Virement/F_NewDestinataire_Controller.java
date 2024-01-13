@@ -1,8 +1,5 @@
 package front_end_Authentification.Virement;
 
-import front_end_Authentification.F_Authentification_Controller;
-import front_end_Authentification.F_ErrAuthentification_Controller;
-import com.example.projet_finance.back_end.Entite.Entite;
 import front_end_Authentification.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,16 +7,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import javafx.util.converter.DoubleStringConverter;
 
-import java.io.BufferedWriter;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class F_NewDestinataire_Controller {
     @FXML
@@ -51,12 +58,45 @@ public class F_NewDestinataire_Controller {
     @FXML
     public void btnNewDestOk(ActionEvent actionEvent) throws IOException {
 
-        String NP = NPField.getText();
-        String IBAN = IBANField.getText();
-        String BIC = BICField.getText();
-        String C_A = "salut";
+        JSONObject newDestInfo = new JSONObject();
+        newDestInfo.put("IBAN", IBANField.getText());
+        newDestInfo.put("COMPTE_ASSOCIE", "salut");
+        newDestInfo.put("PRENOM_NOM", NPField.getText());
+        newDestInfo.put("BIC", BICField.getText());
 
-        File fichier = new File("files/listeInscrits.csv");
+        FileReader fileReader = null;
+        FileWriter fileWriter = null;
+
+        try {
+            fileReader = new FileReader("files/destinataires.json");
+            JSONTokener tokener = new JSONTokener(fileReader);
+            JSONArray jsonArray = new JSONArray(tokener);
+
+            jsonArray.put(newDestInfo);
+
+            fileWriter = new FileWriter("files/destinataires.json");
+            fileWriter.write(jsonArray.toString(4));
+            fileWriter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileReader != null) {
+                try {
+                    fileReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        /*File fichier = new File("files/listeInscrits.csv");
         FileWriter file = new FileWriter(fichier,true);
         BufferedWriter bw = new BufferedWriter(file);
         bw.write(NP);
@@ -66,7 +106,7 @@ public class F_NewDestinataire_Controller {
         bw.write(BIC);
         bw.write(DELIMITER);
         bw.write(SEPARATOR);
-        bw.close();
+        bw.close();*/
 
         Node button = (Node) actionEvent.getSource();
         Stage stage = (Stage) button.getScene().getWindow();

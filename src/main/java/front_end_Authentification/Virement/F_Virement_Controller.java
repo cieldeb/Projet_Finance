@@ -1,6 +1,7 @@
 package front_end_Authentification.Virement;
 import front_end_Authentification.Application;
 
+import front_end_Authentification.F_Authentification_Controller;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +39,11 @@ public class F_Virement_Controller {
     private Button btnValid;
     @FXML
     private void initialize() throws IOException, ParseException {
+
+        F_Authentification_Controller authController = new F_Authentification_Controller();
+        int currentUser = authController.getIdCurrentUser();
+        System.out.println("ID d'entité récupérée: " + currentUser);
+
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
         vir_dest.setTooltip(new Tooltip("Sélectionner un destinataire"));
         vir_montant.setTooltip(new Tooltip("Entrer un montant"));
@@ -52,7 +58,6 @@ public class F_Virement_Controller {
                 btnValid.setTextFill(Color.web("#000000"));
             }
         });
-
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
             String headerLine = br.readLine();
             if (headerLine != null) {
@@ -80,28 +85,32 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
-
         try {
             JSONParser destParser = new JSONParser();
             JSONArray destData = (JSONArray) destParser.parse(new FileReader("files/destinataires.json"));
-            for (Object entryObj : destData){
-                if (entryObj instanceof JSONObject){
+
+            for (Object entryObj : destData) {
+                if (entryObj instanceof JSONObject) {
                     JSONObject entry = (JSONObject) entryObj;
-
-                    String iban = (String) entry.get("IBAN");
-                    String bic = (String) entry.get("BIC");
                     String c_a = (String) entry.get("COMPTE_ASSOCIE");
-                    String np = (String) entry.get("PRENOM_NOM");
 
-                    StringBuilder displayValue = new StringBuilder(np + " - ");
-                    displayValue.append("IBAN: " + iban + " ");
-                    displayValue.append("BIC: " + bic);
-                    vir_dest.getItems().add(displayValue.toString().trim());
+                    if (Objects.equals(currentUser, c_a)) {
+                        String iban = (String) entry.get("IBAN");
+                        String bic = (String) entry.get("BIC");
+                        String np = (String) entry.get("PRENOM_NOM");
+
+                        StringBuilder displayValue = new StringBuilder(np + " - ");
+                        displayValue.append("IBAN: " + iban + " ");
+                        displayValue.append("BIC: " + bic);
+                        vir_dest.getItems().add(displayValue.toString().trim());
+                        System.out.println(displayValue);
+                    }
                 }
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
             String headerLine = br.readLine();

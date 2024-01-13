@@ -47,7 +47,7 @@ public class F_Authentification_Controller {
         }
         else{
             initialisation_CurrentEntite(getIdCurrentUser());
-            System.out.println(current_authenticated.toString()); //on verifie que l'objet entité créée possède bien l'attribut qui sont dans le fichier listeInscrit.csv
+            System.out.println(current_authenticated.toString()); //on verifie que l'objet entité créée possède bien les attributs qui sont dans le fichier listeInscrit.csv
             F_Accueil_Controller.afficher_F_Accueil();
         }
         Node button = (Node) e.getSource();
@@ -75,13 +75,14 @@ public class F_Authentification_Controller {
     protected void initialisation_CurrentEntite(int idCurrentUser){
         String[] lineUser = lines[idCurrentUser].split(";");
         current_authenticated = new Entite(lineUser[0],lineUser[3], lineUser[2], lineUser[1]);
+        System.out.println("Entite initialisée: " + idCurrentUser);
     }
 
     public int getIdCurrentUser() {
         return idCurrentUser;
     }
 
-    public void setIdCurrentUser(int idCurrentUser) {
-        this.idCurrentUser = idCurrentUser;
+    public void setIdCurrentUser(int newidCurrentUser) {
+        this.idCurrentUser = newidCurrentUser;
     }
 }
