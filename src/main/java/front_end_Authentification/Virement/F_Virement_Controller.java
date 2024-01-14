@@ -103,8 +103,8 @@ public class F_Virement_Controller {
                         String np = entry.optString("PRENOM_NOM");
 
                         StringBuilder displayValue = new StringBuilder(np + " - ");
-                        displayValue.append("IBAN: " + iban + " ");
-                        displayValue.append("BIC: " + bic);
+                        displayValue.append("IBAN: ").append(iban).append(" ");
+                        displayValue.append("BIC: ").append(bic);
                         vir_dest.getItems().add(displayValue.toString().trim());
                         System.out.println(displayValue);
                     }
@@ -164,9 +164,9 @@ public class F_Virement_Controller {
 
                             StringBuilder displayValue = new StringBuilder("Compte " + j + " ");
                             if (type == 1){
-                                displayValue.append(" - Courant");
+                                displayValue.append(" - Courant - n° " + account.optInt("IBAN"));
                             } else if (type == 2){
-                                displayValue.append(" - Epargne");
+                                displayValue.append(" - Epargne - n° " + account.optInt("IBAN"));
                             }
                             vir_account.getItems().add(displayValue.toString().trim());
                         }
@@ -210,7 +210,7 @@ public class F_Virement_Controller {
                                     vir_account_montant.setFill(Color.web("#df0000"));
                                 } else {
                                     vir_account_montant.setText("0€");
-                                    vir_account_montant.setFill(Color.web("#000000"));
+                                    vir_account_montant.setFill(Color.web("#00004d"));
                                 }
                             } else {
                                 System.err.println("L'index de compte sélectionné n'existe pas pour cet utilisateur");

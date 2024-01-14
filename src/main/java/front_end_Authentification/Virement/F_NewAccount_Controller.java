@@ -23,6 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class F_NewAccount_Controller {
     F_Authentification_Controller authController = new F_Authentification_Controller();
@@ -75,6 +76,32 @@ public class F_NewAccount_Controller {
         newAccount.put("SOLDE", "+" + solde);
         newAccount.put("TYPE", type);
 
+        int iban;
+        boolean isIbanUnique;
+        do {
+            iban = ThreadLocalRandom.current().nextInt(0, 999999);
+            isIbanUnique = true;
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+                JSONArray comptesArray = userObject.optJSONArray("COMPTES");
+                if (comptesArray != null) {
+                    for (int j = 0; j < comptesArray.length(); j++) {
+                        JSONObject compte = comptesArray.getJSONObject(j);
+                        if (compte.optInt("IBAN") == iban) {
+                            isIbanUnique = false;
+                            break;
+                        }
+                    }
+                }
+                if (!isIbanUnique) {
+                    break;
+                }
+            }
+        } while (!isIbanUnique);
+
+        newAccount.put("IBAN", iban);
+
         boolean userFound = false;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject userObject = jsonArray.getJSONObject(i);
@@ -97,6 +124,7 @@ public class F_NewAccount_Controller {
                 jsonWriter.write(jsonArray.toString(4));
             }
         }
+
         F_Accueil_Controller.afficher_F_Accueil();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
