@@ -79,7 +79,7 @@ public class F_NewAccount_Controller {
         int iban;
         boolean isIbanUnique;
         do {
-            iban = ThreadLocalRandom.current().nextInt(0, 999999);
+            iban = ThreadLocalRandom.current().nextInt(100000, 999999);
             isIbanUnique = true;
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -125,7 +125,6 @@ public class F_NewAccount_Controller {
             }
         }
 
-        F_Accueil_Controller.afficher_F_Accueil();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

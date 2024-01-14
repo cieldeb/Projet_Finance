@@ -89,30 +89,33 @@ public class F_Virement_Controller {
             e.printStackTrace();
         }*/
         try {
-            JSONTokener destTokener = new JSONTokener(new FileReader("files/destinataires.json"));
-            JSONArray destData = new JSONArray(destTokener);
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
 
-            for (Object entryObj : destData) {
-                if (entryObj instanceof JSONObject) {
-                    JSONObject entry = (JSONObject) entryObj;
-                    String c_a = entry.optString("COMPTE_ASSOCIE");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray destArray = userObject.optJSONArray("DESTINATAIRES");
 
-                    if (Objects.equals(currentUser, c_a)) {
-                        String iban = entry.optString("IBAN");
-                        String bic = entry.optString("BIC");
-                        String np = entry.optString("PRENOM_NOM");
+                    if (destArray != null) {
+                        for (int j = 0; j < destArray.length(); j++) {
+                            JSONObject entry = destArray.getJSONObject(j);
+                            String iban = entry.optString("IBAN");
+                            String id = entry.optString("NOM");
 
-                        StringBuilder displayValue = new StringBuilder(np + " - ");
-                        displayValue.append("IBAN: ").append(iban).append(" ");
-                        displayValue.append("BIC: ").append(bic);
-                        vir_dest.getItems().add(displayValue.toString().trim());
-                        System.out.println(displayValue);
+                            StringBuilder displayValue = new StringBuilder(id + " - ");
+                            displayValue.append("IBAN: ").append(iban).append(" ");
+                            vir_dest.getItems().add(displayValue.toString().trim());
+                            System.out.println("Contenu de la combobox des destinataires" + displayValue);
+                        }
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
 
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {

@@ -1,6 +1,7 @@
 package front_end_Authentification.Virement;
 
 import front_end_Authentification.Application;
+import front_end_Authentification.F_Authentification_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,12 +30,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class F_NewDestinataire_Controller {
+    F_Authentification_Controller authController = new F_Authentification_Controller();
+    String currentUser = authController.getIdentifCurrentUser();
     @FXML
     private TextField NPField;
     @FXML
     private TextField IBANField;
-    @FXML
-    private TextField BICField;
     private static final String DELIMITER = ";";
     private static final String SEPARATOR = "\n";
 
@@ -53,48 +54,43 @@ public class F_NewDestinataire_Controller {
     public void btnClear(ActionEvent actionEvent) {
         NPField.clear();
         IBANField.clear();
-        BICField.clear();
     }
     @FXML
     public void btnNewDestOk(ActionEvent actionEvent) throws IOException {
-
-        JSONObject newDestInfo = new JSONObject();
-        newDestInfo.put("IBAN", IBANField.getText());
-        newDestInfo.put("COMPTE_ASSOCIE", "salut");
-        newDestInfo.put("PRENOM_NOM", NPField.getText());
-        newDestInfo.put("BIC", BICField.getText());
-
-        FileReader fileReader = null;
-        FileWriter fileWriter = null;
-
         try {
-            fileReader = new FileReader("files/destinataires.json");
-            JSONTokener tokener = new JSONTokener(fileReader);
-            JSONArray jsonArray = new JSONArray(tokener);
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+            boolean userFound = false;
 
-            jsonArray.put(newDestInfo);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray destArray = userObject.optJSONArray("DESTINATAIRES");
+                    if (destArray == null) {
+                        destArray = new JSONArray();
+                        userObject.put("DESTINATAIRES", destArray);
+                    }
 
-            fileWriter = new FileWriter("files/destinataires.json");
-            fileWriter.write(jsonArray.toString(4));
-            fileWriter.flush();
+                    JSONObject newDest = new JSONObject();
+                    newDest.put("IBAN", Integer.parseInt(IBANField.getText()));
+                    newDest.put("NOM", NPField.getText());
+                    destArray.put(newDest);
+                    userFound = true;
+                }
+            }
+            if (userFound) {
+                Files.write(Paths.get(jsonFile.getPath()), jsonArray.toString(4).getBytes());
+            } else {
+                System.err.println("User not found");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (fileReader != null) {
-                try {
-                    fileReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (fileWriter != null) {
-                try {
-                    fileWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+
+
+
 
         /*File fichier = new File("files/listeInscrits.csv");
         FileWriter file = new FileWriter(fichier,true);
@@ -111,6 +107,5 @@ public class F_NewDestinataire_Controller {
         Node button = (Node) actionEvent.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
-        F_Virement_Controller.afficher_F_Virement();
     }
 }

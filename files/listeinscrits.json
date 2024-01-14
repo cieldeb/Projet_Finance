@@ -30,33 +30,83 @@
         "TELEPHONE": "s",
         "MAIL": "s",
         "IDENTIFIANT": "s",
-        "MOT DE PASSE": "s"
+        "MOT DE PASSE": "s",
+        "DESTINATAIRES": [
+            {
+                "IBAN": 295828,
+                "NOM": "f"
+            },
+            {
+                "IBAN": 883250,
+                "NOM": "t"
+            },
+            {
+                "IBAN": 998880,
+                "NOM": "j"
+            },
+            {
+                "IBAN": 452652,
+                "NOM": "l"
+            }
+        ]
     },
     {
+        "COMPTES": [{
+            "IBAN": 295828,
+            "SOLDE": "+562",
+            "TYPE": 1
+        }],
         "TELEPHONE": "f",
         "MAIL": "f",
         "IDENTIFIANT": "f",
         "MOT DE PASSE": "f"
     },
     {
+        "COMPTES": [{
+            "IBAN": 883250,
+            "SOLDE": "+214",
+            "TYPE": 2
+        }],
         "TELEPHONE": "t",
         "MAIL": "t",
         "IDENTIFIANT": "t",
         "MOT DE PASSE": "t"
     },
     {
+        "COMPTES": [
+            {
+                "IBAN": 998880,
+                "SOLDE": "+115",
+                "TYPE": 1
+            },
+            {
+                "IBAN": 814716,
+                "SOLDE": "+25",
+                "TYPE": 2
+            }
+        ],
         "TELEPHONE": "j",
         "MAIL": "j",
         "IDENTIFIANT": "j",
         "MOT DE PASSE": "j"
     },
     {
+        "COMPTES": [{
+            "IBAN": 353082,
+            "SOLDE": "+125",
+            "TYPE": 1
+        }],
         "TELEPHONE": "h",
         "MAIL": "h",
         "IDENTIFIANT": "h",
         "MOT DE PASSE": "h"
     },
     {
+        "COMPTES": [{
+            "IBAN": 353589,
+            "SOLDE": "+125",
+            "TYPE": 1
+        }],
         "TELEPHONE": "m",
         "MAIL": "m",
         "IDENTIFIANT": "m",
@@ -97,6 +147,11 @@
         "MOT DE PASSE": "lo"
     },
     {
+        "COMPTES": [{
+            "IBAN": 452652,
+            "SOLDE": "+562",
+            "TYPE": 1
+        }],
         "TELEPHONE": "l",
         "MAIL": "l",
         "IDENTIFIANT": "l",
