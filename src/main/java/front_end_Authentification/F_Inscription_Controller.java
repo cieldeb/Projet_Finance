@@ -10,11 +10,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class F_Inscription_Controller {
     @FXML
@@ -40,7 +44,7 @@ public class F_Inscription_Controller {
         String mail = mailField.getText();
         String mdp1 = mdpField.getText();
         String mdp2 = mdp2Field.getText();
-        errSetUpMdp.setText("");
+        errSetUpMdp.setText(" ");
 
         if(mdp1.equals(mdp2)){ //ajouter une condition pour verifier que le compte n'existe pas deja.
             //Remplissage du fichier CSV permettant de faire l'authentification
@@ -56,6 +60,22 @@ public class F_Inscription_Controller {
             bw.write(mdp1);
             bw.write(SEPARATOR);
             bw.close();
+
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+
+            JSONObject newUser = new JSONObject();
+            newUser.put("IDENTIFIANT", id);
+            newUser.put("TELEPHONE", tel);
+            newUser.put("MAIL", mail);
+            newUser.put("MOT DE PASSE", mdp1);
+
+            jsonArray.put(newUser);
+
+            try (BufferedWriter jsonWriter = new BufferedWriter(new FileWriter(jsonFile))) {
+                jsonWriter.write(jsonArray.toString(4));
+            }
 
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();

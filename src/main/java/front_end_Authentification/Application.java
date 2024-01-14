@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -19,7 +21,6 @@ public class Application extends javafx.application.Application {
     public static void main(String[] args) {
         launch(args);
     }
-
     @Override
     public void start(Stage primaryStage) throws IOException{
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("F_Authentification.fxml"));

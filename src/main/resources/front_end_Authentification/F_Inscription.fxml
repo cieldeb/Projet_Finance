@@ -77,6 +77,7 @@
             <Insets />
          </opaqueInsets>
       </HBox>
+      <Label fx:id="errSetUpMdp" />
       <Text fx:id="auth_wrongchar" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="125.33672714233398">
          <VBox.margin>
             <Insets bottom="5.0" />
