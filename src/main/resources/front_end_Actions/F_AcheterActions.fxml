@@ -4,21 +4,18 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="536.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.MainActionController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.AcheterActions_Controller">
    <children>
-      <Label fx:id="actionsLabel" alignment="TOP_CENTER" prefHeight="35.0" prefWidth="118.0" text="Actions">
+      <Label alignment="TOP_CENTER" prefHeight="53.0" prefWidth="319.0" text="Achat d'actions">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Separator prefWidth="200.0" />
       <HBox prefHeight="164.0" prefWidth="754.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="239.0">
@@ -35,36 +32,50 @@
                   <Label fx:id="rechercheInfoActionLabel" prefHeight="160.0" prefWidth="510.0" text="Pour recherhcer un symbole cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrez le symbole exact correspondant et cocher &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true">
                      <font>
                         <Font size="11.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <Label fx:id="erreurLabel" prefHeight="17.0" prefWidth="510.0" />
                </children>
             </VBox>
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
-      <Label fx:id="actionsPossedeesLabel" text="Actions possédées :" textOverrun="CLIP" underline="true">
+      <Label fx:id="actionsPossedeesLabel" text="Procéder à l'achat :" textOverrun="CLIP" underline="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView prefHeight="161.0" prefWidth="600.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Nom" />
-          <TableColumn prefWidth="75.0" text="Symbole" />
-            <TableColumn prefWidth="75.0" text="Valeur" />
-            <TableColumn prefWidth="75.0" text="Quantité" />
-            <TableColumn prefWidth="89.0" text="Valeur Totale" />
-        </columns>
-      </TableView>
-      <HBox alignment="CENTER" prefHeight="71.0" prefWidth="660.0">
+      <HBox alignment="CENTER" prefHeight="69.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#acheterButton" prefHeight="50.0" prefWidth="90.0" text="Acheter" textFill="#5de434" />
-            <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="50.0" prefWidth="90.0" text="Vendre" textFill="#d31818" />
+            <VBox alignment="CENTER" prefHeight="78.0" prefWidth="187.0">
+               <children>
+                  <HBox prefHeight="26.0" prefWidth="600.0">
+                     <children>
+                        <Label text="Symbole : " />
+                        <TextField fx:id="symboleTextField" prefHeight="25.0" prefWidth="129.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="19.0" prefWidth="600.0">
+                     <children>
+                        <Label text="Quantité : " />
+                        <TextField fx:id="quantiteTextField" prefHeight="25.0" prefWidth="129.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#simulerButton" text="Simulter" />
          </children>
       </HBox>
-      <HBox prefHeight="44.0" prefWidth="660.0">
+      <Label fx:id="simulationLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="600.0" />
+      <Button mnemonicParsing="false" onAction="#acheterButton" text="Acheter" textFill="#50c650">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Button>
+      <HBox prefHeight="25.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
+            <Label fx:id="alertLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="387.0" text="Label" />
          </children>
       </HBox>
    </children>

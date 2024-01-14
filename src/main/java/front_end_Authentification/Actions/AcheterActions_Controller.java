@@ -18,7 +18,12 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
-public class MainActionController {
+import static java.lang.Integer.parseInt;
+
+public class AcheterActions_Controller {
+
+    private static boolean simulationValid = false;
+    private static String[] achatAction = new String[4];
     private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     @FXML
@@ -31,7 +36,14 @@ public class MainActionController {
     private Label rechercheInfoActionLabel;
     @FXML
     private Label erreurLabel;
-
+    @FXML
+    private Label simulationLabel;
+    @FXML
+    private TextField quantiteTextField;
+    @FXML
+    private TextField symboleTextField;
+    @FXML
+    private Label alertLabel;
     @FXML
     protected void chercherButton(){
         if (symboleCheckBox.isSelected() && !valeurCheckBox.isSelected()){
@@ -85,19 +97,51 @@ public class MainActionController {
         }
 
     }
+    @FXML
+    protected void simulerButton(){
+        String stockSymbol = symboleTextField.getText();
+        String apiUrlWithKey = API_URL_TimeSeriesIntraDay.replace("SEARCH_SYMBOL", stockSymbol);
+        try {
+            // Make API request and parse JSON response
+            JSONObject stockData = getStockData(apiUrlWithKey);
+            String actionValue = "";
+            actionValue = stockData.getJSONObject("Time Series (1min)").getJSONObject(stockData.getJSONObject("Meta Data").getString("3. Last Refreshed")).getString("4. close");
+            if (actionValue == ""){
+                simulationLabel.setText("Aucun résultat trouvé");
+            } else {
+                int valueSimulation = parseInt(actionValue) * parseInt(quantiteTextField.getText());
+                simulationLabel.setText(Integer.toString(valueSimulation));
+                achatAction[1] = stockSymbol;
+                achatAction[2] = actionValue;
+                achatAction[3] = quantiteTextField.getText();
+                achatAction[4] = Integer.toString(valueSimulation);
+                simulationValid = true;
+            }
 
+        } catch (IOException e){
+            e.printStackTrace();
+            simulationLabel.setText("Erreur au moment de l'execution de la simulation.");
+
+        }
+    }
     @FXML
-    protected void acheterButton(){}
+    protected void acheterButton(){
+        if (simulationValid){
+            alertLabel.setText("");
+
+        } else{
+            alertLabel.setText("Faites une simulation valide avant d'effectuer un achat.");
+        }
+        //Forcer à faire une simulation valide avant d'acheter...
+    }
     @FXML
-    protected void vendreButton(ActionEvent e) throws IOException {
-        AcheterActions_Controller.afficherAcheterActions();
+    protected void retourButton(ActionEvent e) throws IOException {
+        MainActionController.afficherMainActions();
 
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
-    @FXML
-    protected void retourButton(){}
     private JSONObject getStockData(String apiUrl) throws IOException {
         URL url = URI.create(apiUrl).toURL();
         HttpURLConnection connection = (HttpURLConnection)
@@ -112,15 +156,17 @@ public class MainActionController {
         }
     }
 
-    protected static void afficherMainActions() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_mainActions.fxml"));
+    protected static void afficherAcheterActions() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_AcheterActions.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage secondStage = new Stage();
 
-        secondStage.setTitle("Actions");
+        secondStage.setTitle("Acheter des actions");
         secondStage.setScene(scene);
         secondStage.show();
     }
+    public static String[] getAchatAction() {
+        return achatAction;
+    }
 }
-
