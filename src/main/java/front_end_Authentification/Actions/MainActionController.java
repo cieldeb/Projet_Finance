@@ -78,6 +78,7 @@ public class MainActionController {
                 rechercheInfoActionLabel.setText("Erreur au moment de l'execution de la recherche.");
 
             }
+            erreurLabel.setText("");
         } else if (valeurCheckBox.isSelected() && symboleCheckBox.isSelected()) {
             erreurLabel.setText("Veuillez selectionner un seul type de recherche.");
         } else{
@@ -87,9 +88,9 @@ public class MainActionController {
     }
 
     @FXML
-    protected void acheterButton(){}
+    protected void vendreButton(){}
     @FXML
-    protected void vendreButton(ActionEvent e) throws IOException {
+    protected void acheterButton(ActionEvent e) throws IOException {
         AcheterActions_Controller.afficherAcheterActions();
 
         Node button = (Node) e.getSource();

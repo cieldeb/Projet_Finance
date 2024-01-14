@@ -75,7 +75,7 @@
       <HBox prefHeight="25.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
-            <Label fx:id="alertLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="387.0" text="Label" />
+            <Label fx:id="alertLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="387.0" />
          </children>
       </HBox>
    </children>

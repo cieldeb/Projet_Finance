@@ -9,6 +9,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -18,12 +19,15 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
+import static front_end_Authentification.Actions.ConfirmerAchatController.setSetUpConfirmLabel;
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterActions_Controller {
 
     private static boolean simulationValid = false;
-    private static String[] achatAction = new String[4];
+
+    private static String[] achatAction = new String[5];
     private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     @FXML
@@ -88,8 +92,8 @@ public class AcheterActions_Controller {
             } catch (IOException e){
                 e.printStackTrace();
                 rechercheInfoActionLabel.setText("Erreur au moment de l'execution de la recherche.");
-
             }
+            erreurLabel.setText("");
         } else if (valeurCheckBox.isSelected() && symboleCheckBox.isSelected()) {
             erreurLabel.setText("Veuillez selectionner un seul type de recherche.");
         } else{
@@ -104,25 +108,32 @@ public class AcheterActions_Controller {
         try {
             // Make API request and parse JSON response
             JSONObject stockData = getStockData(apiUrlWithKey);
-            String actionValue = "";
-            actionValue = stockData.getJSONObject("Time Series (1min)").getJSONObject(stockData.getJSONObject("Meta Data").getString("3. Last Refreshed")).getString("4. close");
+            String actionValue = stockData.getJSONObject("Time Series (1min)").getJSONObject(stockData.getJSONObject("Meta Data").getString("3. Last Refreshed")).getString("4. close");
             if (actionValue == ""){
                 simulationLabel.setText("Aucun résultat trouvé");
             } else {
-                int valueSimulation = parseInt(actionValue) * parseInt(quantiteTextField.getText());
-                simulationLabel.setText(Integer.toString(valueSimulation));
-                achatAction[1] = stockSymbol;
-                achatAction[2] = actionValue;
-                achatAction[3] = quantiteTextField.getText();
-                achatAction[4] = Integer.toString(valueSimulation);
-                simulationValid = true;
+                try{
+                    float valueSimulation = parseFloat(actionValue) * parseInt(quantiteTextField.getText());
+                    simulationLabel.setText(Float.toString(valueSimulation));
+                    achatAction[1] = stockSymbol;
+                    achatAction[2] = actionValue;
+                    achatAction[3] = quantiteTextField.getText();
+                    achatAction[4] = Float.toString(valueSimulation);
+                    simulationValid = true;
+                } catch (NumberFormatException e){
+                    simulationLabel.setText("Vous ne pouvez acheter qu'un nombre entier d'actions.");
+                }
+
             }
 
         } catch (IOException e){
             e.printStackTrace();
             simulationLabel.setText("Erreur au moment de l'execution de la simulation.");
 
+        } catch(JSONException e){
+            simulationLabel.setText("Aucun résultat trouvé");
         }
+
     }
     @FXML
     protected void acheterButton(ActionEvent e) throws IOException {
@@ -132,6 +143,7 @@ public class AcheterActions_Controller {
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
+            setSetUpConfirmLabel(achatAction);
 
         } else{
             alertLabel.setText("Faites une simulation valide avant d'effectuer un achat.");
@@ -161,6 +173,7 @@ public class AcheterActions_Controller {
     }
 
     protected static void afficherAcheterActions() throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_AcheterActions.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
@@ -172,5 +185,8 @@ public class AcheterActions_Controller {
     }
     public static String[] getAchatAction() {
         return achatAction;
+    }
+    public static void setAchatAction(String achatAction) {
+        AcheterActions_Controller.achatAction[0] = achatAction;
     }
 }
