@@ -125,9 +125,13 @@ public class AcheterActions_Controller {
         }
     }
     @FXML
-    protected void acheterButton(){
+    protected void acheterButton(ActionEvent e) throws IOException {
         if (simulationValid){
             alertLabel.setText("");
+            ConfirmerAchatController.afficherConfirmerAchatActions();
+            Node button = (Node) e.getSource();
+            Stage stage = (Stage) button.getScene().getWindow();
+            stage.close();
 
         } else{
             alertLabel.setText("Faites une simulation valide avant d'effectuer un achat.");
