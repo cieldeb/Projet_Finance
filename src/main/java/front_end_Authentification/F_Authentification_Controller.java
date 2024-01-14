@@ -20,6 +20,7 @@ import static front_end_Authentification.Application.lines;
 
 public class F_Authentification_Controller {
     private int idCurrentUser;
+    protected static String identifCurrentUser = new String();
     @FXML
     private TextField idField;
     @FXML
@@ -42,6 +43,7 @@ public class F_Authentification_Controller {
     protected void btnValider(ActionEvent e) throws IOException {
         String id = idField.getText();
         String mdp = mdpField.getText();
+        setIdentifCurrentUser(idField.getText());
         if (! verification(id,mdp) ){
            F_ErrAuthentification_Controller.afficherErr();
         }
@@ -84,5 +86,13 @@ public class F_Authentification_Controller {
 
     public void setIdCurrentUser(int newidCurrentUser) {
         this.idCurrentUser = newidCurrentUser;
+    }
+
+    public String getIdentifCurrentUser() {
+        return identifCurrentUser;
+    }
+
+    public void setIdentifCurrentUser(String identifCurrentUser) {
+        this.identifCurrentUser = identifCurrentUser;
     }
 }

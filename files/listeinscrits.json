@@ -3,11 +3,23 @@
         "COMPTES": [
             {
                 "SOLDE": "+65",
-                "TYPE": "2"
+                "TYPE": 2
             },
             {
                 "SOLDE": "+730",
-                "TYPE": "1"
+                "TYPE": 1
+            },
+            {
+                "SOLDE": "+150",
+                "TYPE": 1
+            },
+            {
+                "SOLDE": "+1500",
+                "TYPE": 0
+            },
+            {
+                "SOLDE": "+5868",
+                "TYPE": 0
             }
         ],
         "TELEPHONE": "s",
