@@ -1,10 +1,8 @@
 package front_end_Authentification.Virement;
 
-import com.example.projet_finance.back_end.Action;
 import front_end_Authentification.Accueil.F_Accueil_Controller;
 import front_end_Authentification.Application;
 import front_end_Authentification.F_Authentification_Controller;
-import javafx.beans.Observable;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +38,19 @@ public class F_NewAccount_Controller {
     public void initialize(){
         cCourant.setToggleGroup(typeCompte);
         cEpargne.setToggleGroup(typeCompte);
+        typeCompte.selectedToggleProperty().addListener(
+                (ObservableValue<? extends Toggle> ov, Toggle old_toggle,
+                 Toggle new_toggle) -> {
+                    if (typeCompte.getSelectedToggle() != null) {
+                        if (typeCompte.getSelectedToggle() == cCourant){
+                            type = 1;
+                            System.out.println("Type de compte sélectionné : Compte Courant - Type "+ type);
+                        } else if (typeCompte.getSelectedToggle() == cEpargne) {
+                            type = 2;
+                            System.out.println("Type de compte sélectionné : Compte Epargne - Type "+ type);
+                        }
+                    }
+                });
     }
     public static void afficher_F_NewAccount() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/front_end_Virement/F_NewAccount.fxml"));
@@ -53,20 +64,9 @@ public class F_NewAccount_Controller {
     int type = 0;
     @FXML
     public void btnNewAccount(ActionEvent e ) throws IOException {
-        typeCompte.selectedToggleProperty().addListener(
-                (ObservableValue<? extends Toggle> ov, Toggle old_toggle,
-                 Toggle new_toggle) -> {
-                    if (typeCompte.getSelectedToggle() != null) {
-                        if (typeCompte.getSelectedToggle() == cCourant){
-                            type = 1;
-                        } else if (typeCompte.getSelectedToggle() == cEpargne) {
-                            type = 2;
-                        }
-                    }
-                });
 
-        System.out.println("Idufehufe " + currentUser);
         int solde = Integer.parseInt(soldeDepart.getText());
+
         File jsonFile = new File("files/listeinscrits.json");
         String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
         JSONArray jsonArray = new JSONArray(jsonContent);

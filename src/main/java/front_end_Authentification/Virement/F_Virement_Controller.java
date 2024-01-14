@@ -12,19 +12,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import org.json.JSONTokener;
 import org.json.simple.*;
 import java.lang.Math;
 
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 public class F_Virement_Controller {
+    F_Authentification_Controller authController = new F_Authentification_Controller();
+    String currentUser = authController.getIdentifCurrentUser();
     Map<String, String[]> dataMap = new HashMap<>();
     int valNom;
     @FXML
@@ -38,10 +41,10 @@ public class F_Virement_Controller {
     @FXML
     private Button btnValid;
     @FXML
-    private void initialize() throws IOException, ParseException {
+    private void initialize() throws IOException{
 
         F_Authentification_Controller authController = new F_Authentification_Controller();
-        int currentUser = authController.getIdCurrentUser();
+        String currentUser = authController.getIdentifCurrentUser();
         System.out.println("ID d'entité récupérée: " + currentUser);
 
         vir_account.setTooltip(new Tooltip("Sélectionner un compte"));
@@ -86,18 +89,18 @@ public class F_Virement_Controller {
             e.printStackTrace();
         }*/
         try {
-            JSONParser destParser = new JSONParser();
-            JSONArray destData = (JSONArray) destParser.parse(new FileReader("files/destinataires.json"));
+            JSONTokener destTokener = new JSONTokener(new FileReader("files/destinataires.json"));
+            JSONArray destData = new JSONArray(destTokener);
 
             for (Object entryObj : destData) {
                 if (entryObj instanceof JSONObject) {
                     JSONObject entry = (JSONObject) entryObj;
-                    String c_a = (String) entry.get("COMPTE_ASSOCIE");
+                    String c_a = entry.optString("COMPTE_ASSOCIE");
 
                     if (Objects.equals(currentUser, c_a)) {
-                        String iban = (String) entry.get("IBAN");
-                        String bic = (String) entry.get("BIC");
-                        String np = (String) entry.get("PRENOM_NOM");
+                        String iban = entry.optString("IBAN");
+                        String bic = entry.optString("BIC");
+                        String np = entry.optString("PRENOM_NOM");
 
                         StringBuilder displayValue = new StringBuilder(np + " - ");
                         displayValue.append("IBAN: " + iban + " ");
@@ -144,28 +147,38 @@ public class F_Virement_Controller {
         }*/
 
         try {
-            JSONParser destParser = new JSONParser();
-            JSONArray destData = (JSONArray) destParser.parse(new FileReader("files/comptes.json"));
-            int entree = 0;
-            for (Object entryObj : destData){
-                if (entryObj instanceof JSONObject){
-                    JSONObject entry = (JSONObject) entryObj;
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
 
-                    String type = (String) entry.get("TYPE");
-                    String solde = (String) entry.get("SOLDE");
+            boolean userFound = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray comptesArray = userObject.optJSONArray("COMPTES");
+                    if (comptesArray != null) {
+                        for (int j = 0; j < comptesArray.length(); j++) {
+                            JSONObject account = comptesArray.getJSONObject(j);
+                            int type = account.optInt("TYPE");
+                            System.out.println("Type : " + type);
 
-                    int tip = Integer.parseInt(type);
-                    StringBuilder displayValue = new StringBuilder("Compte " + entree + " ");
-                    if (tip == 1){
-                        displayValue.append("Courant");
-                    }else if (tip == 2){
-                        displayValue.append("Epargne");
+                            StringBuilder displayValue = new StringBuilder("Compte " + j + " ");
+                            if (type == 1){
+                                displayValue.append(" - Courant");
+                            } else if (type == 2){
+                                displayValue.append(" - Epargne");
+                            }
+                            vir_account.getItems().add(displayValue.toString().trim());
+                        }
+                        userFound = true;
                     }
-                    vir_account.getItems().add(displayValue.toString().trim());
+                    break;
                 }
-                entree = entree + 1;
             }
-        }catch (IOException e){
+            if (!userFound) {
+                System.out.println("User not found");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -175,33 +188,46 @@ public class F_Virement_Controller {
         String selectedAccount = vir_account.getValue();
         if (selectedAccount != null) {
             try {
-                JSONParser parser = new JSONParser();
-                JSONArray accountsArray = (JSONArray) parser.parse(new FileReader("files/comptes.json"));
-                int accountIndex = Integer.parseInt(selectedAccount.split(" ")[1]);
+                JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
+                for (int i = 0; i < usersArray.length(); i++) {
+                    JSONObject userObject = usersArray.getJSONObject(i);
+                    if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
 
-                if (accountIndex < accountsArray.size()) {
-                    JSONObject account = (JSONObject) accountsArray.get(accountIndex);
-                    String solde = (String) account.get("SOLDE");
+                        if (userObject.has("COMPTES")) {
+                            JSONArray comptesArray = userObject.getJSONArray("COMPTES");
+                            int accountIndex = Integer.parseInt(selectedAccount.split(" ")[1]);
 
-                    int montDispo = Integer.parseInt(solde);
-                    if (montDispo > 0) {
-                        vir_account_montant.setText("+" + montDispo + "€");
-                        vir_account_montant.setFill(Color.web("#12ab1f"));
-                    } else if (montDispo < 0) {
-                        int montDispoAbs = Math.abs(montDispo);
-                        vir_account_montant.setText("-" + montDispoAbs + "€");
-                        vir_account_montant.setFill(Color.web("#df0000"));
-                    } else {
-                        vir_account_montant.setText("0€");
-                        vir_account_montant.setFill(Color.web("#000000"));
+                            if (accountIndex >= 0 && accountIndex < comptesArray.length()) {
+                                JSONObject selectedCompte = comptesArray.getJSONObject(accountIndex);
+                                String solde = selectedCompte.getString("SOLDE");
+                                int montDispo = Integer.parseInt(solde);
+                                if (montDispo > 0) {
+                                    vir_account_montant.setText("+" + montDispo + "€");
+                                    vir_account_montant.setFill(Color.web("#12ab1f"));
+                                } else if (montDispo < 0) {
+                                    int montDispoAbs = Math.abs(montDispo);
+                                    vir_account_montant.setText("-" + montDispoAbs + "€");
+                                    vir_account_montant.setFill(Color.web("#df0000"));
+                                } else {
+                                    vir_account_montant.setText("0€");
+                                    vir_account_montant.setFill(Color.web("#000000"));
+                                }
+                            } else {
+                                System.err.println("L'index de compte sélectionné n'existe pas pour cet utilisateur");
+                            }
+                        } else {
+                            System.err.println("La clé 'COMPTES' n'existe pas dans l'objet JSON de l'utilisateur.");
+                        }
+                        break;
                     }
-                } else {
-                    System.err.println("Selected account index is out of bounds.");
                 }
-            } catch (IOException | ParseException | NumberFormatException e) {
+            } catch (IOException | NumberFormatException e) {
                 e.printStackTrace();
             }
+        } else {
+            System.out.println("No account selected"); // Debugging
         }
+
     }
 
     @FXML
@@ -223,11 +249,5 @@ public class F_Virement_Controller {
     @FXML
     public void btnNewDestinataire(ActionEvent e) throws IOException {
         F_NewDestinataire_Controller.afficher_F_NewDestinataire();
-        Node button = (Node) e.getSource();
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
-    }
-    @FXML
-    public void btnRetour(ActionEvent e) throws IOException{
     }
 }

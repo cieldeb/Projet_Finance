@@ -10,16 +10,12 @@
                 "TYPE": 1
             },
             {
-                "SOLDE": "+150",
+                "SOLDE": "+582",
+                "TYPE": 2
+            },
+            {
+                "SOLDE": "+200",
                 "TYPE": 1
-            },
-            {
-                "SOLDE": "+1500",
-                "TYPE": 0
-            },
-            {
-                "SOLDE": "+5868",
-                "TYPE": 0
             }
         ],
         "TELEPHONE": "s",
@@ -28,6 +24,10 @@
         "MOT DE PASSE": "s"
     },
     {
+        "COMPTES": [{
+            "SOLDE": "+85",
+            "TYPE": 1
+        }],
         "TELEPHONE": "f",
         "MAIL": "f",
         "IDENTIFIANT": "f",
@@ -82,6 +82,10 @@
         "MOT DE PASSE": "yu"
     },
     {
+        "COMPTES": [{
+            "SOLDE": "+56",
+            "TYPE": 0
+        }],
         "TELEPHONE": "lo",
         "MAIL": "lo",
         "IDENTIFIANT": "lo",

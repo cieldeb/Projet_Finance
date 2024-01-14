@@ -9,12 +9,12 @@
    <children>
       <VBox alignment="TOP_CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnVirement" text="Effectuer un virement">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNewAccount" text="Créer un compte">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNewAccount" text="Créer un compte">
+            <Button mnemonicParsing="false" onAction="#btnVirement" text="Effectuer un virement">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
