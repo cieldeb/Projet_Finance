@@ -30,4 +30,11 @@ public class F_Accueil_Controller {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
+    @FXML
+    protected void accessToActions(ActionEvent e) throws IOException{
+        front_end_Authentification.Actions.MainActionController.afficherMainActions();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
 }

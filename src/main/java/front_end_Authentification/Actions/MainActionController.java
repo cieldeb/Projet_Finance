@@ -98,7 +98,12 @@ public class MainActionController {
         stage.close();
     }
     @FXML
-    protected void retourButton(){}
+    protected void retourButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
     private JSONObject getStockData(String apiUrl) throws IOException {
         URL url = URI.create(apiUrl).toURL();
         HttpURLConnection connection = (HttpURLConnection)
@@ -113,7 +118,7 @@ public class MainActionController {
         }
     }
 
-    protected static void afficherMainActions() throws IOException {
+    public static void afficherMainActions() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_mainActions.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
