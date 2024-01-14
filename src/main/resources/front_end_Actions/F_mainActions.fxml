@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -23,16 +24,39 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="239.0">
                <children>
-                  <TextField fx:id="searchField" prefHeight="25.0" prefWidth="186.0" />
-                  <CheckBox fx:id="symboleCheckBox" alignment="TOP_LEFT" mnemonicParsing="false" text="Symbole" />
-                  <CheckBox fx:id="valeurCheckBox" mnemonicParsing="false" text="Valeur Actuelle" />
-                  <Button alignment="BOTTOM_CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#chercherButton" text="Chercher" />
+                  <TextField fx:id="searchField" prefHeight="25.0" prefWidth="186.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></TextField>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="145.0">
+                           <children>
+                              <CheckBox fx:id="symboleCheckBox" alignment="TOP_LEFT" mnemonicParsing="false" text="Symbole">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <CheckBox fx:id="valeurCheckBox" mnemonicParsing="false" prefHeight="21.0" prefWidth="154.0" text="Valeur actuelle">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                              <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="145.0">
+                                 <children>
+                                    <Button alignment="BOTTOM_CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#chercherButton" text="Chercher" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox prefHeight="107.0" prefWidth="511.0">
                <children>
-                  <Label fx:id="rechercheInfoActionLabel" prefHeight="160.0" prefWidth="510.0" text="Pour recherhcer un symbole cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrez le symbole exact correspondant et cocher &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true">
+                  <Label fx:id="rechercheInfoActionLabel" prefHeight="160.0" prefWidth="510.0" text="Pour rechercher un symbole, cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrer le symbole exact correspondant et cocher &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true">
                      <font>
                         <Font size="11.0" />
                      </font></Label>
@@ -42,7 +66,7 @@
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
-      <Label fx:id="actionsPossedeesLabel" text="Actions possédées :" textOverrun="CLIP" underline="true">
+      <Label fx:id="actionsPossedeesLabel" text="Actions possédées :" textOverrun="CLIP">
          <font>
             <Font size="18.0" />
          </font>
@@ -53,18 +77,30 @@
           <TableColumn prefWidth="75.0" text="Symbole" />
             <TableColumn prefWidth="75.0" text="Valeur" />
             <TableColumn prefWidth="75.0" text="Quantité" />
-            <TableColumn prefWidth="89.0" text="Valeur Totale" />
+            <TableColumn prefWidth="123.0" text="Valeur Totale" />
         </columns>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </TableView>
       <HBox alignment="CENTER" prefHeight="71.0" prefWidth="660.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#acheterButton" prefHeight="50.0" prefWidth="90.0" text="Acheter" textFill="#5de434" />
-            <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="50.0" prefWidth="90.0" text="Vendre" textFill="#d31818" />
+            <Button mnemonicParsing="false" onAction="#acheterButton" prefHeight="50.0" prefWidth="90.0" text="Acheter" textFill="#398d1f">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="50.0" prefWidth="90.0" text="Vendre" textFill="#d31818">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
       <HBox prefHeight="44.0" prefWidth="660.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
+            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
    </children>

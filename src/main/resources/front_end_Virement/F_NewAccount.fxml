@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
@@ -29,10 +30,19 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </TextField>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNewAccount" text="Créer un compte">
-         <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
-      </Button>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#retourButton" text="Retour">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnNewAccount" text="Créer un compte">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </VBox>
