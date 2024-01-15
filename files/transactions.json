@@ -1,41 +1,40 @@
 [
-  {
-  "IBAN": 152325,
-  "TRANSACTIONS":
-  [
     {
-      "ID": 1,
-      "EMETTEUR": 99999,
-      "RECEPTEUR": 152325,
-      "MONTANT": 65,
-      "SOLDE": 65
-  },
-    {
-      "ID": 2,
-      "EMETTEUR": 152325,
-      "RECEPTEUR": 295828,
-      "MONTANT": 35,
-      "SOLDE": 30
-  }
-  ]
-},
-  {
-  "IBAN": 295828,
-  "TRANSACTIONS": [
-    {
-      "ID": 1,
-      "EMETTEUR": 99999,
-      "RECEPTEUR": 295828,
-      "MONTANT": 562,
-      "SOLDE": 562
+        "IBAN": 152325,
+        "TRANSACTIONS": [
+            {
+                "RECEPTEUR": 152325,
+                "EMETTEUR": 99999,
+                "SOLDE": 65,
+                "ID": 1,
+                "MONTANT": 65
+            },
+            {
+                "RECEPTEUR": 295828,
+                "EMETTEUR": 152325,
+                "SOLDE": 50,
+                "ID": 2,
+                "MONTANT": 5
+            }
+        ]
     },
     {
-      "ID": 1,
-      "EMETTEUR": 152325,
-      "RECEPTEUR": 295828,
-      "MONTANT": 35,
-      "SOLDE": 597
+        "IBAN": 295828,
+        "TRANSACTIONS": [
+            {
+                "RECEPTEUR": 295828,
+                "EMETTEUR": 99999,
+                "SOLDE": 562,
+                "ID": 1,
+                "MONTANT": 562
+            },
+            {
+                "RECEPTEUR": 295828,
+                "EMETTEUR": 152325,
+                "SOLDE": 567,
+                "ID": 2,
+                "MONTANT": 5
+            }
+        ]
     }
-  ]
-}
 ]
