@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Portefeuilles.CreerPortefeuille_Controller">
    <children>
       <Label text="Créer un porte feuille">
@@ -20,7 +19,7 @@
       <HBox alignment="CENTER" prefHeight="63.0" prefWidth="600.0">
          <children>
             <Label text="Libellé : " />
-            <TextField prefHeight="25.0" prefWidth="517.0" />
+            <TextField fx:id="libellePorteFeuilleTextField" prefHeight="25.0" prefWidth="517.0" />
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
@@ -35,14 +34,14 @@
                   </Label>
                   <Separator prefWidth="200.0" />
                   <Label text="Libellé : " />
-                  <TextField prefHeight="25.0" prefWidth="517.0" />
+                  <TextField fx:id="libelleATextField" prefHeight="25.0" prefWidth="517.0" />
                   <Label text="Symbole :" />
-                  <TextField />
+                  <TextField fx:id="symboleATextField" />
                   <Label text="Valeur à l'achat :" />
-                  <TextField />
+                  <TextField fx:id="valeurAText" />
                   <Label text="Quantité possédée :" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="Ajouter" />
+                  <TextField fx:id="quantitéATextField" />
+                  <Button mnemonicParsing="false" onAction="#ajouterActionButton" text="Ajouter" />
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -61,7 +60,7 @@
          </children>
       </HBox>
       <Separator prefWidth="200.0" />
-      <Button mnemonicParsing="false" text="Créer" />
+      <Button mnemonicParsing="false" onAction="#creerPortefeuilleButton" text="Créer" />
       <HBox prefHeight="56.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" text="Retour" />

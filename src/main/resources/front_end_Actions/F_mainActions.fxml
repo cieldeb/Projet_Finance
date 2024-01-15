@@ -32,7 +32,7 @@
             <Separator orientation="VERTICAL" prefHeight="200.0" />
             <VBox prefHeight="107.0" prefWidth="511.0">
                <children>
-                  <Label fx:id="rechercheInfoActionLabel" prefHeight="160.0" prefWidth="510.0" text="Pour recherhcer un symbole cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrez le symbole exact correspondant et cocher &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true">
+                  <Label fx:id="rechercheInfoActionLabel" prefHeight="160.0" prefWidth="510.0" text="Pour recherhcer un symbole cocher &quot;Symbole&quot;. Pour rechercher la valeur d'une action, entrez le symbole exact correspondant et cochez &quot;Valeur Actuelle&quot;." textAlignment="JUSTIFY" wrapText="true">
                      <font>
                         <Font size="11.0" />
                      </font></Label>

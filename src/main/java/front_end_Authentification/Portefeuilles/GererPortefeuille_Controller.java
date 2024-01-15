@@ -1,6 +1,7 @@
 package front_end_Authentification.Portefeuilles;
 
 import front_end_Authentification.Actions.Application_Action;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,4 +20,7 @@ public class GererPortefeuille_Controller {
         secondStage.setScene(scene);
         secondStage.show();
     }
+
+
+
 }

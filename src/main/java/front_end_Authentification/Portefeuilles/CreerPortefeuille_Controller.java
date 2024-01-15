@@ -1,13 +1,35 @@
 package front_end_Authentification.Portefeuilles;
 
+import com.example.projet_finance.back_end.Actions.Action;
+import com.example.projet_finance.back_end.Crypto.Crypto;
+import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.Application_Action;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedList;
+
+import static java.lang.Float.parseFloat;
+import static java.lang.Integer.parseInt;
 
 public class CreerPortefeuille_Controller {
+    protected LinkedList<Action> listActionsTemporaire;
+    protected LinkedList<Crypto> listCryptoTemporaire;
+    @FXML
+    private TextField libellePorteFeuilleTextField;
+    @FXML
+    private TextField libelleATextField;
+    @FXML
+    private TextField symboleATextField;
+    @FXML
+    private TextField valeurAText;
+    @FXML
+    private TextField quantitéATextField;
+
     public static void afficherCreerPortefeuille() throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_PorteFeuille/F_CreerPorteFeuille.fxml"));
@@ -19,4 +41,16 @@ public class CreerPortefeuille_Controller {
         secondStage.setScene(scene);
         secondStage.show();
     }
+    @FXML
+    protected void ajouterActionButton(){
+        listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurAText.getText()), -1 , parseInt(quantitéATextField.getText()),-1,-1));
+
+    }
+
+    @FXML
+    protected void creerPortefeuilleButton(){
+        Portefeuille newWallet = new Portefeuille(libellePorteFeuilleTextField.getText(),listActionsTemporaire,listCryptoTemporaire);
+        //Tout ajouter dans le JSON
+    }
+
 }
