@@ -19,12 +19,10 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
-import static front_end_Authentification.Actions.ConfirmerAchatController.setSetUpConfirmLabel;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterActions_Controller {
-
     private static boolean simulationValid = false;
 
     private static String[] achatAction = new String[5];
@@ -143,12 +141,11 @@ public class AcheterActions_Controller {
             Node button = (Node) e.getSource();
             Stage stage = (Stage) button.getScene().getWindow();
             stage.close();
-            setSetUpConfirmLabel(achatAction);
+
 
         } else{
             alertLabel.setText("Faites une simulation valide avant d'effectuer un achat.");
         }
-        //Forcer à faire une simulation valide avant d'acheter...
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
