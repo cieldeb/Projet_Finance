@@ -228,7 +228,7 @@ public class F_Virement_Controller {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("No account selected"); // Debugging
+            System.out.println("No account selected");
         }
 
     }
@@ -238,7 +238,47 @@ public class F_Virement_Controller {
         String destinataire = vir_dest.getValue();
         String montantValue = vir_montant.getText();
         String compteDebite = vir_account.getValue();
-        System.out.println(compteDebite);
+        String[] parts = compteDebite.split("n° ");
+        System.out.println(parts[1]);
+
+        try {
+            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
+            for (int i = 0; i < usersArray.length(); i++) {
+                JSONObject userObject = usersArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+
+                    if (userObject.has("COMPTES")) {
+                        JSONArray comptesArray = userObject.getJSONArray("COMPTES");
+                        int accountIndex = Integer.parseInt(parts[1].split(" ")[1]);
+
+                        if (accountIndex >= 0 && accountIndex < comptesArray.length()) {
+                            JSONObject selectedCompte = comptesArray.getJSONObject(accountIndex);
+                            String solde = selectedCompte.getString("SOLDE");
+                            int montDispo = Integer.parseInt(solde);
+                            if (montDispo > 0) {
+                                vir_account_montant.setText("+" + montDispo + "€");
+                                vir_account_montant.setFill(Color.web("#12ab1f"));
+                            } else if (montDispo < 0) {
+                                int montDispoAbs = Math.abs(montDispo);
+                                vir_account_montant.setText("-" + montDispoAbs + "€");
+                                vir_account_montant.setFill(Color.web("#df0000"));
+                            } else {
+                                vir_account_montant.setText("0€");
+                                vir_account_montant.setFill(Color.web("#00004d"));
+                            }
+                        } else {
+                            System.err.println("L'index de compte sélectionné n'existe pas pour cet utilisateur");
+                        }
+                    } else {
+                        System.err.println("La clé 'COMPTES' n'existe pas dans l'objet JSON de l'utilisateur.");
+                    }
+                    break;
+                }
+            }
+        } catch (IOException | NumberFormatException f) {
+            f.printStackTrace();
+        }
+
     }
     public static void afficher_F_Virement() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/front_end_Virement/F_Virement.fxml"));

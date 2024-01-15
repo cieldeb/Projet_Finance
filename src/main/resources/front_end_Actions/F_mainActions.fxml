@@ -85,11 +85,11 @@
       </TableView>
       <HBox alignment="CENTER" prefHeight="71.0" prefWidth="660.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#acheterButton" prefHeight="50.0" prefWidth="90.0" text="Acheter" textFill="#398d1f">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#acheterButton" prefHeight="50.0" prefWidth="90.0" text="Acheter" textFill="#398d1f">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="50.0" prefWidth="90.0" text="Vendre" textFill="#d31818">
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#vendreButton" prefHeight="50.0" prefWidth="90.0" text="Vendre" textFill="#d31818">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin></Button>

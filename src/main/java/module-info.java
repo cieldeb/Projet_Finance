@@ -4,6 +4,7 @@ module com.example.projet_finance {
     requires alphavantage.java;
     requires org.json;
     requires json.simple;
+    requires com.fasterxml.jackson.databind;
 
     opens front_end_Authentification to javafx.fxml;
     exports front_end_Authentification;
