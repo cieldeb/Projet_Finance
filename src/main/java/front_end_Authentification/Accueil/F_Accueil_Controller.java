@@ -1,6 +1,9 @@
 package front_end_Authentification.Accueil;
 
+import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Application;
+import front_end_Authentification.Portefeuilles.CreerPortefeuille_Controller;
+import front_end_Authentification.Virement.F_NewAccount_Controller;
 import front_end_Authentification.Virement.F_Virement_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +29,21 @@ public class F_Accueil_Controller {
     @FXML
     protected void btnVirement(ActionEvent e) throws IOException {
         F_Virement_Controller.afficher_F_Virement();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    protected void btnNewAccount(ActionEvent e) throws IOException {
+        F_NewAccount_Controller.afficher_F_NewAccount();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    protected void creerPortefeuilleButton(ActionEvent e) throws IOException{
+        CreerPortefeuille_Controller.afficherCreerPortefeuille();
+
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

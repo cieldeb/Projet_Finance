@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Portefeuilles.GererPortefeuille_Controller">
+   <children>
+      <Label text="Gérer un porte feuille">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER" prefHeight="63.0" prefWidth="600.0">
+         <children>
+            <Label text="Libellé : " />
+            <Label fx:id="libelleLabel" prefHeight="17.0" prefWidth="184.0" />
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="551.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="294.0">
+               <children>
+                  <Label text="Actions">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label text="Gérez vos actions : Achetez et Vendez" />
+                  <Button mnemonicParsing="false" onAction="#accederActionButton" text="Accéder" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="279.0">
+               <children>
+                  <Label text="Crypto">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Separator prefWidth="200.0" />
+                  <Label text="Gérez vos cryptos : Achetez et Vendez" />
+                  <Button mnemonicParsing="false" onAction="#accederCryptoButton" text="Accéder" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Separator prefWidth="200.0" />
+      <HBox prefHeight="56.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
