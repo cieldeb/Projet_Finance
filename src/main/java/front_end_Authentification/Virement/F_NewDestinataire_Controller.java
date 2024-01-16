@@ -107,5 +107,6 @@ public class F_NewDestinataire_Controller {
         Node button = (Node) actionEvent.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
+        F_Virement_Controller.afficher_F_Virement();
     }
 }

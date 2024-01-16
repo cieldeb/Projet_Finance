@@ -64,6 +64,7 @@ public class F_Virement_Controller {
                 btnValid.setTextFill(Color.web("#000000"));
             }
         });
+
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
             String headerLine = br.readLine();
             if (headerLine != null) {
@@ -91,6 +92,9 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
+        //Remplissage de la combobox des destinataires
+
         try {
             File jsonFile = new File("files/listeinscrits.json");
             String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
@@ -118,8 +122,6 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
             String headerLine = br.readLine();
@@ -151,6 +153,8 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
+        //Remplissage de la combobox des comptes
 
         try {
             File jsonFile = new File("files/listeinscrits.json");
@@ -436,6 +440,9 @@ public class F_Virement_Controller {
     @FXML
     public void btnNewDestinataire(ActionEvent e) throws IOException {
         F_NewDestinataire_Controller.afficher_F_NewDestinataire();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {

@@ -1,21 +1,27 @@
 package front_end_Authentification.Actions;
 
+import front_end_Authentification.F_Authentification_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class MainActionController {
@@ -31,7 +37,6 @@ public class MainActionController {
     private Label rechercheInfoActionLabel;
     @FXML
     private Label erreurLabel;
-
     @FXML
     protected void chercherButton(){
         if (symboleCheckBox.isSelected() && !valeurCheckBox.isSelected()){

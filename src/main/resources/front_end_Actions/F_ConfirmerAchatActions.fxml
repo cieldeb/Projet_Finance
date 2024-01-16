@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -8,25 +10,59 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.ConfirmerAchatController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="194.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.ConfirmerAchatController">
    <children>
       <Label text="Confirmation d'achat">
          <font>
-            <Font size="36.0" />
+            <Font size="30.0" />
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <Label fx:id="confirmLabel" alignment="CENTER" prefHeight="185.0" prefWidth="695.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="82.0" prefWidth="395.0">
          <children>
-            <Label text="Libellé  :  " />
-            <TextField fx:id="libelleTextField" prefHeight="25.0" prefWidth="331.0" />
+            <VBox alignment="CENTER" prefHeight="98.0" prefWidth="289.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" prefHeight="18.0" prefWidth="38.0" text="Libellé" textOverrun="CLIP" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="3.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Compte à débiter">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="12.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="98.0" prefWidth="474.0">
+               <children>
+                  <TextField fx:id="libelleTextField" prefHeight="25.0" prefWidth="331.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <ComboBox fx:id="actionsCompteDebite" prefHeight="26.0" prefWidth="286.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="139.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="395.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#confirmerButton" text="Confirmer" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#retourButton" text="Retour">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#confirmerButton" text="Confirmer">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="2.5" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </VBox>
