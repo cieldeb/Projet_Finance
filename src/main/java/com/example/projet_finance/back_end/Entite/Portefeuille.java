@@ -35,8 +35,9 @@ public class Portefeuille {
         //Création du JSON contenant les informations d'un portefeuille
         JSONObject newPortefeuilleJson = new JSONObject();
         newPortefeuilleJson.put("LIBELLE" , this.name);
-        newPortefeuilleJson.put("ACTIONS" , this.listActions);
-        newPortefeuilleJson.put("CRYPTOS" , this.listCrypto);
+
+        newPortefeuilleJson.put("ACTIONS" , new JSONArray());
+        newPortefeuilleJson.put("CRYPTOS" , new JSONArray());
 
         try {
             JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
@@ -66,7 +67,7 @@ public class Portefeuille {
                         }
                         break;
                     } else {
-                        System.out.println("Portefeuille ayany le même nom deja crée, changez le nom.");
+                        System.out.println("Portefeuille ayant le même nom deja crée, changez le nom.");
                     }
 
 
