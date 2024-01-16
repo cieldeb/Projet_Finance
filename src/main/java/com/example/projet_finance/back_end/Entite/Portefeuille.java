@@ -36,8 +36,8 @@ public class Portefeuille {
         JSONObject newPortefeuilleJson = new JSONObject();
         newPortefeuilleJson.put("LIBELLE" , this.name);
 
-        newPortefeuilleJson.put("ACTIONS" , new JSONArray());
-        newPortefeuilleJson.put("CRYPTOS" , new JSONArray());
+        //newPortefeuilleJson.put("ACTIONS" , new JSONArray());
+        //newPortefeuilleJson.put("CRYPTOS" , new JSONArray());
 
         try {
             JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
@@ -56,8 +56,8 @@ public class Portefeuille {
                         for (int k = 0 ; k<this.listActions.size() ; k++ ){
                             actionObjet.put(this.listActions.get(k).createJSONObject_Action());
                         }
-                        newPortefeuilleJson.getJSONArray("CRYPTOS").put(cryptoObjet);
-                        newPortefeuilleJson.getJSONArray("ACTIONS").put(actionObjet);
+                        newPortefeuilleJson.put("CRYPTOS",cryptoObjet);
+                        newPortefeuilleJson.put("ACTIONS",actionObjet);
                         portefeuilleArray.put(newPortefeuilleJson); // Ajout du nouveau portefeuille parmis les autres.
                         try (FileWriter file = new FileWriter("files/listeinscrits.json")) {
                             file.write(usersArray.toString(4));
