@@ -63,7 +63,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#simulerButton" text="Simulter" />
+            <Button mnemonicParsing="false" onAction="#simulerButton" text="Simuler" />
          </children>
       </HBox>
       <Label fx:id="simulationLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="600.0" />

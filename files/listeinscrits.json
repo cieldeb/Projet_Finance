@@ -220,5 +220,51 @@
         "MAIL": "Gabriel",
         "IDENTIFIANT": "Gabriel",
         "MOT DE PASSE": "Gabriel"
+    },
+    {
+        "COMPTES": [],
+        "TELEPHONE": "g",
+        "MAIL": "g",
+        "IDENTIFIANT": "g",
+        "MOT DE PASSE": "g",
+        "PORTEFEUILLE": [{
+            "ACTIONS": [{}],
+            "LIBELLE": "TEST1",
+            "CRYPTOS": [{}]
+        }]
+    },
+    {
+        "COMPTES": [],
+        "TELEPHONE": "kro",
+        "MAIL": "kro",
+        "IDENTIFIANT": "kro",
+        "MOT DE PASSE": "kro",
+        "PORTEFEUILLE": [{
+            "ACTIONS": [
+                {},
+                [{
+                    "Symbole": "kroa",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "kroA",
+                    "Quantité": 1,
+                    "Valeur initiale": 100,
+                    "Dernière valeur": -1
+                }]
+            ],
+            "LIBELLE": "krokro",
+            "CRYPTOS": [
+                {},
+                [{
+                    "Symbole": "kroC",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "kroC",
+                    "Quantité": 1,
+                    "Valeur initiale": 200,
+                    "Dernière valeur": -1
+                }]
+            ]
+        }]
     }
 ]

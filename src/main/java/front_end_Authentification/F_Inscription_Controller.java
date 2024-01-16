@@ -70,7 +70,9 @@ public class F_Inscription_Controller {
             newUser.put("TELEPHONE", tel);
             newUser.put("MAIL", mail);
             newUser.put("MOT DE PASSE", mdp1);
-
+            newUser.put("PORTEFEUILLE",new JSONArray());
+            JSONArray comptes = new JSONArray();
+            newUser.put("COMPTES", comptes);
             jsonArray.put(newUser);
 
             try (BufferedWriter jsonWriter = new BufferedWriter(new FileWriter(jsonFile))) {

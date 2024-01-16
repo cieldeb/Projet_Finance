@@ -295,6 +295,7 @@ public class F_Virement_Controller {
             }
             try (FileWriter file = new FileWriter("files/transactions.json")) {
                 file.write(entryArray.toString(4));
+
             } catch (IOException f) {
                 f.printStackTrace();
             }

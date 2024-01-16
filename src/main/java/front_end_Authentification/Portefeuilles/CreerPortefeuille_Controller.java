@@ -4,8 +4,10 @@ import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Crypto.Crypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.Application_Action;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -17,8 +19,8 @@ import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class CreerPortefeuille_Controller {
-    protected LinkedList<Action> listActionsTemporaire;
-    protected LinkedList<Crypto> listCryptoTemporaire;
+    protected LinkedList<Action> listActionsTemporaire = new LinkedList<>();
+    protected LinkedList<Crypto> listCryptoTemporaire = new LinkedList<>();
     @FXML
     private TextField libellePorteFeuilleTextField;
     @FXML
@@ -63,7 +65,15 @@ public class CreerPortefeuille_Controller {
     @FXML
     protected void creerPortefeuilleButton(){
         Portefeuille newWallet = new Portefeuille(libellePorteFeuilleTextField.getText(),listActionsTemporaire,listCryptoTemporaire);
-        //Tout ajouter dans le JSON
+        //Tout ajouter dans le JSON:
+        newWallet.writeOnJSONnewWallet();
+    }
+    @FXML
+    protected void retourButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
 
 }

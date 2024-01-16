@@ -61,7 +61,7 @@
                   <TextField fx:id="valeurCTextField" />
                   <Label text="Quantité possédée :" />
                   <TextField fx:id="quantiteCTextField" />
-                  <Button mnemonicParsing="false" onAction="#ajouterActionButton" text="Ajouter" />
+                  <Button mnemonicParsing="false" onAction="#ajouterCryptoButton" text="Ajouter" />
                </children>
             </VBox>
          </children>
