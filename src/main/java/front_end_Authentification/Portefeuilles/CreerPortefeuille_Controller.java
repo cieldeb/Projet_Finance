@@ -26,9 +26,17 @@ public class CreerPortefeuille_Controller {
     @FXML
     private TextField symboleATextField;
     @FXML
-    private TextField valeurAText;
+    private TextField valeurATextField;
     @FXML
-    private TextField quantitéATextField;
+    private TextField quantiteATextField;
+    @FXML
+    private TextField libelleCTextField;
+    @FXML
+    private TextField symboleCTextField;
+    @FXML
+    private TextField valeurCTextField;
+    @FXML
+    private TextField quantiteCTextField;
 
     public static void afficherCreerPortefeuille() throws IOException {
 
@@ -43,11 +51,12 @@ public class CreerPortefeuille_Controller {
     }
     @FXML
     protected void ajouterActionButton(){
-        listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurAText.getText()), -1 , parseInt(quantitéATextField.getText()),-1,-1));
+        listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurATextField.getText()), -1 , parseInt(quantiteATextField.getText()),-1,-1));
 
     }
     @FXML
     protected void ajouterCryptoButton(){
+        listCryptoTemporaire.add(new Crypto(libelleCTextField.getText(), symboleCTextField.getText(), parseFloat(valeurCTextField.getText()), -1 , parseInt(quantiteCTextField.getText()),-1,-1));
 
     }
 

@@ -3,7 +3,7 @@ package com.example.projet_finance.back_end.Actions;
 public class Action {
     protected String name;
     protected String symbol;
-    protected float initalValue;
+    protected float initialValue;
     protected float value;
     protected int quantite;
     protected float valeurTotale;
@@ -13,7 +13,7 @@ public class Action {
     public Action(String name,String symbol,float initialValue,float value,int quantite,float valeurTotale,float actuelleValeurTtl) {
         this.name = name;
         this.symbol = symbol;
-        this.initalValue = initialValue;
+        this.initialValue = initialValue;
         this.value = value;
         this.quantite = quantite;
         this.valeurTotale = valeurTotale;

@@ -38,9 +38,9 @@
                   <Label text="Symbole :" />
                   <TextField fx:id="symboleATextField" />
                   <Label text="Valeur à l'achat :" />
-                  <TextField fx:id="valeurAText" />
+                  <TextField fx:id="valeurATextField" />
                   <Label text="Quantité possédée :" />
-                  <TextField fx:id="quantitéATextField" />
+                  <TextField fx:id="quantiteATextField" />
                   <Button mnemonicParsing="false" onAction="#ajouterActionButton" text="Ajouter" />
                </children>
             </VBox>
@@ -54,7 +54,14 @@
                   </Label>
                   <Separator prefWidth="200.0" />
                   <Label text="Libellé : " />
-                  <TextField prefHeight="25.0" prefWidth="517.0" />
+                  <TextField fx:id="libelleCTextField" prefHeight="25.0" prefWidth="517.0" />
+                  <Label text="Symbole :" />
+                  <TextField fx:id="symboleCTextField" />
+                  <Label text="Valeur à l'achat :" />
+                  <TextField fx:id="valeurCTextField" />
+                  <Label text="Quantité possédée :" />
+                  <TextField fx:id="quantiteCTextField" />
+                  <Button mnemonicParsing="false" onAction="#ajouterActionButton" text="Ajouter" />
                </children>
             </VBox>
          </children>
