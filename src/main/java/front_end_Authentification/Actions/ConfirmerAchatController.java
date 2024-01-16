@@ -23,8 +23,6 @@ public class ConfirmerAchatController {
     @FXML
     private TextField libelleTextField;
     @FXML
-    private Button retourButton;
-    @FXML
     protected void confirmerButton(){
         setAchatAction(libelleTextField.getText());
         //Ajouter toute la partie concernant l'association de l'achat à l'entité.

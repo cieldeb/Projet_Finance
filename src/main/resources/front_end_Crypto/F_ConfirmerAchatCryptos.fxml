@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Crypto_Front.ConfirmerAchatCrypto_Controller">
+   <children>
+      <Label text="Confirmation d'achat">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <Label fx:id="confirmLabel" alignment="CENTER" prefHeight="185.0" prefWidth="695.0" wrapText="true" />
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Libellé  :  " />
+            <TextField fx:id="libelleTextField" prefHeight="25.0" prefWidth="331.0" />
+         </children>
+      </HBox>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="139.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#confirmerButton" text="Confirmer" />
+         </children>
+      </VBox>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Button layoutX="27.0" layoutY="77.0" mnemonicParsing="false" onAction="#retourButton" text="Retour" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
