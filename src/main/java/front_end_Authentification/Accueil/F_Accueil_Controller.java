@@ -5,6 +5,7 @@ import front_end_Authentification.Application;
 import front_end_Authentification.Portefeuilles.CreerPortefeuille_Controller;
 import front_end_Authentification.Virement.F_NewAccount_Controller;
 import front_end_Authentification.Virement.F_Virement_Controller;
+import front_end_Authentification.Virement.F_gererCompte_Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,20 +28,6 @@ public class F_Accueil_Controller {
         stage.show();
     }
     @FXML
-    protected void btnVirement(ActionEvent e) throws IOException {
-        F_Virement_Controller.afficher_F_Virement();
-        Node button = (Node) e.getSource();
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
-    }
-    @FXML
-    protected void btnNewAccount(ActionEvent e) throws IOException {
-        F_NewAccount_Controller.afficher_F_NewAccount();
-        Node button = (Node) e.getSource();
-        Stage stage = (Stage) button.getScene().getWindow();
-        stage.close();
-    }
-    @FXML
     protected void creerPortefeuilleButton(ActionEvent e) throws IOException{
         CreerPortefeuille_Controller.afficherCreerPortefeuille();
 
@@ -49,8 +36,8 @@ public class F_Accueil_Controller {
         stage.close();
     }
     @FXML
-    protected void accessToActions(ActionEvent e) throws IOException{
-        front_end_Authentification.Actions.MainActionController.afficherMainActions();
+    protected void btnGererComptes(ActionEvent e) throws IOException {
+        F_gererCompte_Controller.afficher_F_gererCompte();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

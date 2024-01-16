@@ -27,6 +27,7 @@ import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterCryptos_Controller {
+    public static float getValueSimulation;
     private static boolean simulationValid = false;
     private static String[] achatCrypto = new String[5];
     private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
@@ -127,7 +128,7 @@ public class AcheterCryptos_Controller {
                     achatCrypto[1] = stockSymbol;
                     achatCrypto[2] = cryptoValue;
                     achatCrypto[3] = quantiteTextField.getText();
-                    achatCrypto[4] = Float.toString(valueSimulation);
+                    achatCrypto[4] = Float.toString(valueSimulation); // A SORTIR POUR LA CONIRMATION
                     simulationValid = true;
                 } catch (NumberFormatException e){
                     simulationLabel.setText("Veuillez renseignez un nombre pour le champ \"quantité\" ");

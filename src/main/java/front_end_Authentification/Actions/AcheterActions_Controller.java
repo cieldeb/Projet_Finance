@@ -23,6 +23,7 @@ import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterActions_Controller {
+    public static float getValueSimulation;
     private static boolean simulationValid = false;
 
     private static String[] achatAction = new String[5];
@@ -99,6 +100,7 @@ public class AcheterActions_Controller {
         }
 
     }
+    float valueSimulation = 0;
     @FXML
     protected void simulerButton(){
         String stockSymbol = symboleTextField.getText();
@@ -111,7 +113,7 @@ public class AcheterActions_Controller {
                 simulationLabel.setText("Aucun résultat trouvé");
             } else {
                 try{
-                    float valueSimulation = parseFloat(actionValue) * parseInt(quantiteTextField.getText());
+                    valueSimulation = parseFloat(actionValue) * parseInt(quantiteTextField.getText());
                     simulationLabel.setText(Float.toString(valueSimulation));
                     achatAction[1] = stockSymbol;
                     achatAction[2] = actionValue;
@@ -185,5 +187,13 @@ public class AcheterActions_Controller {
     }
     public static void setAchatAction(String achatAction) {
         AcheterActions_Controller.achatAction[0] = achatAction;
+    }
+
+    public float getValueSimulation() {
+        return valueSimulation;
+    }
+
+    public void setValueSimulation(float valueSimulation) {
+        this.valueSimulation = valueSimulation;
     }
 }

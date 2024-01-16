@@ -232,13 +232,13 @@ public class F_Virement_Controller {
         } else {
             System.out.println("No account selected");
         }
-
     }
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
 
         String[] part = (vir_dest.getValue()).split(": ");
         int ibanDestinataire = Integer.parseInt(part[1]);
+
         String[] partDest = (vir_dest.getValue()).split("-");
         String idDestinataire = partDest[0];
         idDestinataire.replaceAll("\\s","");
@@ -251,7 +251,7 @@ public class F_Virement_Controller {
         String[] parts = compteDebite.split("n° ");
         System.out.println("Compte débité: " + parts[1]);
 
-        int envoyeur = Integer.parseInt(parts[1]);
+        int emetteur = Integer.parseInt(parts[1]);
         int updatedSolde = 0;
 
         //Ajout de la transaction dans la partie TRANSACTIONS du récepteur dans transactions.json
@@ -279,7 +279,7 @@ public class F_Virement_Controller {
 
                     JSONObject newTransaction = new JSONObject();
                     newTransaction.put("ID", newID);
-                    newTransaction.put("EMETTEUR", envoyeur);
+                    newTransaction.put("EMETTEUR", emetteur);
                     newTransaction.put("RECEPTEUR", ibanDestinataire);
                     newTransaction.put("MONTANT", montantValue);
                     System.out.println(extractedAmount);
@@ -320,7 +320,7 @@ public class F_Virement_Controller {
                             for (int j = 0; j < comptesArray.length(); j++) {
                                 JSONObject compte = comptesArray.getJSONObject(j);
                                 int ibanEnregistre = compte.optInt("IBAN");
-                                if (envoyeur == ibanEnregistre) {
+                                if (emetteur == ibanEnregistre) {
                                     int currentSolde = compte.getInt("SOLDE");
                                     System.out.println("Solde du compte débité avant transaction: " + currentSolde);
                                     updatedSolde = currentSolde - montantValue;
@@ -353,13 +353,13 @@ public class F_Virement_Controller {
             JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
             for (int i = 0; i < entryArray.length(); i++) {
                 JSONObject userObject = entryArray.getJSONObject(i);
-                if (userObject.optInt("IBAN") == envoyeur) {
+                if (userObject.optInt("IBAN") == emetteur) {
                     JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
                     int newID = getNextAvailableID(transacArray);
 
                     JSONObject newTransaction = new JSONObject();
                     newTransaction.put("ID", newID);
-                    newTransaction.put("EMETTEUR", envoyeur);
+                    newTransaction.put("EMETTEUR", emetteur);
                     newTransaction.put("RECEPTEUR", ibanDestinataire);
                     newTransaction.put("MONTANT", montantValue);
                     newTransaction.put("SOLDE", updatedSolde);
@@ -447,7 +447,7 @@ public class F_Virement_Controller {
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
-        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        F_gererCompte_Controller.afficher_F_gererCompte();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -461,7 +461,7 @@ public class F_Virement_Controller {
         }
         return false;
     }
-    private static int getNextAvailableID(JSONArray transacArray) {
+    public static int getNextAvailableID(JSONArray transacArray) {
         int maxID = 0;
         for (int i = 0; i < transacArray.length(); i++) {
             JSONObject transaction = transacArray.getJSONObject(i);

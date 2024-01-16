@@ -73,6 +73,8 @@ public class F_Inscription_Controller {
             newUser.put("PORTEFEUILLE",new JSONArray());
             JSONArray comptes = new JSONArray();
             newUser.put("COMPTES", comptes);
+            newUser.put("DESTINATAIRES",new JSONArray());
+
             jsonArray.put(newUser);
 
             try (BufferedWriter jsonWriter = new BufferedWriter(new FileWriter(jsonFile))) {

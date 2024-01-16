@@ -16,8 +16,7 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnNewAccount" text="Créer un compte" />
-      <Button mnemonicParsing="false" onAction="#btnVirement" text="Effectuer un virement" />
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnGererComptes" text="Gérer les comptes" />
       <Separator prefWidth="200.0" />
       <Label text="Portefeuilles">
          <font>
