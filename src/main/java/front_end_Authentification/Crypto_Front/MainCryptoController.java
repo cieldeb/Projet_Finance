@@ -21,8 +21,8 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class MainCryptoController {
-    private static String API_URL_SymbolSearch = "https://pro-api.coingecko.com/api/v3/coins/search?query=SEARCH_SYMBOL&x_cg_pro_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
-    private static String API_URL_TimeSeriesIntraDay = "https://pro-api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_pro_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
+    private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
+    private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     @FXML
     private TextField searchField;
     @FXML
@@ -74,8 +74,8 @@ public class MainCryptoController {
                 // Make API request and parse JSON response
                 JSONObject stockData = getStockData(apiUrlWithKey);
                 String suggestionsCrypto = "";
-                String latestPrice = stockData.getJSONObject(stockSymbol).getString("eur");
-                suggestionsCrypto += "La plus récente valeur de la Crypto-Monnaie est : " + latestPrice;
+                String latestPrice = String.valueOf(stockData.getJSONObject(stockSymbol).getInt("eur"));
+                suggestionsCrypto += "La plus récente valeur de la Crypto-Monnaie est : " + latestPrice +"€";
                 if (suggestionsCrypto == ""){
                     rechercheInfoCryptoLabel.setText("Aucun résultat trouvé");
                 } else {
@@ -127,7 +127,7 @@ public class MainCryptoController {
     }
 
     public static void afficherMainCryptos() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_mainActions.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Crypto/F_mainCryptos.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage secondStage = new Stage();

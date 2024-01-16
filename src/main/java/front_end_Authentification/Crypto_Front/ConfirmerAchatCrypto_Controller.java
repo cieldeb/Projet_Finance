@@ -40,12 +40,12 @@ public class ConfirmerAchatCrypto_Controller {
         stage.close();
     }
     protected static void afficherConfirmerAchatCryptos() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Cryptos/F_ConfirmerAchatCryptos.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Crypto/F_ConfirmerAchatCryptos.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage secondStage = new Stage();
 
         ConfirmerAchatCrypto_Controller controlleur = fxmlLoader.getController();
-        controlleur.confirmLabel.setText("Vous vous apprétez à effectuer l'achat de " + achatCrypto[3] +" "+ achatCrypto[1] + " action(s). La valeur d'une action étant : " + achatCrypto[2] + "euros, vous allez payer : " + achatCrypto[4] + "euros. Si vous souhaitez donner un libellé à votre ensemble d'action que vous vous apprêtez à acheter, complétez le champ suivant. Cliquez sur Confirmer pour finaliser l'achat, sinon sur retour.");
+        controlleur.confirmLabel.setText("Vous vous apprétez à effectuer l'achat de " + achatCrypto[3] +" "+ achatCrypto[1] +". La valeur d'une action étant : " + achatCrypto[2] + "€, vous allez payer : " + achatCrypto[4] + "€. Si vous souhaitez donner un libellé à la crypto-monnaie que vous vous apprêtez à acheter, complétez le champ suivant. Cliquez sur Confirmer pour finaliser l'achat, sinon sur retour.");
 
         secondStage.setTitle("Confirmation d'achat des actions");
         secondStage.setScene(scene);

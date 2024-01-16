@@ -23,7 +23,7 @@ public class Application_Crypto extends javafx.application.Application {
                 .build();
         AlphaVantage.api().init(cfg);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_mainActions.fxml"));     //surement modifier le Application_Action avant le .class.  lorsqu'on integre au reste du système
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Crypto/F_mainCryptos.fxml"));     //surement modifier le Application_Action avant le .class.  lorsqu'on integre au reste du système
         Scene Scene = new Scene(fxmlLoader.load());
 
         primaryStage.setTitle("Actions");

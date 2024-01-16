@@ -29,8 +29,8 @@ import static java.lang.Integer.parseInt;
 public class AcheterCryptos_Controller {
     private static boolean simulationValid = false;
     private static String[] achatCrypto = new String[5];
-    private static String API_URL_SymbolSearch = "https://pro-api.coingecko.com/api/v3/coins/search?query=SEARCH_SYMBOL&x_cg_pro_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
-    private static String API_URL_TimeSeriesIntraDay = "https://pro-api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_pro_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
+    private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
+    private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     @FXML
     private TextField searchField;
     @FXML
@@ -90,8 +90,8 @@ public class AcheterCryptos_Controller {
                 // Make API request and parse JSON response
                 JSONObject stockData = getStockData(apiUrlWithKey);
                 String suggestionsCrypto = "";
-                String latestPrice = stockData.getJSONObject(stockSymbol).getString("eur");
-                suggestionsCrypto += "La plus récente valeur de la Crypto-Monnaie est : " + latestPrice;
+                String latestPrice = String.valueOf(stockData.getJSONObject(stockSymbol).getInt("eur"));
+                suggestionsCrypto += "La plus récente valeur de la Crypto-Monnaie est : " + latestPrice + "€";
                 if (suggestionsCrypto == ""){
                     rechercheInfoCryptoLabel.setText("Aucun résultat trouvé");
                 } else {
@@ -117,7 +117,7 @@ public class AcheterCryptos_Controller {
         try {
             // Make API request and parse JSON response
             JSONObject stockData = getStockData(apiUrlWithKey);
-            String cryptoValue = stockData.getJSONObject(stockSymbol).getString("eur");
+            String cryptoValue = String.valueOf(stockData.getJSONObject(stockSymbol).getInt("eur"));
             if (cryptoValue == ""){
                 simulationLabel.setText("Aucun résultat trouvé");
             } else {
@@ -182,12 +182,12 @@ public class AcheterCryptos_Controller {
 
     protected static void afficherAcheterCrypto() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_AcheterCryptos.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Crypto/F_AcheterCrypto.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage secondStage = new Stage();
 
-        secondStage.setTitle("Acheter des actions");
+        secondStage.setTitle("Acheter des cryptos");
         secondStage.setScene(scene);
         secondStage.show();
     }
