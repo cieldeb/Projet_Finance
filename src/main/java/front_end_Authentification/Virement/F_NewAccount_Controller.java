@@ -116,7 +116,6 @@ public class F_NewAccount_Controller {
                 break;
             }
         }
-
         if (!userFound) {
             System.out.println("User not found");
         } else {
@@ -124,7 +123,13 @@ public class F_NewAccount_Controller {
                 jsonWriter.write(jsonArray.toString(4));
             }
         }
-
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    protected void retourButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

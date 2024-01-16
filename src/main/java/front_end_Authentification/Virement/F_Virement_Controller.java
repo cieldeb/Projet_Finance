@@ -17,12 +17,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import org.json.JSONException;
 import org.json.JSONTokener;
 import org.json.simple.*;
 import java.lang.Math;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import static java.lang.Integer.sum;
 
 
 public class F_Virement_Controller {
@@ -61,6 +64,7 @@ public class F_Virement_Controller {
                 btnValid.setTextFill(Color.web("#000000"));
             }
         });
+
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listedestinataires.csv"))) {
             String headerLine = br.readLine();
             if (headerLine != null) {
@@ -88,6 +92,9 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
+        //Remplissage de la combobox des destinataires
+
         try {
             File jsonFile = new File("files/listeinscrits.json");
             String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
@@ -115,8 +122,6 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
         /*try (BufferedReader br = new BufferedReader(new FileReader("files/listecomptes.csv"))) {
             String headerLine = br.readLine();
@@ -148,6 +153,8 @@ public class F_Virement_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+
+        //Remplissage de la combobox des comptes
 
         try {
             File jsonFile = new File("files/listeinscrits.json");
@@ -202,15 +209,10 @@ public class F_Virement_Controller {
 
                             if (accountIndex >= 0 && accountIndex < comptesArray.length()) {
                                 JSONObject selectedCompte = comptesArray.getJSONObject(accountIndex);
-                                String solde = selectedCompte.getString("SOLDE");
-                                int montDispo = Integer.parseInt(solde);
-                                if (montDispo > 0) {
-                                    vir_account_montant.setText("+" + montDispo + "€");
+                                int solde = selectedCompte.getInt("SOLDE");
+                                if (solde > 0) {
+                                    vir_account_montant.setText("+" + solde + "€");
                                     vir_account_montant.setFill(Color.web("#12ab1f"));
-                                } else if (montDispo < 0) {
-                                    int montDispoAbs = Math.abs(montDispo);
-                                    vir_account_montant.setText("-" + montDispoAbs + "€");
-                                    vir_account_montant.setFill(Color.web("#df0000"));
                                 } else {
                                     vir_account_montant.setText("0€");
                                     vir_account_montant.setFill(Color.web("#00004d"));
@@ -228,17 +230,203 @@ public class F_Virement_Controller {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("No account selected"); // Debugging
+            System.out.println("No account selected");
         }
 
     }
-
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
-        String destinataire = vir_dest.getValue();
-        String montantValue = vir_montant.getText();
+
+        String[] part = (vir_dest.getValue()).split(": ");
+        int ibanDestinataire = Integer.parseInt(part[1]);
+        String[] partDest = (vir_dest.getValue()).split("-");
+        String idDestinataire = partDest[0];
+        idDestinataire.replaceAll("\\s","");
+        System.out.println("Identifiant du destinataire: " + idDestinataire);
+
+        int montantValue = Integer.parseInt(vir_montant.getText());
+        System.out.println("Montant de la transaction : " + montantValue);
+
         String compteDebite = vir_account.getValue();
-        System.out.println(compteDebite);
+        String[] parts = compteDebite.split("n° ");
+        System.out.println("Compte débité: " + parts[1]);
+
+        int envoyeur = Integer.parseInt(parts[1]);
+        int updatedSolde = 0;
+
+        //Ajout de la transaction dans la partie TRANSACTIONS du récepteur dans transactions.json
+
+        int newSoldeRecepteur = 0;
+        try {
+            JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
+            for (int i = 0; i < entryArray.length(); i++) {
+                JSONObject userObject = entryArray.getJSONObject(i);
+                if (userObject.optInt("IBAN") == ibanDestinataire) {
+                    JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
+                    int newID = getNextAvailableID(transacArray);
+
+                    int indexMontantBase = transacArray.length();
+                    Object montantBase = transacArray.toList().get(indexMontantBase - 1);
+                    String montantBaseStr = montantBase.toString();
+                    String[] part1 = montantBaseStr.split(", ");
+                    String extractedAmount = "";
+                    for (String part2 : part1) {
+                        if (part2.startsWith("SOLDE=")) {
+                            extractedAmount = part2.substring("SOLDE=".length());
+                            break;
+                        }
+                    }
+
+                    JSONObject newTransaction = new JSONObject();
+                    newTransaction.put("ID", newID);
+                    newTransaction.put("EMETTEUR", envoyeur);
+                    newTransaction.put("RECEPTEUR", ibanDestinataire);
+                    newTransaction.put("MONTANT", montantValue);
+                    System.out.println(extractedAmount);
+                    System.out.println(montantValue);
+                    newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), montantValue);
+                    newTransaction.put("SOLDE",  newSoldeRecepteur);
+
+                    transacArray.put(newTransaction);
+
+                    userObject.put("TRANSACTIONS", transacArray);
+                    break;
+                }
+            }
+            try (FileWriter file = new FileWriter("files/transactions.json")) {
+                file.write(entryArray.toString(4));
+            } catch (IOException f) {
+                f.printStackTrace();
+            }
+        } catch (Exception j) {
+            j.printStackTrace();
+        }
+
+        //Modification du solde de l'émetteur dans listeinscrits.json
+
+        try {
+            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
+
+            for (int i = 0; i < usersArray.length(); i++) {
+                JSONObject userObject = usersArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+
+                    if (userObject.has("COMPTES")) {
+                        JSONArray comptesArray = userObject.getJSONArray("COMPTES");
+                        boolean containsIBAN = jsonArrayContainsKey(comptesArray, "IBAN");
+
+                        if (containsIBAN) {
+                            for (int j = 0; j < comptesArray.length(); j++) {
+                                JSONObject compte = comptesArray.getJSONObject(j);
+                                int ibanEnregistre = compte.optInt("IBAN");
+                                if (envoyeur == ibanEnregistre) {
+                                    int currentSolde = compte.getInt("SOLDE");
+                                    System.out.println("Solde du compte débité avant transaction: " + currentSolde);
+                                    updatedSolde = currentSolde - montantValue;
+                                    System.out.println("Solde du compte débité après transaction: " + updatedSolde);
+                                    compte.put("SOLDE", updatedSolde);
+                                    break;
+                                }
+                            }
+                        }
+                        try (FileWriter file = new FileWriter("files/listeinscrits.json")) {
+                            file.write(usersArray.toString(4));
+                            file.flush();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        System.err.println("La clé 'COMPTES' n'existe pas dans l'objet JSON de l'utilisateur.");
+                    }
+                    break;
+                }
+            }
+
+        } catch (IOException | NumberFormatException f) {
+            f.printStackTrace();
+        }
+
+        //Ajout de la transaction dans la partie TRANSACTIONS de l'émetteur dans transactions.json
+
+        try {
+            JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
+            for (int i = 0; i < entryArray.length(); i++) {
+                JSONObject userObject = entryArray.getJSONObject(i);
+                if (userObject.optInt("IBAN") == envoyeur) {
+                    JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
+                    int newID = getNextAvailableID(transacArray);
+
+                    JSONObject newTransaction = new JSONObject();
+                    newTransaction.put("ID", newID);
+                    newTransaction.put("EMETTEUR", envoyeur);
+                    newTransaction.put("RECEPTEUR", ibanDestinataire);
+                    newTransaction.put("MONTANT", montantValue);
+                    newTransaction.put("SOLDE", updatedSolde);
+
+                    transacArray.put(newTransaction);
+
+                    userObject.put("TRANSACTIONS", transacArray);
+                    break;
+                }
+            }
+            try (FileWriter file = new FileWriter("files/transactions.json")) {
+                file.write(entryArray.toString(4));
+            } catch (IOException f) {
+                f.printStackTrace();
+            }
+        } catch (Exception j) {
+            j.printStackTrace();
+        }
+
+        //Modification du solde du récepteur dans listeinscrits.json
+
+        try {
+            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
+
+            for (int i = 0; i < usersArray.length(); i++) {
+                JSONObject userObject = usersArray.getJSONObject(i);
+                String idDest = idDestinataire.toString();
+                //System.out.println("Comparing: '" + userObject.optString("IDENTIFIANT") + "' with '" + idDest + "'"); //Debug pour voir les comparaisons faites par la boucle suivante
+                if (userObject.optString("IDENTIFIANT").trim().equals(idDest.trim())) {
+                    if (userObject.has("COMPTES")) {
+                        JSONArray comptesArray = userObject.getJSONArray("COMPTES");
+                        boolean containsIBAN = jsonArrayContainsKey(comptesArray, "IBAN");
+
+                        if (containsIBAN) {
+                            for (int j = 0; j < comptesArray.length(); j++) {
+                                JSONObject compte = comptesArray.getJSONObject(j);
+                                int ibanEnregistre = compte.optInt("IBAN");
+
+                                if (ibanDestinataire == ibanEnregistre) {
+                                    int currentSoldeDest = compte.getInt("SOLDE");
+                                    System.out.println("Solde du compte crédité avant transaction: " + currentSoldeDest);
+                                    compte.put("SOLDE", newSoldeRecepteur);
+                                    System.out.println("Solde du compte crédité après transaction: " + newSoldeRecepteur);
+                                    break;
+                                }
+                            }
+                        }
+
+                        try (FileWriter file = new FileWriter("files/listeinscrits.json")) {
+                            file.write(usersArray.toString(4));
+                            file.flush();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    } else {
+                        System.err.println("La clé 'COMPTES' n'existe pas dans l'objet JSON de l'utilisateur.");
+                    }
+                    break;
+                }
+            }
+        } catch (IOException | JSONException f) {
+            f.printStackTrace();
+        }
+
+
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
     public static void afficher_F_Virement() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/front_end_Virement/F_Virement.fxml"));
@@ -252,5 +440,35 @@ public class F_Virement_Controller {
     @FXML
     public void btnNewDestinataire(ActionEvent e) throws IOException {
         F_NewDestinataire_Controller.afficher_F_NewDestinataire();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+    @FXML
+    protected void retourButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+    public boolean jsonArrayContainsKey(JSONArray jsonArray, String key) {
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            if (jsonObject.has(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static int getNextAvailableID(JSONArray transacArray) {
+        int maxID = 0;
+        for (int i = 0; i < transacArray.length(); i++) {
+            JSONObject transaction = transacArray.getJSONObject(i);
+            int currentID = transaction.optInt("ID");
+            if (currentID > maxID) {
+                maxID = currentID;
+            }
+        }
+        return maxID + 1;
     }
 }
