@@ -70,6 +70,10 @@ public class F_Inscription_Controller {
             newUser.put("TELEPHONE", tel);
             newUser.put("MAIL", mail);
             newUser.put("MOT DE PASSE", mdp1);
+            newUser.put("PORTEFEUILLE",new JSONArray());
+            JSONArray comptes = new JSONArray();
+            newUser.put("COMPTES", comptes);
+            newUser.put("DESTINATAIRES",new JSONArray());
 
             jsonArray.put(newUser);
 

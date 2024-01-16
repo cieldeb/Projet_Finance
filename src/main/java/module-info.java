@@ -21,5 +21,6 @@ module com.example.projet_finance {
     opens front_end_Authentification.Crypto_Front to javafx.fxml;
     exports front_end_Authentification.Crypto_Front;
 
-
+    opens front_end_Authentification.Portefeuilles to javafx.fxml;
+    exports front_end_Authentification.Portefeuilles;
 }
