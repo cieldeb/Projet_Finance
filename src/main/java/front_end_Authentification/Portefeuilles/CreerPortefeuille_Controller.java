@@ -63,10 +63,15 @@ public class CreerPortefeuille_Controller {
     }
 
     @FXML
-    protected void creerPortefeuilleButton(){
+    protected void creerPortefeuilleButton(ActionEvent e) throws IOException{
         Portefeuille newWallet = new Portefeuille(libellePorteFeuilleTextField.getText(),listActionsTemporaire,listCryptoTemporaire);
         //Tout ajouter dans le JSON:
         newWallet.writeOnJSONnewWallet();
+
+        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
