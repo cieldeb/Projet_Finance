@@ -46,6 +46,10 @@ public class CreerPortefeuille_Controller {
         listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurAText.getText()), -1 , parseInt(quantitéATextField.getText()),-1,-1));
 
     }
+    @FXML
+    protected void ajouterCryptoButton(){
+
+    }
 
     @FXML
     protected void creerPortefeuilleButton(){
