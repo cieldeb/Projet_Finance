@@ -89,7 +89,7 @@ public class F_Inscription_Controller {
             errSetUpMdp.setText("Vous n'avez pas ré-écrit correctement votre mot de passe");
         }
     }
-    public void start(){
+    /*public void start(){    CA N'A RIEN A FAIRE ICI
         telField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches("[a-zA-Z]")) {
                 auth_wrongchar.setText("Entrez des chiffres");
@@ -97,7 +97,7 @@ public class F_Inscription_Controller {
                 auth_wrongchar.setText(" ");
             }
         });
-    }
+    }*/
     @FXML
     protected void btnClear(){
         nomField.clear();

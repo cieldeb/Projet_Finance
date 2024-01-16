@@ -54,12 +54,19 @@ public class CreerPortefeuille_Controller {
     @FXML
     protected void ajouterActionButton(){
         listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurATextField.getText()), -1 , parseInt(quantiteATextField.getText()),-1,-1));
+        libelleATextField.clear();
+        symboleATextField.clear();
+        valeurATextField.clear();
+        quantiteATextField.clear();
 
     }
     @FXML
     protected void ajouterCryptoButton(){
         listCryptoTemporaire.add(new Crypto(libelleCTextField.getText(), symboleCTextField.getText(), parseFloat(valeurCTextField.getText()), -1 , parseInt(quantiteCTextField.getText()),-1,-1));
-
+        libelleCTextField.clear();
+        symboleCTextField.clear();
+        valeurCTextField.clear();
+        quantiteCTextField.clear();
     }
 
     @FXML
@@ -72,6 +79,7 @@ public class CreerPortefeuille_Controller {
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
+
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
