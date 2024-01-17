@@ -134,4 +134,3 @@ public class MainActionController {
         secondStage.show();
     }
 }
-

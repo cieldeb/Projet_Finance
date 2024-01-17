@@ -44,7 +44,6 @@ public class F_gererCompte_Controller {
     private TableColumn montantCol;
     @FXML
     private TableColumn newSoldeCol;
-
     @FXML
     private void initialize(){
         tableTransactions.setPlaceholder(new Label("Ce compte n'a effectué aucune transaction"));
@@ -144,10 +143,8 @@ public class F_gererCompte_Controller {
                     break;
                 }
             }
-
             setupTableColumns();
             tableTransactions.setItems(transactions);
-
         } catch (JSONException | FileNotFoundException e) {
             e.printStackTrace();
         }

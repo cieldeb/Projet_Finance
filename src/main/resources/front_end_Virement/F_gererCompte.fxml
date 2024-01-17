@@ -56,7 +56,7 @@
           <TableColumn fx:id="emetteurCol" prefWidth="152.79998779296875" text="Emetteur" />
             <TableColumn fx:id="recepteurCol" prefWidth="152.00001525878906" text="Récepteur" />
             <TableColumn fx:id="montantCol" prefWidth="75.0" text="Montant" />
-            <TableColumn fx:id="newSoldeCol" prefWidth="95.99993896484375" text="Nouveau solde" />
+            <TableColumn fx:id="newSoldeCol" prefWidth="95.99993896484375" text="Solde" />
         </columns>
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="2.5" />
