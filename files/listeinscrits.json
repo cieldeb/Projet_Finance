@@ -266,5 +266,56 @@
                 }]
             ]
         }]
+    },
+    {
+        "COMPTES": [],
+        "TELEPHONE": "bn",
+        "MAIL": "bn",
+        "IDENTIFIANT": "bn",
+        "MOT DE PASSE": "bn",
+        "PORTEFEUILLE": [{
+            "ACTIONS": [
+                {
+                    "Symbole": "bn",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "bn",
+                    "Quantité": 43,
+                    "Valeur initiale": 784,
+                    "Dernière valeur": -1
+                },
+                {
+                    "Symbole": "ty",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "ty",
+                    "Quantité": 5,
+                    "Valeur initiale": 8,
+                    "Dernière valeur": -1
+                }
+            ],
+            "LIBELLE": "bn",
+            "CRYPTOS": [
+                {
+                    "Symbole": "bn",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "nb",
+                    "Quantité": 43,
+                    "Valeur initiale": 4534,
+                    "Dernière valeur": -1
+                },
+                {
+                    "Symbole": "ty",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "ty",
+                    "Quantité": 5,
+                    "Valeur initiale": 5,
+                    "Dernière valeur": -1
+                }
+            ]
+        }],
+        "DESTINATAIRES": []
     }
 ]

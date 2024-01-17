@@ -17,6 +17,7 @@ import front_end_Authentification.F_Authentification_Controller;
 import static java.lang.Integer.sum;
 
 public class Portefeuille {
+
     protected String name;
     protected LinkedList<Compte> listeComptes;
     protected LinkedList<Action> listActions;
@@ -25,10 +26,10 @@ public class Portefeuille {
     String currentUser = authController.getIdentifCurrentUser();
 
     //Constructeur:
-    public Portefeuille(String name, LinkedList<Action> listActions, LinkedList<Crypto> listCrypto) {
+    public Portefeuille(String name, LinkedList<Action> listActions, LinkedList<Crypto> listCryptos) {
         this.name = name;
         this.listActions = listActions;
-        this.listCrypto = listCrypto;
+        this.listCrypto = listCryptos;
     }
 
     public void writeOnJSONnewWallet(){
@@ -87,5 +88,9 @@ public class Portefeuille {
             }
         }
         return false;
+    }
+
+    public String getName() {
+        return name;
     }
 }

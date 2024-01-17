@@ -27,7 +27,7 @@
       <HBox alignment="CENTER" prefHeight="66.0" prefWidth="603.0">
          <children>
             <Label text="Gérer un portefeuille : " />
-            <ComboBox prefWidth="150.0" promptText="Sélectionnez" />
+            <ComboBox fx:id="portefeuilleComboBoxAffiche" onAction="#portefeuilleComboBox" prefWidth="150.0" promptText="Sélectionnez" />
          </children>
       </HBox>
       <Button mnemonicParsing="false" onAction="#creerPortefeuilleButton" text="Créer un portefeuille" />
