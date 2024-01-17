@@ -312,6 +312,27 @@
                 "ACTIONS": [],
                 "LIBELLE": "hk",
                 "CRYPTOS": []
+            },
+            {
+                "ACTIONS": [{
+                    "Symbole": "a1",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "Action1",
+                    "Quantité": 8,
+                    "Valeur initiale": 10,
+                    "Dernière valeur": -1
+                }],
+                "LIBELLE": "Test Sérieux",
+                "CRYPTOS": [{
+                    "Symbole": "c1",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "Crypto1",
+                    "Quantité": 10,
+                    "Valeur initiale": 5,
+                    "Dernière valeur": -1
+                }]
             }
         ],
         "DESTINATAIRES": []

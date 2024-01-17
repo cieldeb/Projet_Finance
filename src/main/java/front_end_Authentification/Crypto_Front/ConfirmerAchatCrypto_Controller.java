@@ -48,7 +48,8 @@ public class ConfirmerAchatCrypto_Controller {
 
     @FXML
     private void initialize(){
-        try {
+
+        /*try {
             File jsonFile = new File("files/listeinscrits.json");
             String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
             JSONArray jsonArray = new JSONArray(jsonContent);
@@ -82,7 +83,7 @@ public class ConfirmerAchatCrypto_Controller {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @FXML

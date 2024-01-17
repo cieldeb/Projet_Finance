@@ -1,5 +1,7 @@
 package front_end_Authentification.Crypto_Front;
 
+import com.example.projet_finance.back_end.Actions.Action;
+import com.example.projet_finance.back_end.Crypto.Crypto;
 import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Actions.Application_Action;
 import front_end_Authentification.Actions.ConfirmerAchatController;
@@ -27,6 +29,7 @@ import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterCryptos_Controller {
+    protected static Crypto newCrypto;
     public static float getValueSimulation;
     private static boolean simulationValid = false;
     private static String[] achatCrypto = new String[5];
