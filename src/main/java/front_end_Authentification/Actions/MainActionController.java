@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Actions.VendreAction_Controller.afficherVendreActions;
+import static front_end_Authentification.Crypto_Front.VendreCrypto_Controller.afficherVendreCryptos;
 
 public class MainActionController {
     protected static Portefeuille selectedWallet = getSelectedWallet();
@@ -137,7 +139,12 @@ public class MainActionController {
     }
 
     @FXML
-    protected void vendreButton(){}
+    protected void vendreButton(ActionEvent e) throws IOException {
+            afficherVendreActions();
+            Node button = (Node) e.getSource();
+            Stage stage = (Stage) button.getScene().getWindow();
+            stage.close();
+    }
     @FXML
     protected void acheterButton(ActionEvent e) throws IOException {
         AcheterActions_Controller.afficherAcheterActions();

@@ -1,9 +1,8 @@
-package front_end_Authentification.Crypto_Front;
+package front_end_Authentification.Actions;
 
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Crypto.Crypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
-import front_end_Authentification.Actions.Application_Action;
 import front_end_Authentification.F_Authentification_Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,13 +26,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import static com.example.projet_finance.back_end.Actions.Action.vendreActionJSON;
 import static com.example.projet_finance.back_end.Crypto.Crypto.vendreCryptoJSON;
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
 import static java.lang.Integer.parseInt;
 
-public class VendreCrypto_Controller {
+public class VendreAction_Controller {
     protected static Portefeuille selectedWallet = getSelectedWallet();
-    protected static LinkedList<Crypto> listCryptos =  selectedWallet.getListCrypto();
+    protected static LinkedList<Action> listActions =  selectedWallet.getListActions();
     F_Authentification_Controller authController = new F_Authentification_Controller();
     String currentUser = authController.getIdentifCurrentUser();
 
@@ -52,15 +52,15 @@ public class VendreCrypto_Controller {
     @FXML
     private TableColumn derniereValeurTTLTableColumn;
     @FXML
-    TableView<Map<String, Object>> cryptosTableView;
+    TableView<Map<String, Object>> actionsTableView;
     @FXML
-    private ChoiceBox cryptoChoiceBox;
+    private ChoiceBox actionChoiceBox;
     @FXML
     private ChoiceBox compteChoiceBox;
     @FXML
     private void initialize(){
-        for (int i = 0; i < listCryptos.size(); i++) {
-            cryptoChoiceBox.getItems().add(listCryptos.get(i).getName());
+        for (int i = 0; i < listActions.size(); i++) {
+            actionChoiceBox.getItems().add(listActions.get(i).getName());
         }
         try{
             JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
@@ -86,40 +86,40 @@ public class VendreCrypto_Controller {
     @FXML
     protected void simulerButton(){
         setUpTableColumn();
-        LinkedList<Crypto> listCryptosFromWallet = selectedWallet.getListCrypto();
-        ObservableList<Map<String, Object>> listCryptos = FXCollections.observableArrayList();
-        for (int i = 0 ; i < listCryptosFromWallet.size() ; i++ ){
-            Crypto crypto = listCryptosFromWallet.get(i);
-            if (crypto.getName().equals((String) cryptoChoiceBox.getValue())){
-                Map<String, Object> cryptoRow = new HashMap<>();
-                cryptoRow.put("Nom",crypto.getName());
-                cryptoRow.put("Symbole",crypto.getSymbol());
-                cryptoRow.put("Valeur Initiale",crypto.getInitialValue());
-                cryptoRow.put("Dernière valeur",crypto.getValue());
-                cryptoRow.put("Quantité",crypto.getQuantite());
-                cryptoRow.put("Valeur Totale initiale",crypto.getValeurTotale());
-                cryptoRow.put("Dernière valeur totale",crypto.getActuelleValeurTotale());
-                listCryptos.add(cryptoRow);
+        LinkedList<Action> listActionsFromWallet = selectedWallet.getListActions();
+        ObservableList<Map<String, Object>> listActions = FXCollections.observableArrayList();
+        for (int i = 0 ; i < listActionsFromWallet.size() ; i++ ){
+            Action action = listActionsFromWallet.get(i);
+            if (action.getName().equals((String) actionChoiceBox.getValue())){
+                Map<String, Object> actionRow = new HashMap<>();
+                actionRow.put("Nom",action.getName());
+                actionRow.put("Symbole",action.getSymbol());
+                actionRow.put("Valeur Initiale",action.getInitialValue());
+                actionRow.put("Dernière valeur",action.getValue());
+                actionRow.put("Quantité",action.getQuantite());
+                actionRow.put("Valeur Totale initiale",action.getValeurTotale());
+                actionRow.put("Dernière valeur totale",action.getActuelleValeurTotale());
+                listActions.add(actionRow);
                 break;
             }
 
         }
-        cryptosTableView.setItems(listCryptos);
+        actionsTableView.setItems(listActions);
 
     }
     @FXML
     protected void vendreButton(ActionEvent e) throws IOException {
         String selectedCompte = (String) compteChoiceBox.getValue();
-        String selectedCrypto = (String) cryptoChoiceBox.getValue();
+        String selectedAction = (String) actionChoiceBox.getValue();
         float valeurTransaction = 0 ;
-        for (int i =0 ; i<listCryptos.size() ; i++){
-            if (listCryptos.get(i).getName().equals(selectedCrypto)){
-                valeurTransaction = listCryptos.get(i).getInitialValue();
+        for (int i = 0; i< listActions.size() ; i++){
+            if (listActions.get(i).getName().equals(selectedAction)){
+                valeurTransaction = listActions.get(i).getInitialValue();
                 System.out.println(valeurTransaction);
             }
         }
-        vendreCryptoJSON(selectedCrypto,parseInt(selectedCompte),Math.round(valeurTransaction),selectedWallet.getName());
-        front_end_Authentification.Crypto_Front.MainCryptoController.afficherMainCryptos();
+        vendreActionJSON(selectedAction,parseInt(selectedCompte),Math.round(valeurTransaction),selectedWallet.getName());
+        front_end_Authentification.Actions.MainActionController.afficherMainActions();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -127,18 +127,18 @@ public class VendreCrypto_Controller {
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
-            front_end_Authentification.Crypto_Front.MainCryptoController.afficherMainCryptos();
-            Node button = (Node) e.getSource();
-            Stage stage = (Stage) button.getScene().getWindow();
-            stage.close();
+        front_end_Authentification.Actions.MainActionController.afficherMainActions();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
-    public static void afficherVendreCryptos() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Crypto/F_VendreCrypto.fxml"));
+    public static void afficherVendreActions() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Actions/F_VendreAction.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
         Stage secondStage = new Stage();
 
-        secondStage.setTitle("Vendre crypto");
+        secondStage.setTitle("Vendre action");
         secondStage.setScene(scene);
         secondStage.show();
     }
@@ -152,5 +152,4 @@ public class VendreCrypto_Controller {
         derniereValeurTTLTableColumn.setCellValueFactory( new MapValueFactory<>("Dernière valeur totale"));
 
     }
-
 }
