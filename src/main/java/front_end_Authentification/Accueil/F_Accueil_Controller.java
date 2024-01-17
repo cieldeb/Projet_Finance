@@ -126,4 +126,11 @@ public class F_Accueil_Controller {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
+    @FXML
+    protected void deconnexionButton(ActionEvent e) throws IOException {
+        front_end_Authentification.F_Authentification_Controller.afficherAuthentification();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
 }

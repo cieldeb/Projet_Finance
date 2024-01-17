@@ -31,5 +31,6 @@
          </children>
       </HBox>
       <Button mnemonicParsing="false" onAction="#creerPortefeuilleButton" text="Créer un portefeuille" />
+      <Button mnemonicParsing="false" onAction="#deconnexionButton" text="Déconnexion" />
    </children>
 </VBox>

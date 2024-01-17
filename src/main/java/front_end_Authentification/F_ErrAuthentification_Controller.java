@@ -1,6 +1,9 @@
 package front_end_Authentification;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -16,5 +19,12 @@ public class F_ErrAuthentification_Controller {
         secondStage.setTitle("Erreur d'authentification");
         secondStage.setScene(scene);
         secondStage.show();
+    }
+    @FXML
+    protected  void okButton(ActionEvent e) throws IOException {
+        front_end_Authentification.F_Authentification_Controller.afficherAuthentification();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
 }

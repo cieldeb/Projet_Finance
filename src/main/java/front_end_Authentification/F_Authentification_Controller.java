@@ -2,9 +2,12 @@ package front_end_Authentification;
 
 import com.example.projet_finance.back_end.Entite.Entite;
 import front_end_Authentification.Accueil.F_Accueil_Controller;
+import front_end_Authentification.Actions.Application_Action;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -94,5 +97,15 @@ public class F_Authentification_Controller {
 
     public void setIdentifCurrentUser(String identifCurrentUser) {
         this.identifCurrentUser = identifCurrentUser;
+    }
+    public static void afficherAuthentification() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application_Action.class.getResource("/front_end_Authentification/F_Authentification.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        Stage secondStage = new Stage();
+
+        secondStage.setTitle("Authentification");
+        secondStage.setScene(scene);
+        secondStage.show();
     }
 }
