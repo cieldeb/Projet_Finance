@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +19,7 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <VBox alignment="CENTER" prefHeight="139.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="95.0" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
                <children>
@@ -30,12 +31,17 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="138.0" prefWidth="600.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
+            <VBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0">
                <children>
                   <Label text="Choissiez le compte à créditer :" />
                </children>
             </VBox>
             <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#simulerButton" text="Voir" />
+               </children>
+            </VBox>
          </children>
       </VBox>
       <TableView fx:id="cryptosTableView" prefHeight="161.0" prefWidth="600.0">
@@ -49,11 +55,12 @@
             <TableColumn fx:id="derniereValeurTTLTableColumn" prefWidth="154.0" text="Dernière valeur totale" />
          </columns>
       </TableView>
-      <Button fx:id="vendreButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="73.0" text="Vendre" />
+      <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="78.0" prefWidth="73.0" text="Vendre" />
       <HBox prefHeight="20.0" prefWidth="600.0">
          <children>
-            <Button fx:id="retourButton" mnemonicParsing="false" text="Retour" />
+            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
          </children>
       </HBox>
+      <Accordion />
    </children>
 </VBox>

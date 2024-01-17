@@ -1,6 +1,13 @@
 package com.example.projet_finance.back_end.Crypto;
 
+import front_end_Authentification.F_Authentification_Controller;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Crypto {
 
@@ -61,6 +68,60 @@ public class Crypto {
 
     public float getActuelleValeurTotale() {
         return actuelleValeurTotale;
+    }
+    public static void vendreCryptoJSON(String libelleCrypto, int ibanCompte, int valeurTransaction, String currentWallet){
+        F_Authentification_Controller authController = new F_Authentification_Controller();
+        String currentUser = authController.getIdentifCurrentUser();
+        try {
+            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
+
+            for (int i = 0; i < usersArray.length(); i++) {
+                JSONObject userObject = usersArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    //Suppression de la crypto.
+                    JSONArray portefeuilleArray = userObject.getJSONArray("PORTEFEUILLE");
+                    for (int k = 0 ; k<portefeuilleArray.length();k++){
+                        if (currentWallet.equals(portefeuilleArray.getJSONObject(k).getString("LIBELLE"))){
+                            JSONObject portefeuille = portefeuilleArray.getJSONObject(k);
+                            JSONArray cryptoArray = portefeuille.getJSONArray("CRYPTOS");
+                            for (int j = 0 ; j<cryptoArray.length() ; j++){
+                                JSONObject crypto = cryptoArray.getJSONObject(j);
+                                if (crypto.getString("Libellé").equals(libelleCrypto)){
+                                    cryptoArray.remove(j);
+                                }
+                            }
+                            portefeuille.put("CRYPTOS",cryptoArray);
+                            portefeuilleArray.put(k,portefeuille);
+
+
+                        }
+                    }
+
+                    //Mise à jour du solde du compte selectionné.
+                    JSONArray compteArray = userObject.getJSONArray("COMPTES");
+                    for (int j = 0 ; j<compteArray.length() ; j++){
+                        JSONObject compte = compteArray.getJSONObject(j);
+                        if (compte.getInt("IBAN") == ibanCompte){
+                            int solde = compte.getInt("SOLDE");
+                            compte.put("SOLDE", solde-valeurTransaction);
+                        }
+                    }
+
+                    try (FileWriter file = new FileWriter("files/listeinscrits.json")) {
+                        file.write(usersArray.toString(4));
+                        file.flush();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    break;
+
+                }
+            }
+
+        } catch (IOException | NumberFormatException f) {
+            f.printStackTrace();
+        }
+
     }
 }
 
