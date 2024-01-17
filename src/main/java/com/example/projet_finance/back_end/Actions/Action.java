@@ -3,6 +3,7 @@ package com.example.projet_finance.back_end.Actions;
 import org.json.JSONObject;
 
 public class Action {
+
     protected String name;
     protected String symbol;
     protected float initialValue;
@@ -11,6 +12,33 @@ public class Action {
     protected float valeurTotale;
     protected float actuelleValeurTotale;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public float getInitialValue() {
+        return initialValue;
+    }
+
+    public float getValue() {
+        return value;
+    }
+
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public float getValeurTotale() {
+        return valeurTotale;
+    }
+
+    public float getActuelleValeurTotale() {
+        return actuelleValeurTotale;
+    }
 
     public Action(String name,String symbol,float initialValue,float value,int quantite,float valeurTotale,float actuelleValeurTtl) {
         this.name = name;

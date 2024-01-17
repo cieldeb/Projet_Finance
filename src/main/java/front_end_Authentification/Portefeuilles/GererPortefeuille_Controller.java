@@ -3,8 +3,10 @@ package front_end_Authentification.Portefeuilles;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.Application_Action;
 import front_end_Authentification.F_Authentification_Controller;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,7 +30,11 @@ public class GererPortefeuille_Controller {
         libelleLabel.setText(selectedWallet.getName());
     }
     @FXML
-    protected void accederActionButton(){
+    protected void accederActionButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Actions.MainActionController.afficherMainActions();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
 
     }
     @FXML
@@ -36,8 +42,11 @@ public class GererPortefeuille_Controller {
 
     }
     @FXML
-    protected void retourButton(){
-
+    protected void retourButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
 
     public static void afficherGererPortefeuille() throws IOException {

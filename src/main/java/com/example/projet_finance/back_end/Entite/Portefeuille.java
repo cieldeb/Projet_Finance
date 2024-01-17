@@ -20,6 +20,7 @@ public class Portefeuille {
 
     protected String name;
     protected LinkedList<Compte> listeComptes;
+
     protected LinkedList<Action> listActions;
     protected LinkedList<Crypto> listCrypto;
     F_Authentification_Controller authController = new F_Authentification_Controller();
@@ -92,5 +93,8 @@ public class Portefeuille {
 
     public String getName() {
         return name;
+    }
+    public LinkedList<Action> getListActions() {
+        return listActions;
     }
 }

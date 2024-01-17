@@ -1,15 +1,17 @@
 package front_end_Authentification.Actions;
 
+import com.example.projet_finance.back_end.Actions.Action;
+import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.F_Authentification_Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,9 +24,15 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 
+import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+
 public class MainActionController {
+    protected static Portefeuille selectedWallet = getSelectedWallet();
     private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     @FXML
@@ -37,6 +45,44 @@ public class MainActionController {
     private Label rechercheInfoActionLabel;
     @FXML
     private Label erreurLabel;
+    @FXML
+    private TableColumn nomTableColumn;
+    @FXML
+    private TableColumn symboleTableColumn;
+    @FXML
+    private TableColumn quantiteTableColumn;
+    @FXML
+    private TableColumn valeurInitialeTableColumn;
+    @FXML
+    private TableColumn derniereValeurTableColumn;
+    @FXML
+    private TableColumn valeurTTLInitialeTableColumn;
+    @FXML
+    private TableColumn derniereValeurTTLTableColumn;
+    @FXML
+    TableView<Map<String, Object>> actionsTableView;
+    @FXML
+    private void initialize(){
+        setUpTableColumn();
+        LinkedList<Action> listActionsFromWallet = selectedWallet.getListActions();
+        ObservableList<Map<String, Object>> listActions = FXCollections.observableArrayList();
+        for (int i = 0 ; i < listActionsFromWallet.size() ; i++ ){
+            Action action = listActionsFromWallet.get(i);
+            Map<String, Object> actionRow = new HashMap<>();
+            actionRow.put("Nom",action.getName());
+            actionRow.put("Symbole",action.getSymbol());
+            actionRow.put("Valeur Initiale",action.getInitialValue());
+            actionRow.put("Dernière valeur",action.getValue());
+            actionRow.put("Quantité",action.getQuantite());
+            actionRow.put("Valeur Totale initiale",action.getValeurTotale());
+            actionRow.put("Dernière valeur totale",action.getActuelleValeurTotale());
+            listActions.add(actionRow);
+        }
+        actionsTableView.setItems(listActions);
+
+
+
+    }
     @FXML
     protected void chercherButton(){
         if (symboleCheckBox.isSelected() && !valeurCheckBox.isSelected()){
@@ -132,6 +178,16 @@ public class MainActionController {
         secondStage.setTitle("Actions");
         secondStage.setScene(scene);
         secondStage.show();
+    }
+    private void setUpTableColumn(){
+        nomTableColumn.setCellValueFactory( new MapValueFactory<>("Nom"));
+        symboleTableColumn.setCellValueFactory( new MapValueFactory<>("Symbole"));
+        quantiteTableColumn.setCellValueFactory( new MapValueFactory<>("Quantité"));
+        valeurInitialeTableColumn.setCellValueFactory( new MapValueFactory<>("Valeur Initiale"));
+        derniereValeurTableColumn.setCellValueFactory( new MapValueFactory<>("Dernière valeur"));
+        valeurTTLInitialeTableColumn.setCellValueFactory( new MapValueFactory<>("Valeur Totale initiale"));
+        derniereValeurTTLTableColumn.setCellValueFactory( new MapValueFactory<>("Dernière valeur totale"));
+
     }
 }
 
