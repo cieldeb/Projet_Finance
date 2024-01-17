@@ -16,14 +16,15 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
+import static java.lang.Integer.sum;
 
 public class F_NewAccount_Controller {
     F_Authentification_Controller authController = new F_Authentification_Controller();
@@ -73,7 +74,7 @@ public class F_NewAccount_Controller {
         JSONArray jsonArray = new JSONArray(jsonContent);
 
         JSONObject newAccount = new JSONObject();
-        newAccount.put("SOLDE", "+" + solde);
+        newAccount.put("SOLDE", solde);
         newAccount.put("TYPE", type);
 
         int iban;
@@ -123,6 +124,33 @@ public class F_NewAccount_Controller {
                 jsonWriter.write(jsonArray.toString(4));
             }
         }
+
+        //
+        File transFile = new File("files/transactions.json");
+        JSONArray transArray = new JSONArray(new String(Files.readAllBytes(Paths.get(transFile.getPath()))));
+
+
+        JSONObject newIbanObject = new JSONObject();
+        newIbanObject.put("IBAN", iban);
+        JSONArray newTransacArray = new JSONArray();
+
+        JSONObject newTransaction = new JSONObject();
+        newTransaction.put("ID", 1);
+        newTransaction.put("EMETTEUR", 99999);
+        System.out.println("Iban ajouté: " + iban);
+        newTransaction.put("RECEPTEUR", iban);
+        newTransaction.put("MONTANT", solde);
+        newTransaction.put("SOLDE", solde);
+        newTransacArray.put(newTransaction);
+
+        newIbanObject.put("TRANSACTIONS", newTransacArray);
+        transArray.put(newIbanObject);
+
+        try (BufferedWriter transWriter = new BufferedWriter(new FileWriter(transFile))) {
+            transWriter.write(transArray.toString(4));
+        }
+
+        F_gererCompte_Controller.afficher_F_gererCompte();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

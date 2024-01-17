@@ -104,6 +104,23 @@ public class F_Virement_Controller {
                 JSONObject userObject = jsonArray.getJSONObject(i);
                 if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
                     JSONArray destArray = userObject.optJSONArray("DESTINATAIRES");
+                    JSONArray comptesArray = userObject.optJSONArray("COMPTES");
+
+                    //Récupération des comptes de destinataires extérieurs
+
+                    if (comptesArray != null){
+                        for(int l = 0; l < comptesArray.length(); l++){
+                            JSONObject entry = comptesArray.getJSONObject((l));
+                            String iban = entry.optString("IBAN");
+
+                            StringBuilder displayValue = new StringBuilder("Interne - ");
+                            displayValue.append("IBAN: ").append(iban).append(" ");
+                            vir_dest.getItems().add(displayValue.toString().trim());
+                            System.out.println("Ajouté à la combobox des destinataires " + displayValue);
+                        }
+                    }
+
+                    //Récupération des comptes de destinataires extérieurs
 
                     if (destArray != null) {
                         for (int j = 0; j < destArray.length(); j++) {
@@ -114,7 +131,7 @@ public class F_Virement_Controller {
                             StringBuilder displayValue = new StringBuilder(id + " - ");
                             displayValue.append("IBAN: ").append(iban).append(" ");
                             vir_dest.getItems().add(displayValue.toString().trim());
-                            System.out.println("Contenu de la combobox des destinataires" + displayValue);
+                            System.out.println("Ajouté à la combobox des destinataires " + displayValue);
                         }
                     }
                 }
@@ -172,11 +189,11 @@ public class F_Virement_Controller {
                             int type = account.optInt("TYPE");
                             System.out.println("Type : " + type);
 
-                            StringBuilder displayValue = new StringBuilder("Compte " + j + " ");
+                            StringBuilder displayValue = new StringBuilder("Compte ");
                             if (type == 1){
-                                displayValue.append(" - Courant - n° " + account.optInt("IBAN"));
+                                displayValue.append("Courant n° " + account.optInt("IBAN"));
                             } else if (type == 2){
-                                displayValue.append(" - Epargne - n° " + account.optInt("IBAN"));
+                                displayValue.append("Epargne n° " + account.optInt("IBAN"));
                             }
                             vir_account.getItems().add(displayValue.toString().trim());
                         }

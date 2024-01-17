@@ -64,11 +64,11 @@ public class F_gererCompte_Controller {
                             int type = account.optInt("TYPE");
                             System.out.println("Type : " + type);
 
-                            StringBuilder displayValue = new StringBuilder("Compte " + j + " ");
+                            StringBuilder displayValue = new StringBuilder("Compte ");
                             if (type == 1){
-                                displayValue.append(" - Courant - n° " + account.optInt("IBAN"));
+                                displayValue.append("Courant n° " + account.optInt("IBAN"));
                             } else if (type == 2){
-                                displayValue.append(" - Epargne - n° " + account.optInt("IBAN"));
+                                displayValue.append("Epargne n° " + account.optInt("IBAN"));
                             }
                             compteAffiche.getItems().add(displayValue.toString().trim());
                         }
