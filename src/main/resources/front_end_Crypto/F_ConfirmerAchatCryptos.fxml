@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="188.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Crypto_Front.ConfirmerAchatCrypto_Controller">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Crypto_Front.ConfirmerAchatCrypto_Controller">
    <children>
       <Label text="Confirmation d'achat">
          <font>
@@ -18,7 +18,8 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <HBox alignment="CENTER" prefHeight="78.0" prefWidth="446.0">
+      <Label fx:id="recapLabel" alignment="CENTER" prefHeight="60.0" prefWidth="397.0" wrapText="true" />
+      <HBox alignment="CENTER" prefHeight="66.0" prefWidth="445.0">
          <children>
             <VBox alignment="CENTER" prefHeight="50.0" prefWidth="220.0">
                <children>
@@ -41,7 +42,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <ComboBox fx:id="compteCredite" prefHeight="26.0" prefWidth="331.0">
+                  <ComboBox fx:id="compteCredite" onAction="#compteCredite" prefHeight="26.0" prefWidth="331.0">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -56,7 +57,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <HBox prefHeight="34.0" prefWidth="455.0">
+      <HBox prefHeight="21.0" prefWidth="455.0">
          <children>
             <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
                <HBox.margin>
