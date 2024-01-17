@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -19,29 +18,29 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <VBox alignment="CENTER" prefHeight="95.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="110.0" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
                <children>
                   <Label text="Choissiez la crypto monnaie à vendre :" />
                </children>
             </VBox>
-            <ChoiceBox fx:id="cryptoChoiceBox" prefHeight="50.0" prefWidth="245.0" />
+            <ChoiceBox fx:id="cryptoChoiceBox" prefHeight="31.0" prefWidth="245.0" />
          </children>
       </VBox>
       <VBox alignment="CENTER" prefHeight="138.0" prefWidth="600.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0">
+            <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
                <children>
                   <Label text="Choissiez le compte à créditer :" />
                </children>
             </VBox>
             <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#simulerButton" text="Voir" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#simulerButton" text="Voir" />
                </children>
-            </VBox>
+            </HBox>
          </children>
       </VBox>
       <TableView fx:id="cryptosTableView" prefHeight="161.0" prefWidth="600.0">
@@ -61,6 +60,5 @@
             <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
          </children>
       </HBox>
-      <Accordion />
    </children>
 </VBox>
