@@ -28,14 +28,67 @@
             },
             {
                 "IBAN": 773451,
-                "SOLDE": 52,
+                "SOLDE": 40,
                 "TYPE": 2
+            },
+            {
+                "IBAN": 134502,
+                "SOLDE": 59,
+                "TYPE": 1
+            },
+            {
+                "IBAN": 882215,
+                "SOLDE": 58,
+                "TYPE": 1
             }
         ],
         "TELEPHONE": "s",
         "MAIL": "s",
         "IDENTIFIANT": "s",
         "MOT DE PASSE": "s",
+        "PORTEFEUILLE": [{
+            "ACTIONS": [
+                {
+                    "Symbole": "s1",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "s1",
+                    "Quantité": 43,
+                    "Valeur initiale": 784,
+                    "Dernière valeur": -1
+                },
+                {
+                    "Symbole": "s2",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "s2",
+                    "Quantité": 5,
+                    "Valeur initiale": 8,
+                    "Dernière valeur": -1
+                }
+            ],
+            "LIBELLE": "bn",
+            "CRYPTOS": [
+                {
+                    "Symbole": "bn",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "nb",
+                    "Quantité": 43,
+                    "Valeur initiale": 4534,
+                    "Dernière valeur": -1
+                },
+                {
+                    "Symbole": "ty",
+                    "Dernière valeur totale": -1,
+                    "Valeur totale à l'achat": -1,
+                    "Libellé": "ty",
+                    "Quantité": 5,
+                    "Valeur initiale": 5,
+                    "Dernière valeur": -1
+                }
+            ]
+        }],
         "DESTINATAIRES": [
             {
                 "IBAN": 295828,
@@ -52,6 +105,10 @@
             {
                 "IBAN": 452652,
                 "NOM": "l"
+            },
+            {
+                "IBAN": 282089,
+                "NOM": "bn"
             }
         ]
     },
@@ -71,15 +128,26 @@
         }]
     },
     {
-        "COMPTES": [{
-            "IBAN": 883250,
-            "SOLDE": 214,
-            "TYPE": 2
-        }],
+        "COMPTES": [
+            {
+                "IBAN": 883250,
+                "SOLDE": 709,
+                "TYPE": 2
+            },
+            {
+                "IBAN": 991852,
+                "SOLDE": 89,
+                "TYPE": 1
+            }
+        ],
         "TELEPHONE": "t",
         "MAIL": "t",
         "IDENTIFIANT": "t",
-        "MOT DE PASSE": "t"
+        "MOT DE PASSE": "t",
+        "DESTINATAIRES": [{
+            "IBAN": 883250,
+            "NOM": "t"
+        }]
     },
     {
         "COMPTES": [
@@ -135,17 +203,17 @@
         "COMPTES": [
             {
                 "IBAN": 953091,
-                "SOLDE": "+85",
+                "SOLDE": 85,
                 "TYPE": 1
             },
             {
                 "IBAN": 764203,
-                "SOLDE": "+435",
+                "SOLDE": 85,
                 "TYPE": 2
             },
             {
                 "IBAN": 576212,
-                "SOLDE": "+78",
+                "SOLDE": 78,
                 "TYPE": 1
             }
         ],
@@ -159,6 +227,11 @@
         }]
     },
     {
+        "COMPTES": [{
+            "IBAN": 503232,
+            "SOLDE": 45,
+            "TYPE": 1
+        }],
         "TELEPHONE": "lm",
         "MAIL": "lm",
         "IDENTIFIANT": "lm",
@@ -218,7 +291,7 @@
     {
         "COMPTES": [{
             "IBAN": 529928,
-            "SOLDE": "+85",
+            "SOLDE": 85,
             "TYPE": 1
         }],
         "TELEPHONE": "Gabriel",
@@ -273,7 +346,11 @@
         }]
     },
     {
-        "COMPTES": [],
+        "COMPTES": [{
+            "IBAN": 282089,
+            "SOLDE": 68,
+            "TYPE": 1
+        }],
         "TELEPHONE": "bn",
         "MAIL": "bn",
         "IDENTIFIANT": "bn",

@@ -2,6 +2,7 @@ package front_end_Authentification.Actions;
 
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
+import front_end_Authentification.Portefeuilles.GererPortefeuille_Controller;
 import front_end_Authentification.F_Authentification_Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -148,7 +149,7 @@ public class MainActionController {
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
-        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        GererPortefeuille_Controller.afficherGererPortefeuille();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

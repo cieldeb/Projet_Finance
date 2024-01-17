@@ -5,6 +5,7 @@ import com.example.projet_finance.back_end.Crypto.Crypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Actions.Application_Action;
+import front_end_Authentification.Portefeuilles.GererPortefeuille_Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -156,7 +157,7 @@ public class MainCryptoController {
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {
-        front_end_Authentification.Accueil.F_Accueil_Controller.afficher_F_Accueil();
+        GererPortefeuille_Controller.afficherGererPortefeuille();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();

@@ -43,7 +43,7 @@
                   <Insets bottom="2.5" left="5.0" right="5.0" top="2.5" />
                </HBox.margin>
             </Text>
-            <ComboBox fx:id="compteAffiche" onAction="#compteAfficheSelectionne" prefWidth="150.0">
+            <ComboBox fx:id="compteAffiche" onAction="#compteAfficheSelectionne" prefHeight="25.0" prefWidth="220.0">
                <HBox.margin>
                   <Insets bottom="2.5" left="5.0" right="5.0" top="2.5" />
                </HBox.margin>
