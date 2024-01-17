@@ -424,7 +424,7 @@ public class F_Virement_Controller {
             f.printStackTrace();
         }
 
-
+        F_gererCompte_Controller.afficher_F_gererCompte();
         Node button = (Node) e.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
