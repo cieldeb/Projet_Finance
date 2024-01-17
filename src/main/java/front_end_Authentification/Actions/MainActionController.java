@@ -80,8 +80,6 @@ public class MainActionController {
         }
         actionsTableView.setItems(listActions);
 
-
-
     }
     @FXML
     protected void chercherButton(){

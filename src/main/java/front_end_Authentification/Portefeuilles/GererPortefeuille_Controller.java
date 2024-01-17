@@ -38,8 +38,11 @@ public class GererPortefeuille_Controller {
 
     }
     @FXML
-    protected void accederCryptoButton(){
-
+    protected void accederCryptoButton(ActionEvent e) throws IOException {
+        front_end_Authentification.Crypto_Front.MainCryptoController.afficherMainCryptos();
+        Node button = (Node) e.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
     @FXML
     protected void retourButton(ActionEvent e) throws IOException {

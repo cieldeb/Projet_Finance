@@ -48,13 +48,15 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TableView prefHeight="161.0" prefWidth="600.0">
+      <TableView fx:id="cryptosTableView" prefHeight="161.0" prefWidth="600.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="Nom" />
-            <TableColumn prefWidth="75.0" text="Symbole" />
-            <TableColumn prefWidth="75.0" text="Valeur" />
-            <TableColumn prefWidth="75.0" text="Quantité" />
-            <TableColumn prefWidth="89.0" text="Valeur Totale" />
+            <TableColumn fx:id="nomTableColumn" prefWidth="75.0" text="Nom" />
+            <TableColumn fx:id="symboleTableColumn" prefWidth="75.0" text="Symbole" />
+            <TableColumn fx:id="quantiteTableColumn" prefWidth="77.0" text="Quantité" />
+            <TableColumn fx:id="valeurInitialeTableColumn" prefWidth="108.0" text="Valeur Initiale" />
+            <TableColumn fx:id="derniereValeurTableColumn" prefWidth="104.0" text="Dernière valeur" />
+            <TableColumn fx:id="valeurTTLInitialeTableColumn" prefWidth="149.0" text="Valeur Totale initiale" />
+            <TableColumn fx:id="derniereValeurTTLTableColumn" prefWidth="154.0" text="Dernière valeur totale" />
          </columns>
       </TableView>
       <HBox alignment="CENTER" prefHeight="71.0" prefWidth="660.0">

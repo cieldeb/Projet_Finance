@@ -1,15 +1,19 @@
 package front_end_Authentification.Crypto_Front;
 
+import com.example.projet_finance.back_end.Actions.Action;
+import com.example.projet_finance.back_end.Crypto.Crypto;
+import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Actions.Application_Action;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import org.json.JSONObject;
 
@@ -18,9 +22,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 
+import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+
 public class MainCryptoController {
+    protected static Portefeuille selectedWallet = getSelectedWallet();
     private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     @FXML
@@ -33,6 +43,45 @@ public class MainCryptoController {
     private Label rechercheInfoCryptoLabel;
     @FXML
     private Label erreurLabel;
+    @FXML
+    private TableColumn nomTableColumn;
+    @FXML
+    private TableColumn symboleTableColumn;
+    @FXML
+    private TableColumn quantiteTableColumn;
+    @FXML
+    private TableColumn valeurInitialeTableColumn;
+    @FXML
+    private TableColumn derniereValeurTableColumn;
+    @FXML
+    private TableColumn valeurTTLInitialeTableColumn;
+    @FXML
+    private TableColumn derniereValeurTTLTableColumn;
+    @FXML
+    TableView<Map<String, Object>> cryptosTableView;
+    @FXML
+    private void initialize(){
+        setUpTableColumn();
+        LinkedList<Crypto> listCryptosFromWallet = selectedWallet.getListCrypto();
+        ObservableList<Map<String, Object>> listCryptos = FXCollections.observableArrayList();
+        for (int i = 0 ; i < listCryptosFromWallet.size() ; i++ ){
+            Crypto crypto = listCryptosFromWallet.get(i);
+            Map<String, Object> cryptoRow = new HashMap<>();
+            cryptoRow.put("Nom",crypto.getName());
+            cryptoRow.put("Symbole",crypto.getSymbol());
+            cryptoRow.put("Valeur Initiale",crypto.getInitialValue());
+            cryptoRow.put("Dernière valeur",crypto.getValue());
+            cryptoRow.put("Quantité",crypto.getQuantite());
+            cryptoRow.put("Valeur Totale initiale",crypto.getValeurTotale());
+            cryptoRow.put("Dernière valeur totale",crypto.getActuelleValeurTotale());
+            listCryptos.add(cryptoRow);
+        }
+        cryptosTableView.setItems(listCryptos);
+
+
+
+    }
+
     @FXML
     protected void chercherButton(){
         if (symboleCheckBox.isSelected() && !valeurCheckBox.isSelected()){
@@ -135,5 +184,15 @@ public class MainCryptoController {
         secondStage.setTitle("Actions");
         secondStage.setScene(scene);
         secondStage.show();
+    }
+    private void setUpTableColumn(){
+        nomTableColumn.setCellValueFactory( new MapValueFactory<>("Nom"));
+        symboleTableColumn.setCellValueFactory( new MapValueFactory<>("Symbole"));
+        quantiteTableColumn.setCellValueFactory( new MapValueFactory<>("Quantité"));
+        valeurInitialeTableColumn.setCellValueFactory( new MapValueFactory<>("Valeur Initiale"));
+        derniereValeurTableColumn.setCellValueFactory( new MapValueFactory<>("Dernière valeur"));
+        valeurTTLInitialeTableColumn.setCellValueFactory( new MapValueFactory<>("Valeur Totale initiale"));
+        derniereValeurTTLTableColumn.setCellValueFactory( new MapValueFactory<>("Dernière valeur totale"));
+
     }
 }

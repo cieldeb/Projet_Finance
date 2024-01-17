@@ -36,7 +36,7 @@ public class F_Accueil_Controller {
     @FXML
     protected ComboBox<String> portefeuilleComboBoxAffiche;
     @FXML
-    protected void portefeuilleComboBox(){
+    protected void portefeuilleComboBox(ActionEvent p) throws IOException{
         String selectedWalletComboBox = portefeuilleComboBoxAffiche.getValue();
         if (selectedWalletComboBox != "Sélectionnez") {
             try {
@@ -73,6 +73,9 @@ public class F_Accueil_Controller {
                 e.printStackTrace();
             }
         }
+        Node button = (Node) p.getSource();
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
     }
     @FXML
     private void initialize() throws IOException{

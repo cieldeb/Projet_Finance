@@ -97,4 +97,7 @@ public class Portefeuille {
     public LinkedList<Action> getListActions() {
         return listActions;
     }
+    public LinkedList<Crypto> getListCrypto() {
+        return listCrypto;
+    }
 }
