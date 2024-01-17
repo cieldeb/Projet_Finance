@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Crypto_Front.VendreCrypto_Controller">
+   <children>
+      <Label text="Vendre de la crypto">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <VBox alignment="CENTER" prefHeight="139.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
+               <children>
+                  <Label text="Choissiez la crypto monnaie à vendre :" />
+               </children>
+            </VBox>
+            <ChoiceBox fx:id="cryptoChoiceBox" prefHeight="50.0" prefWidth="245.0" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="138.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
+               <children>
+                  <Label text="Choissiez le compte à créditer :" />
+               </children>
+            </VBox>
+            <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0" />
+         </children>
+      </VBox>
+      <TableView fx:id="cryptosTableView" prefHeight="161.0" prefWidth="600.0">
+         <columns>
+            <TableColumn fx:id="nomTableColumn" prefWidth="75.0" text="Nom" />
+            <TableColumn fx:id="symboleTableColumn" prefWidth="75.0" text="Symbole" />
+            <TableColumn fx:id="quantiteTableColumn" prefWidth="77.0" text="Quantité" />
+            <TableColumn fx:id="valeurInitialeTableColumn" prefWidth="108.0" text="Valeur Initiale" />
+            <TableColumn fx:id="derniereValeurTableColumn" prefWidth="104.0" text="Dernière valeur" />
+            <TableColumn fx:id="valeurTTLInitialeTableColumn" prefWidth="149.0" text="Valeur Totale initiale" />
+            <TableColumn fx:id="derniereValeurTTLTableColumn" prefWidth="154.0" text="Dernière valeur totale" />
+         </columns>
+      </TableView>
+      <Button fx:id="vendreButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="73.0" text="Vendre" />
+      <HBox prefHeight="20.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="retourButton" mnemonicParsing="false" text="Retour" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
