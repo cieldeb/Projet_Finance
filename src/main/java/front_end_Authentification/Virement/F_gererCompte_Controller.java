@@ -2,13 +2,16 @@ package front_end_Authentification.Virement;
 
 import front_end_Authentification.Application;
 import front_end_Authentification.F_Authentification_Controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.AccessibleAttribute;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.paint.Color;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class F_gererCompte_Controller {
     F_Authentification_Controller authController = new F_Authentification_Controller();
@@ -28,7 +33,21 @@ public class F_gererCompte_Controller {
     @FXML
     private ComboBox<String> compteAffiche;
     @FXML
+    private TableView<Map<String, Object>> tableTransactions;
+    @FXML
+    private TableColumn idCol;
+    @FXML
+    private TableColumn emetteurCol;
+    @FXML
+    private TableColumn recepteurCol;
+    @FXML
+    private TableColumn montantCol;
+    @FXML
+    private TableColumn newSoldeCol;
+
+    @FXML
     private void initialize(){
+        tableTransactions.setPlaceholder(new Label("Ce compte n'a effectué aucune transaction"));
         compteAffiche.setVisibleRowCount(3);
         try {
             File jsonFile = new File("files/listeinscrits.json");
@@ -98,17 +117,46 @@ public class F_gererCompte_Controller {
     }
     @FXML
     protected void compteAfficheSelectionne() throws FileNotFoundException {
-        String selectedAccount = compteAffiche.getValue();
+        String compte = compteAffiche.getValue();
+        String[] parts = compte.split("n° ");
+        String compteObserve = parts[1];
         try {
             JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
+            ObservableList<Map<String, Object>> transactions = FXCollections.observableArrayList();
+
             for (int i = 0; i < entryArray.length(); i++) {
-                JSONObject userObject = entryArray.getJSONObject(i);
-                if (userObject.optString("IBAN").equals(currentUser)) {
-                    JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
+                JSONObject accountObject = entryArray.getJSONObject(i);
+                if (accountObject.optString("IBAN").equals(compteObserve)) {
+                    JSONArray transacArray = accountObject.optJSONArray("TRANSACTIONS");
+
+                    for (int j = transacArray.length() - 1; j > - 1 ; j--) {
+                        JSONObject transactionObject = transacArray.getJSONObject(j);
+                        Map<String, Object> rowData = new HashMap<>();
+
+                        rowData.put("ID", transactionObject.optInt("ID"));
+                        rowData.put("RECEPTEUR", transactionObject.optInt("RECEPTEUR"));
+                        rowData.put("EMETTEUR", transactionObject.optInt("EMETTEUR"));
+                        rowData.put("SOLDE", transactionObject.optDouble("SOLDE"));
+                        rowData.put("MONTANT", transactionObject.optDouble("MONTANT"));
+
+                        transactions.add(rowData);
+                    }
+                    break;
                 }
             }
+
+            setupTableColumns();
+            tableTransactions.setItems(transactions);
+
         } catch (JSONException | FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    private void setupTableColumns() {
+        idCol.setCellValueFactory(new MapValueFactory<>("ID"));
+        emetteurCol.setCellValueFactory(new MapValueFactory<>("EMETTEUR"));
+        recepteurCol.setCellValueFactory(new MapValueFactory<>("RECEPTEUR"));
+        montantCol.setCellValueFactory(new MapValueFactory<>("MONTANT"));
+        newSoldeCol.setCellValueFactory(new MapValueFactory<>("SOLDE"));
     }
 }
