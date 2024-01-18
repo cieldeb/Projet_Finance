@@ -551,7 +551,7 @@
     {
         "COMPTES": [{
             "IBAN": 282089,
-            "SOLDE": 80457,
+            "SOLDE": 80283,
             "TYPE": 1
         }],
         "TELEPHONE": "bn",
@@ -570,13 +570,13 @@
                     "Dernière valeur": -1
                 },
                 {
-                    "Symbole": "ty",
-                    "Dernière valeur totale": -1,
-                    "Valeur totale à l'achat": -1,
-                    "Libellé": "ty",
-                    "Quantité": 5,
-                    "Valeur initiale": 8,
-                    "Dernière valeur": -1
+                    "Symbole": "AAPL",
+                    "Dernière valeur totale": 182.47,
+                    "Valeur totale à l'achat": 182.47,
+                    "Libellé": "test1",
+                    "Quantité": 1,
+                    "Valeur initiale": 182.47,
+                    "Dernière valeur": 182.47
                 }
             ],
             "LIBELLE": "bn",
@@ -604,7 +604,7 @@
                     "Dernière valeur totale": 3.41613,
                     "Valeur totale à l'achat": 3.41613,
                     "Libellé": "test9",
-                    "Quantité": 9.0E-5,
+                    "Quantité": 0.00009,
                     "Valeur initiale": 37957,
                     "Dernière valeur": 37957
                 }

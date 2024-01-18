@@ -53,7 +53,7 @@ public class CreerPortefeuille_Controller {
     }
     @FXML
     protected void ajouterActionButton(){
-        listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurATextField.getText()), -1 , parseInt(quantiteATextField.getText()),-1,-1));
+        listActionsTemporaire.add(new Action(libelleATextField.getText(), symboleATextField.getText(), parseFloat(valeurATextField.getText()), parseFloat(valeurATextField.getText()) , parseInt(quantiteATextField.getText()),parseInt(quantiteATextField.getText())*parseFloat(valeurATextField.getText()),parseInt(quantiteATextField.getText())*parseFloat(valeurATextField.getText())));
         libelleATextField.clear();
         symboleATextField.clear();
         valeurATextField.clear();
@@ -62,7 +62,7 @@ public class CreerPortefeuille_Controller {
     }
     @FXML
     protected void ajouterCryptoButton(){
-        listCryptoTemporaire.add(new Crypto(libelleCTextField.getText(), symboleCTextField.getText(), parseFloat(valeurCTextField.getText()), -1 , parseInt(quantiteCTextField.getText()),-1,-1));
+        listCryptoTemporaire.add(new Crypto(libelleCTextField.getText(), symboleCTextField.getText(), parseFloat(valeurCTextField.getText()), parseFloat(valeurCTextField.getText()) , parseInt(quantiteCTextField.getText()),parseFloat(valeurCTextField.getText())*parseInt(quantiteCTextField.getText()),parseFloat(valeurCTextField.getText())*parseInt(quantiteCTextField.getText())));
         libelleCTextField.clear();
         symboleCTextField.clear();
         valeurCTextField.clear();
