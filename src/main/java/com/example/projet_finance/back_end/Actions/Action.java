@@ -101,7 +101,7 @@ public class Action {
                         JSONObject compte = compteArray.getJSONObject(j);
                         if (compte.getInt("IBAN") == ibanCompte){
                             int solde = compte.getInt("SOLDE");
-                            compte.put("SOLDE", solde-valeurTransaction);
+                            compte.put("SOLDE", solde+valeurTransaction);
                         }
                     }
 

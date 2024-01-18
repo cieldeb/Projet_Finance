@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,7 +30,9 @@ import java.util.Map;
 
 import static com.example.projet_finance.back_end.Crypto.Crypto.vendreCryptoJSON;
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.sum;
 
 public class VendreCrypto_Controller {
     protected static Portefeuille selectedWallet = getSelectedWallet();
@@ -118,6 +121,54 @@ public class VendreCrypto_Controller {
                 System.out.println(valeurTransaction);
             }
         }
+
+        //Ajout de la transaction dans la partie TRANSACTIONS de l'iban sélectionné dans transactions.json
+
+        try {
+            JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
+            for (int i = 0; i < entryArray.length(); i++) {
+                JSONObject userObject = entryArray.getJSONObject(i);
+                if (Math.round(userObject.optInt("IBAN")) == Integer.parseInt(selectedCompte)) {
+                    JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
+                    int newID = getNextAvailableID(transacArray);
+
+                    int indexMontantBase = transacArray.length();
+                    Object montantBase = transacArray.toList().get(indexMontantBase - 1);
+                    String montantBaseStr = montantBase.toString();
+                    String[] part1 = montantBaseStr.split(", ");
+                    String extractedAmount = "";
+                    for (String part2 : part1) {
+                        if (part2.startsWith("SOLDE=")) {
+                            extractedAmount = part2.substring("SOLDE=".length());
+                            break;
+                        }
+                    }
+
+                    JSONObject newTransaction = new JSONObject();
+                    newTransaction.put("ID", newID);
+                    newTransaction.put("EMETTEUR", 67890);
+                    newTransaction.put("RECEPTEUR", Integer.parseInt(selectedCompte));
+                    newTransaction.put("MONTANT", valeurTransaction);
+                    System.out.println(extractedAmount);
+                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), (int) valeurTransaction);
+                    newTransaction.put("SOLDE",  newSoldeRecepteur);
+
+                    transacArray.put(newTransaction);
+
+                    userObject.put("TRANSACTIONS", transacArray);
+                    break;
+                }
+            }
+            try (FileWriter file = new FileWriter("files/transactions.json")) {
+                file.write(entryArray.toString(4));
+
+            } catch (IOException f) {
+                f.printStackTrace();
+            }
+        } catch (Exception j) {
+            j.printStackTrace();
+        }
+
         vendreCryptoJSON(selectedCrypto,parseInt(selectedCompte),Math.round(valeurTransaction),selectedWallet.getName());
         front_end_Authentification.Crypto_Front.MainCryptoController.afficherMainCryptos();
         Node button = (Node) e.getSource();
