@@ -18,9 +18,10 @@ import org.json.JSONTokener;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 
 public class GererPortefeuille_Controller {
+
     protected static Portefeuille selectedWallet = getSelectedWallet();
     @FXML
     protected Label libelleLabel;
@@ -28,6 +29,7 @@ public class GererPortefeuille_Controller {
     @FXML
     private void initialize(){
         libelleLabel.setText(selectedWallet.getName());
+        mettreAjoursellectedWallet(getNomWallet());
     }
     @FXML
     protected void accederActionButton(ActionEvent e) throws IOException {

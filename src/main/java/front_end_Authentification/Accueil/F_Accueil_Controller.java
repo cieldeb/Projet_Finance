@@ -25,56 +25,64 @@ import java.util.LinkedList;
 import static front_end_Authentification.Portefeuilles.GererPortefeuille_Controller.afficherGererPortefeuille;
 
 public class F_Accueil_Controller {
-    F_Authentification_Controller authController = new F_Authentification_Controller();
-    String currentUser = authController.getIdentifCurrentUser();
+    static F_Authentification_Controller authController = new F_Authentification_Controller();
+    static String currentUser = authController.getIdentifCurrentUser();
 
     public static Portefeuille getSelectedWallet() {
         return selectedWallet;
     }
     protected static Portefeuille selectedWallet;
+
+
+    public static String nomWallet;
     private static String walletSorti;
     @FXML
     protected ComboBox<String> portefeuilleComboBoxAffiche;
+
+    public static void mettreAjoursellectedWallet(String nomWallet){
+        try {
+            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
+            for (int i = 0; i < usersArray.length(); i++) {
+                JSONObject userObject = usersArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray portefeuille = userObject.getJSONArray("PORTEFEUILLE");
+                    for (int j = 0  ; j < portefeuille.length() ; j++){
+                        if (nomWallet.equals(portefeuille.getJSONObject(j).getString("LIBELLE"))){
+                            LinkedList<Action> listActionWalletSelected = new LinkedList<>();
+                            JSONArray actions = portefeuille.getJSONObject(j).getJSONArray("ACTIONS");
+                            for (int k = 0 ; k<actions.length() ; k++){
+                                Action action = new Action(actions.getJSONObject(k).getString("Libellé"),actions.getJSONObject(k).getString("Symbole"),actions.getJSONObject(k).getFloat("Valeur initiale"),actions.getJSONObject(k).getFloat("Dernière valeur"),actions.getJSONObject(k).getInt("Quantité"),actions.getJSONObject(k).getFloat("Valeur totale à l'achat"),actions.getJSONObject(k).getFloat("Dernière valeur totale"));
+                                listActionWalletSelected.add(action);
+                            }
+                            LinkedList<Crypto> listCryptoWalletSelected = new LinkedList<>();
+                            JSONArray cryptos = portefeuille.getJSONObject(j).getJSONArray("CRYPTOS");
+                            for (int k = 0 ; k<cryptos.length() ; k++){
+                                Crypto crypto = new Crypto(cryptos.getJSONObject(k).getString("Libellé"),cryptos.getJSONObject(k).getString("Symbole"),cryptos.getJSONObject(k).getFloat("Valeur initiale"),cryptos.getJSONObject(k).getFloat("Dernière valeur"),cryptos.getJSONObject(k).getFloat("Quantité"),cryptos.getJSONObject(k).getFloat("Valeur totale à l'achat"),cryptos.getJSONObject(k).getFloat("Dernière valeur totale"));
+                                listCryptoWalletSelected.add(crypto);
+
+                            }
+
+                            selectedWallet = new Portefeuille(portefeuille.getJSONObject(j).getString("LIBELLE"),listActionWalletSelected,listCryptoWalletSelected);
+                            break;
+                        }
+                    }
+
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+    }
     @FXML
     protected void portefeuilleComboBox(ActionEvent p) throws IOException{
         String selectedWalletComboBox = portefeuilleComboBoxAffiche.getValue();
         System.out.print("Selected wallet: " + selectedWalletComboBox);
-        walletSorti = selectedWalletComboBox;
-        if (selectedWalletComboBox != "Sélectionnez") {
-            try {
-                JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
-                for (int i = 0; i < usersArray.length(); i++) {
-                    JSONObject userObject = usersArray.getJSONObject(i);
-                    if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
-                        JSONArray portefeuille = userObject.getJSONArray("PORTEFEUILLE");
-                        for (int j = 0  ; j < portefeuille.length() ; j++){
-                            if (selectedWalletComboBox.equals(portefeuille.getJSONObject(j).getString("LIBELLE"))){
-                                LinkedList<Action> listActionWalletSelected = new LinkedList<>();
-                                JSONArray actions = portefeuille.getJSONObject(j).getJSONArray("ACTIONS");
-                                for (int k = 0 ; k<actions.length() ; k++){
-                                    Action action = new Action(actions.getJSONObject(k).getString("Libellé"),actions.getJSONObject(k).getString("Symbole"),actions.getJSONObject(k).getFloat("Valeur initiale"),actions.getJSONObject(k).getFloat("Dernière valeur"),actions.getJSONObject(k).getInt("Quantité"),actions.getJSONObject(k).getFloat("Valeur totale à l'achat"),actions.getJSONObject(k).getFloat("Dernière valeur totale"));
-                                    listActionWalletSelected.add(action);
-                                }
-                                LinkedList<Crypto> listCryptoWalletSelected = new LinkedList<>();
-                                JSONArray cryptos = portefeuille.getJSONObject(j).getJSONArray("CRYPTOS");
-                                for (int k = 0 ; k<cryptos.length() ; k++){
-                                    Crypto crypto = new Crypto(cryptos.getJSONObject(k).getString("Libellé"),cryptos.getJSONObject(k).getString("Symbole"),cryptos.getJSONObject(k).getFloat("Valeur initiale"),cryptos.getJSONObject(k).getFloat("Dernière valeur"),cryptos.getJSONObject(k).getFloat("Quantité"),cryptos.getJSONObject(k).getFloat("Valeur totale à l'achat"),cryptos.getJSONObject(k).getFloat("Dernière valeur totale"));
-                                    listCryptoWalletSelected.add(crypto);
+        nomWallet = selectedWalletComboBox;
+        mettreAjoursellectedWallet(nomWallet);
 
-                                }
+        afficherGererPortefeuille();
 
-                                selectedWallet = new Portefeuille(portefeuille.getJSONObject(j).getString("LIBELLE"),listActionWalletSelected,listCryptoWalletSelected);
-                                afficherGererPortefeuille();
-                                break;
-                            }
-                        }
-
-                    }
-                }
-            } catch (IOException | NumberFormatException e) {
-                e.printStackTrace();
-            }
-        }
         Node button = (Node) p.getSource();
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -139,4 +147,7 @@ public class F_Accueil_Controller {
         stage.close();
     }
     public static String getWalletSorti() {return walletSorti;}
+    public static String getNomWallet() {
+        return nomWallet;
+    }
 }
