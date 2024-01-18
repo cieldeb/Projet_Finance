@@ -2,6 +2,7 @@ package front_end_Authentification.Crypto_Front;
 
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Crypto.Crypto;
+import com.example.projet_finance.back_end.Crypto.TransactionCrypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.Application_Action;
 import front_end_Authentification.F_Authentification_Controller;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import static com.example.projet_finance.back_end.Crypto.Block.getTailleBlock;
 import static com.example.projet_finance.back_end.Crypto.Crypto.vendreCryptoJSON;
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
@@ -42,6 +44,7 @@ public class VendreCrypto_Controller {
     protected static LinkedList<Crypto> listCryptos =  selectedWallet.getListCrypto();
     F_Authentification_Controller authController = new F_Authentification_Controller();
     String currentUser = authController.getIdentifCurrentUser();
+    protected static Crypto cryptoToSell;
 
     @FXML
     private TableColumn nomTableColumn;
@@ -122,6 +125,7 @@ public class VendreCrypto_Controller {
                 cryptoRow.put("Valeur Totale initiale",crypto.getValeurTotale());
                 cryptoRow.put("Dernière valeur totale",crypto.getActuelleValeurTotale());
                 listCryptos.add(cryptoRow);
+                cryptoToSell = crypto;
                 break;
             }
 
@@ -141,55 +145,58 @@ public class VendreCrypto_Controller {
             }
         }
 
+        TransactionCrypto transaction = new TransactionCrypto(selectedWallet,parseInt(selectedCompte),cryptoToSell,Math.round(valeurTransaction),1);
+        try{
+            JSONArray currentBlock = new JSONArray(new JSONTokener(new FileReader("files/currentBlock.json")));
+            if (currentBlock.length() < getTailleBlock()){
+                JSONObject crypto = cryptoToSell.createJSONObject_Crypto();
+                JSONObject transac = new JSONObject();
+                transac.put("DATE",transaction.getDate());
+                transac.put("PORTEFEUILLE",transaction.getPortefeuille().getName());
+                transac.put("IBAN",transaction.getIban());
+                transac.put("CRYPTO", crypto);
+                transac.put("MONTANT",transaction.getValeur());
+                currentBlock.put(transac);
+
+            } if (currentBlock.length() == getTailleBlock()) {
 
 
-        //Ajout de la transaction dans la partie TRANSACTIONS de l'iban sélectionné dans transactions.json
+                for (int i = 0 ; i<currentBlock.length() ; i++){
+                    JSONObject cryptoTransactionJSON = currentBlock.getJSONObject(i).getJSONObject("CRYPTO");
+                    Crypto cryptoTransaction = new Crypto(cryptoTransactionJSON.getString("Libellé"),cryptoTransactionJSON.getString("Symbole"),cryptoTransactionJSON.getFloat("Valeur initiale"),cryptoTransactionJSON.getFloat("Dernière valeur"),cryptoTransactionJSON.getFloat("Quantité"),cryptoTransactionJSON.getFloat("Valeur totale à l'achat"),cryptoTransactionJSON.getFloat("Dernière valeur totale"));
+                    TransactionCrypto transactionToDo = new TransactionCrypto(selectedWallet,currentBlock.getJSONObject(i).getInt("IBAN"),cryptoTransaction,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()),transaction.getTypeTransaction());
+                    transactionToDo.realiserTransactions(parseInt(selectedCompte),Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()));
 
-        try {
-            JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
-            for (int i = 0; i < entryArray.length(); i++) {
-                JSONObject userObject = entryArray.getJSONObject(i);
-                if (Math.round(userObject.optInt("IBAN")) == Integer.parseInt(selectedCompte)) {
-                    JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
-                    int newID = getNextAvailableID(transacArray);
+                }
+                try{
+                    JSONArray blockChain = new JSONArray(new JSONTokener(new FileReader("files/blockChain.json")));
+                    blockChain.put(currentBlock);
+                    try (FileWriter file = new FileWriter("files/blockChain.json")) {
+                        file.write(blockChain.toString(4));
+                        file.flush();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    for (int i = 0 ; i<getTailleBlock() ; i++){
+                        currentBlock.remove(i);
 
-                    int indexMontantBase = transacArray.length();
-                    Object montantBase = transacArray.toList().get(indexMontantBase - 1);
-                    String montantBaseStr = montantBase.toString();
-                    String[] part1 = montantBaseStr.split(", ");
-                    String extractedAmount = "";
-                    for (String part2 : part1) {
-                        if (part2.startsWith("SOLDE=")) {
-                            extractedAmount = part2.substring("SOLDE=".length());
-                            break;
-                        }
                     }
 
-                    JSONObject newTransaction = new JSONObject();
-                    newTransaction.put("ID", newID);
-                    newTransaction.put("EMETTEUR", 67890);
-                    newTransaction.put("RECEPTEUR", Integer.parseInt(selectedCompte));
-                    newTransaction.put("MONTANT", valeurTransaction);
-                    System.out.println(extractedAmount);
-                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), (int) valeurTransaction);
-                    newTransaction.put("SOLDE",  newSoldeRecepteur);
-
-                    transacArray.put(newTransaction);
-
-                    userObject.put("TRANSACTIONS", transacArray);
-                    break;
+                } catch (Exception j) {
+                    j.printStackTrace();
                 }
             }
-            try (FileWriter file = new FileWriter("files/transactions.json")) {
-                file.write(entryArray.toString(4));
-
-            } catch (IOException f) {
-                f.printStackTrace();
+            try (FileWriter file = new FileWriter("files/currentBlock.json")) {
+                file.write(currentBlock.toString(4));
+                file.flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-        } catch (Exception j) {
-            j.printStackTrace();
-        }
 
+        }  catch (IOException w) {
+            w.printStackTrace();
+        }
+        ///CONTINUER ICI.
         vendreCryptoJSON(selectedCrypto,parseInt(selectedCompte),Math.round(valeurTransaction),selectedWallet.getName());
         front_end_Authentification.Crypto_Front.MainCryptoController.afficherMainCryptos();
         Node button = (Node) e.getSource();

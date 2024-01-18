@@ -72,6 +72,7 @@ public class Crypto {
     public static void vendreCryptoJSON(String libelleCrypto, int ibanCompte, int valeurTransaction, String currentWallet){
         F_Authentification_Controller authController = new F_Authentification_Controller();
         String currentUser = authController.getIdentifCurrentUser();
+
         try {
             JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
 

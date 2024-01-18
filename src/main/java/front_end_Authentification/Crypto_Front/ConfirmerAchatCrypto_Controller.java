@@ -100,7 +100,7 @@ public class ConfirmerAchatCrypto_Controller {
 
         int prix = Math.round(parseFloat(achatCrypto[4]));
 
-        TransactionCrypto transaction = new TransactionCrypto(selectedWallet,ibanDebite,newCrypto,prix);
+        TransactionCrypto transaction = new TransactionCrypto(selectedWallet,ibanDebite,newCrypto,prix,-1);
 
         try{
             JSONArray currentBlock = new JSONArray(new JSONTokener(new FileReader("files/currentBlock.json")));
@@ -120,7 +120,7 @@ public class ConfirmerAchatCrypto_Controller {
                 for (int i = 0 ; i<currentBlock.length() ; i++){
                     JSONObject cryptoTransactionJSON = currentBlock.getJSONObject(i).getJSONObject("CRYPTO");
                     Crypto cryptoTransaction = new Crypto(cryptoTransactionJSON.getString("Libellé"),cryptoTransactionJSON.getString("Symbole"),cryptoTransactionJSON.getFloat("Valeur initiale"),cryptoTransactionJSON.getFloat("Dernière valeur"),cryptoTransactionJSON.getFloat("Quantité"),cryptoTransactionJSON.getFloat("Valeur totale à l'achat"),cryptoTransactionJSON.getFloat("Dernière valeur totale"));
-                    TransactionCrypto transactionToDo = new TransactionCrypto(selectedWallet,currentBlock.getJSONObject(i).getInt("IBAN"),cryptoTransaction,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()));
+                    TransactionCrypto transactionToDo = new TransactionCrypto(selectedWallet,currentBlock.getJSONObject(i).getInt("IBAN"),cryptoTransaction,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()),transaction.getTypeTransaction());
                     transactionToDo.realiserTransactions(ibanDebite,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()));
 
                 }

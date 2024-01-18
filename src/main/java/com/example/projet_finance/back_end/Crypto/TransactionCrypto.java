@@ -33,6 +33,8 @@ public class TransactionCrypto {
     protected Crypto crypto;
     protected int valeur;
 
+    protected int typeTransaction;
+
     public String getDate() {
         return date;
     }
@@ -52,8 +54,11 @@ public class TransactionCrypto {
     public int getValeur() {
         return valeur;
     }
+    public int getTypeTransaction() {
+        return typeTransaction;
+    }
 
-    public TransactionCrypto(Portefeuille portefeuille, int iban, Crypto crypto ,int valeur) {
+    public TransactionCrypto(Portefeuille portefeuille, int iban, Crypto crypto ,int valeur, int typeTransaction) {
         DateFormat format = new SimpleDateFormat("dd-MM-yyy hh:mm:ss a");
         Date date = new Date();
         this.date = format.format(date);
@@ -61,6 +66,7 @@ public class TransactionCrypto {
         this.iban = iban;
         this.valeur = valeur;
         this.crypto = crypto;
+        this.typeTransaction = typeTransaction;
     }
 
     public void realiserTransactions(int ibanDebite , int prix){
