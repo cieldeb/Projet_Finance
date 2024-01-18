@@ -31,13 +31,15 @@ public class F_Accueil_Controller {
     public static Portefeuille getSelectedWallet() {
         return selectedWallet;
     }
-
     protected static Portefeuille selectedWallet;
+    private static String walletSorti;
     @FXML
     protected ComboBox<String> portefeuilleComboBoxAffiche;
     @FXML
     protected void portefeuilleComboBox(ActionEvent p) throws IOException{
         String selectedWalletComboBox = portefeuilleComboBoxAffiche.getValue();
+        System.out.print("Selected wallet: " + selectedWalletComboBox);
+        walletSorti = selectedWalletComboBox;
         if (selectedWalletComboBox != "Sélectionnez") {
             try {
                 JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
@@ -136,4 +138,5 @@ public class F_Accueil_Controller {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
     }
+    public static String getWalletSorti() {return walletSorti;}
 }

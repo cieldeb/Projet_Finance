@@ -20,7 +20,6 @@ public class Portefeuille {
 
     protected String name;
     protected LinkedList<Compte> listeComptes;
-
     protected LinkedList<Action> listActions;
     protected LinkedList<Crypto> listCrypto;
     F_Authentification_Controller authController = new F_Authentification_Controller();

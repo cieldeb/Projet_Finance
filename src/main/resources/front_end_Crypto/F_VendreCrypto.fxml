@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -18,31 +19,49 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Separator prefWidth="200.0" />
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin></Separator>
       <VBox alignment="CENTER" prefHeight="95.0" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
                <children>
-                  <Label text="Choissiez la crypto monnaie à vendre :" />
+                  <Label text="Choisissez la cryptomonnaie à vendre :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                </children>
             </VBox>
             <ChoiceBox fx:id="cryptoChoiceBox" prefHeight="50.0" prefWidth="245.0" />
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </VBox>
       <VBox alignment="CENTER" prefHeight="138.0" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0">
                <children>
-                  <Label text="Choissiez le compte à créditer :" />
+                  <Label text="Choisissez le compte à créditer :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                </children>
             </VBox>
             <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#simulerButton" text="Voir" />
+                  <Button mnemonicParsing="false" onAction="#simulerButton" text="Voir">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </VBox>
       <TableView fx:id="cryptosTableView" prefHeight="161.0" prefWidth="600.0">
          <columns>
@@ -57,11 +76,17 @@
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </TableView>
       <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="78.0" prefWidth="73.0" text="Vendre" />
       <HBox prefHeight="20.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour" />
+            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin></Button>
          </children>
       </HBox>
       <Accordion />

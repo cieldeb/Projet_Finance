@@ -3,12 +3,12 @@
         "COMPTES": [
             {
                 "IBAN": 152325,
-                "SOLDE": 4562,
+                "SOLDE": 669,
                 "TYPE": 2
             },
             {
                 "IBAN": 862253,
-                "SOLDE": 730,
+                "SOLDE": 3061,
                 "TYPE": 1
             },
             {
@@ -43,7 +43,7 @@
             },
             {
                 "IBAN": 297325,
-                "SOLDE": 3877,
+                "SOLDE": 2948,
                 "TYPE": 1
             }
         ],
@@ -51,130 +51,247 @@
         "MAIL": "s",
         "IDENTIFIANT": "s",
         "MOT DE PASSE": "s",
-        "PORTEFEUILLE": [{
-            "ACTIONS": [
-                {
-                    "Symbole": "s1",
-                    "Dernière valeur totale": -1,
-                    "Valeur totale à l'achat": -1,
-                    "Libellé": "s1",
-                    "Quantité": 43,
-                    "Valeur initiale": 784,
-                    "Dernière valeur": -1
-                },
-                {
-                    "Symbole": "AAPL",
-                    "Dernière valeur totale": 1824.7,
-                    "Valeur totale à l'achat": 1824.7,
-                    "Libellé": "Achat test compte 7860",
-                    "Quantité": 10,
-                    "Valeur initiale": 182.47,
-                    "Dernière valeur": 182.47
-                },
-                {
-                    "Symbole": "AAPL",
-                    "Dernière valeur totale": 547.41003,
-                    "Valeur totale à l'achat": 547.41003,
-                    "Libellé": "AAPL test",
-                    "Quantité": 3,
-                    "Valeur initiale": 182.47,
-                    "Dernière valeur": 182.47
-                },
-                {
-                    "Symbole": "AAPL",
-                    "Dernière valeur totale": 364.94,
-                    "Valeur totale à l'achat": 364.94,
-                    "Libellé": "AAPL test ",
-                    "Quantité": 2,
-                    "Valeur initiale": 182.47,
-                    "Dernière valeur": 182.47
-                }
-            ],
-            "LIBELLE": "bn",
-            "CRYPTOS": [
-                {
-                    "Symbole": "ty",
-                    "Dernière valeur totale": -1,
-                    "Valeur totale à l'achat": -1,
-                    "Libellé": "ty",
-                    "Quantité": 5,
-                    "Valeur initiale": 5,
-                    "Dernière valeur": -1
-                },
-                {
-                    "Symbole": "bitcoin",
-                    "Dernière valeur totale": 39.11,
-                    "Valeur totale à l'achat": 39.11,
-                    "Libellé": "Test",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 39110,
-                    "Dernière valeur": 39110
-                },
-                {
-                    "Symbole": "bitcoin",
-                    "Dernière valeur totale": 39.028004,
-                    "Valeur totale à l'achat": 39.028004,
-                    "Libellé": "btc",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 39028,
-                    "Dernière valeur": 39028
-                },
-                {
-                    "Symbole": "ethereum",
-                    "Dernière valeur totale": 2.3070002,
-                    "Valeur totale à l'achat": 2.3070002,
-                    "Libellé": "eth",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 2307,
-                    "Dernière valeur": 2307
-                },
-                {
-                    "Symbole": "ethereum",
-                    "Dernière valeur totale": 2.3070002,
-                    "Valeur totale à l'achat": 2.3070002,
-                    "Libellé": "eth2",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 2307,
-                    "Dernière valeur": 2307
-                },
-                {
-                    "Symbole": "ethereum",
-                    "Dernière valeur totale": 2331,
-                    "Valeur totale à l'achat": 2331,
-                    "Libellé": "Achat 1 eth 7860",
-                    "Quantité": 1,
-                    "Valeur initiale": 2331,
-                    "Dernière valeur": 2331
-                },
-                {
-                    "Symbole": "bitcoin",
-                    "Dernière valeur totale": 39.219,
-                    "Valeur totale à l'achat": 39.219,
-                    "Libellé": "btctest",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 39219,
-                    "Dernière valeur": 39219
-                },
-                {
-                    "Symbole": "bitcoin",
-                    "Dernière valeur totale": 39.219,
-                    "Valeur totale à l'achat": 39.219,
-                    "Libellé": "1234",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 39219,
-                    "Dernière valeur": 39219
-                },
-                {
-                    "Symbole": "ethereum",
-                    "Dernière valeur totale": 1168,
-                    "Valeur totale à l'achat": 1168,
-                    "Libellé": "ethtest",
-                    "Quantité": 0.5,
-                    "Valeur initiale": 2336,
-                    "Dernière valeur": 2336
-                }
-            ]
-        }],
+        "PORTEFEUILLE": [
+            {
+                "ACTIONS": [
+                    {
+                        "Symbole": "s1",
+                        "Dernière valeur totale": 1,
+                        "Valeur totale à l'achat": 1,
+                        "Libellé": "s1",
+                        "Quantité": 43,
+                        "Valeur initiale": 784,
+                        "Dernière valeur": 1
+                    },
+                    {
+                        "Symbole": "AAPL",
+                        "Dernière valeur totale": 1824.7,
+                        "Valeur totale à l'achat": 1824.7,
+                        "Libellé": "Achat test compte 7860",
+                        "Quantité": 10,
+                        "Valeur initiale": 182.47,
+                        "Dernière valeur": 182.47
+                    },
+                    {
+                        "Symbole": "TSLA",
+                        "Dernière valeur totale": 426.9,
+                        "Valeur totale à l'achat": 426.9,
+                        "Libellé": "Achat Tesla*2",
+                        "Quantité": 2,
+                        "Valeur initiale": 213.45,
+                        "Dernière valeur": 213.45
+                    },
+                    {
+                        "Symbole": "TSLA",
+                        "Dernière valeur totale": 3201.75,
+                        "Valeur totale à l'achat": 3201.75,
+                        "Libellé": "remplissage de piechart",
+                        "Quantité": 15,
+                        "Valeur initiale": 213.45,
+                        "Dernière valeur": 213.45
+                    },
+                    {
+                        "Symbole": "MSFT",
+                        "Dernière valeur totale": 3893.2998,
+                        "Valeur totale à l'achat": 3893.2998,
+                        "Libellé": "Microsoft",
+                        "Quantité": 10,
+                        "Valeur initiale": 389.33,
+                        "Dernière valeur": 389.33
+                    }
+                ],
+                "LIBELLE": "bn",
+                "CRYPTOS": [
+                    {
+                        "Symbole": "ty",
+                        "Dernière valeur totale": 1,
+                        "Valeur totale à l'achat": 1,
+                        "Libellé": "ty",
+                        "Quantité": 5,
+                        "Valeur initiale": 5,
+                        "Dernière valeur": 1
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.11,
+                        "Valeur totale à l'achat": 39.11,
+                        "Libellé": "Test",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39110,
+                        "Dernière valeur": 39110
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.028004,
+                        "Valeur totale à l'achat": 39.028004,
+                        "Libellé": "btc",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39028,
+                        "Dernière valeur": 39028
+                    },
+                    {
+                        "Symbole": "ethereum",
+                        "Dernière valeur totale": 2.3070002,
+                        "Valeur totale à l'achat": 2.3070002,
+                        "Libellé": "eth",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 2307,
+                        "Dernière valeur": 2307
+                    },
+                    {
+                        "Symbole": "ethereum",
+                        "Dernière valeur totale": 2.3070002,
+                        "Valeur totale à l'achat": 2.3070002,
+                        "Libellé": "eth2",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 2307,
+                        "Dernière valeur": 2307
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.219,
+                        "Valeur totale à l'achat": 39.219,
+                        "Libellé": "btctest",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39219,
+                        "Dernière valeur": 39219
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.219,
+                        "Valeur totale à l'achat": 39.219,
+                        "Libellé": "1234",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39219,
+                        "Dernière valeur": 39219
+                    }
+                ]
+            },
+            {
+                "ACTIONS": [
+                    {
+                        "Symbole": "s1",
+                        "Dernière valeur totale": 1,
+                        "Valeur totale à l'achat": 1,
+                        "Libellé": "s1",
+                        "Quantité": 43,
+                        "Valeur initiale": 784,
+                        "Dernière valeur": 1
+                    },
+                    {
+                        "Symbole": "AAPL",
+                        "Dernière valeur totale": 1824.7,
+                        "Valeur totale à l'achat": 1824.7,
+                        "Libellé": "Achat test compte 7860",
+                        "Quantité": 10,
+                        "Valeur initiale": 182.47,
+                        "Dernière valeur": 182.47
+                    },
+                    {
+                        "Symbole": "AAPL",
+                        "Dernière valeur totale": 547.41003,
+                        "Valeur totale à l'achat": 547.41003,
+                        "Libellé": "AAPL test",
+                        "Quantité": 3,
+                        "Valeur initiale": 182.47,
+                        "Dernière valeur": 182.47
+                    },
+                    {
+                        "Symbole": "AAPL",
+                        "Dernière valeur totale": 364.94,
+                        "Valeur totale à l'achat": 364.94,
+                        "Libellé": "AAPL test ",
+                        "Quantité": 2,
+                        "Valeur initiale": 182.47,
+                        "Dernière valeur": 182.47
+                    }
+                ],
+                "LIBELLE": "nb",
+                "CRYPTOS": [
+                    {
+                        "Symbole": "ty",
+                        "Dernière valeur totale": -1,
+                        "Valeur totale à l'achat": -1,
+                        "Libellé": "ty",
+                        "Quantité": 5,
+                        "Valeur initiale": 5,
+                        "Dernière valeur": -1
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.11,
+                        "Valeur totale à l'achat": 39.11,
+                        "Libellé": "Test",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39110,
+                        "Dernière valeur": 39110
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.028004,
+                        "Valeur totale à l'achat": 39.028004,
+                        "Libellé": "btc",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39028,
+                        "Dernière valeur": 39028
+                    },
+                    {
+                        "Symbole": "ethereum",
+                        "Dernière valeur totale": 2.3070002,
+                        "Valeur totale à l'achat": 2.3070002,
+                        "Libellé": "eth",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 2307,
+                        "Dernière valeur": 2307
+                    },
+                    {
+                        "Symbole": "ethereum",
+                        "Dernière valeur totale": 2.3070002,
+                        "Valeur totale à l'achat": 2.3070002,
+                        "Libellé": "eth2",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 2307,
+                        "Dernière valeur": 2307
+                    },
+                    {
+                        "Symbole": "ethereum",
+                        "Dernière valeur totale": 2331,
+                        "Valeur totale à l'achat": 2331,
+                        "Libellé": "Achat 1 eth 7860",
+                        "Quantité": 1,
+                        "Valeur initiale": 2331,
+                        "Dernière valeur": 2331
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.219,
+                        "Valeur totale à l'achat": 39.219,
+                        "Libellé": "btctest",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39219,
+                        "Dernière valeur": 39219
+                    },
+                    {
+                        "Symbole": "bitcoin",
+                        "Dernière valeur totale": 39.219,
+                        "Valeur totale à l'achat": 39.219,
+                        "Libellé": "1234",
+                        "Quantité": 0.001,
+                        "Valeur initiale": 39219,
+                        "Dernière valeur": 39219
+                    },
+                    {
+                        "Symbole": "ethereum",
+                        "Dernière valeur totale": 1168,
+                        "Valeur totale à l'achat": 1168,
+                        "Libellé": "ethtest",
+                        "Quantité": 0.5,
+                        "Valeur initiale": 2336,
+                        "Dernière valeur": 2336
+                    }
+                ]
+            }
+        ],
         "DESTINATAIRES": [
             {
                 "IBAN": 295828,

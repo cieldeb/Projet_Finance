@@ -33,6 +33,7 @@ import static front_end_Authentification.Virement.F_Virement_Controller.getNextA
 import static java.lang.Float.parseFloat;
 import static java.lang.Float.sum;
 import static java.lang.Integer.parseInt;
+import static java.lang.Math.round;
 
 
 public class ConfirmerAchatController {
@@ -124,8 +125,8 @@ public class ConfirmerAchatController {
                     newTransaction.put("ID", newID);
                     newTransaction.put("EMETTEUR", ibanDebite);
                     newTransaction.put("RECEPTEUR", 12345);
-                    newTransaction.put("MONTANT", Math.round(prix));
-                    int newSoldeRecepteur = (int) sum(Integer.parseInt(extractedAmount), Math.round(prix));
+                    newTransaction.put("MONTANT", round(prix));
+                    int newSoldeRecepteur = Integer.parseInt(extractedAmount) - Math.round(prix);
                     newTransaction.put("SOLDE",  newSoldeRecepteur);
 
                     transacArray.put(newTransaction);
@@ -156,7 +157,7 @@ public class ConfirmerAchatController {
                         JSONObject compte = comptesArray.getJSONObject(j);
                         if (ibanDebite == compte.optInt("IBAN")) {
                             int currentSolde = compte.getInt("SOLDE");
-                            compte.put("SOLDE", currentSolde - Math.round(parseFloat(achatAction[4])));
+                            compte.put("SOLDE", currentSolde - round(parseFloat(achatAction[4])));
                             break;
                         }
                     }

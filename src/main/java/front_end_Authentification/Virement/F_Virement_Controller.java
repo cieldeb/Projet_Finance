@@ -106,7 +106,7 @@ public class F_Virement_Controller {
                     JSONArray destArray = userObject.optJSONArray("DESTINATAIRES");
                     JSONArray comptesArray = userObject.optJSONArray("COMPTES");
 
-                    //Récupération des comptes de destinataires extérieurs
+                    //Récupération des comptes de l'utilisateur
 
                     if (comptesArray != null){
                         for(int l = 0; l < comptesArray.length(); l++){
