@@ -111,6 +111,8 @@ public class VendreAction_Controller {
         actionsTableView.setItems(listActions);
 
     }
+
+
     @FXML
     protected void vendreButton(ActionEvent e) throws IOException {
         String selectedCompte = (String) compteChoiceBox.getValue();

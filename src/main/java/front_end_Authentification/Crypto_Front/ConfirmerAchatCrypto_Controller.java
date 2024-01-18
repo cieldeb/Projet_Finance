@@ -2,6 +2,7 @@ package front_end_Authentification.Crypto_Front;
 
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Crypto.Crypto;
+import com.example.projet_finance.back_end.Crypto.TransactionCrypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Actions.Application_Action;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static com.example.projet_finance.back_end.Crypto.Block.getTailleBlock;
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
 import static front_end_Authentification.Crypto_Front.AcheterCryptos_Controller.*;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
@@ -89,102 +91,69 @@ public class ConfirmerAchatCrypto_Controller {
     @FXML
     protected void confirmerButton(ActionEvent e) throws IOException{
         setAchatCrypto(libelleTextField.getText());
+
         Crypto newCrypto = new Crypto(achatCrypto[0],achatCrypto[1],parseFloat(achatCrypto[2]),parseFloat(achatCrypto[2]),parseFloat(achatCrypto[3]),parseFloat(achatCrypto[4]),parseFloat(achatCrypto[4]));
+
         String compteDebite = (String) compteChoiceBox.getValue();
         String[] parts = compteDebite.split("n° ");
         int ibanDebite = parseInt(parts[1]);
-        float prix = parseFloat(achatCrypto[4]);
-        /*      PARTIE TRANSACTION A MODIFIER (signé Gab) Je te laisse toutes cette partie en commenaire tu en fais ce que tu veux!
-        String[] parts = ibanCompteDebite.split("n° ");
-        int ibanDebite = Integer.parseInt(parts[1]);
 
-        //Ajout de la transaction dans la partie TRANSACTIONS de l'émetteur dans transactions.json
+        int prix = Math.round(parseFloat(achatCrypto[4]));
 
-        try {
-            JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
-            for (int i = 0; i < entryArray.length(); i++) {
-                JSONObject userObject = entryArray.getJSONObject(i);
-                if (userObject.optInt("IBAN") == ibanDebite) {
-                    JSONArray transacArray = userObject.has("TRANSACTIONS") ? userObject.getJSONArray("TRANSACTIONS") : new JSONArray();
-                    int newID = getNextAvailableID(transacArray);
+        TransactionCrypto transaction = new TransactionCrypto(selectedWallet,ibanDebite,newCrypto,prix);
 
-                    int indexMontantBase = transacArray.length();
-                    Object montantBase = transacArray.toList().get(indexMontantBase - 1);
-                    String montantBaseStr = montantBase.toString();
-                    String[] part1 = montantBaseStr.split(", ");
-                    String extractedAmount = "";
-                    for (String part2 : part1) {
-                        if (part2.startsWith("SOLDE=")) {
-                            extractedAmount = part2.substring("SOLDE=".length());
-                            break;
-                        }
-                    }
-
-                    JSONObject newTransaction = new JSONObject();
-                    newTransaction.put("ID", newID);
-                    newTransaction.put("EMETTEUR", ibanDebite);
-                    newTransaction.put("RECEPTEUR", 12345);
-                    newTransaction.put("MONTANT", montantValue);
-                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), montantValue);
-                    newTransaction.put("SOLDE",  newSoldeRecepteur);
+        try{
+            JSONArray currentBlock = new JSONArray(new JSONTokener(new FileReader("files/currentBlock.json")));
+            if (currentBlock.length() < getTailleBlock()){
+                JSONArray transactionJSON = new JSONArray();
+                JSONObject crypto = newCrypto.createJSONObject_Crypto();
+                JSONObject transac = new JSONObject();
+                transac.put("DATE",transaction.getDate());
+                transac.put("PORTEFEUILLE",transaction.getPortefeuille().getName());
+                transac.put("IBAN",transaction.getIban());
+                transac.put("CRYPTO", crypto);
+                transac.put("MONTANT",transaction.getValeur());
+                transactionJSON.put(transac);
+            } else if (currentBlock.length() == getTailleBlock()) {
 
 
-                    transacArray.put(newTransaction);
+                for (int i = 0 ; i<currentBlock.length() ; i++){
+                    JSONObject cryptoTransactionJSON = currentBlock.getJSONObject(i).getJSONObject("CRYPTO");
+                    Crypto cryptoTransaction = new Crypto(cryptoTransactionJSON.getString("Libellé"),cryptoTransactionJSON.getString("Symbole"),cryptoTransactionJSON.getFloat("Valeur initiale"),cryptoTransactionJSON.getFloat("Dernière valeur"),cryptoTransactionJSON.getFloat("Quantité"),cryptoTransactionJSON.getFloat("Valeur totale à l'achat"),cryptoTransactionJSON.getFloat("Dernière valeur totale"));
+                    TransactionCrypto transactionToDo = new TransactionCrypto(selectedWallet,currentBlock.getJSONObject(i).getInt("IBAN"),cryptoTransaction,Math.round(cryptoTransaction.getValue()));
+                    transactionToDo.realiserTransactions();
 
-                    userObject.put("TRANSACTIONS", transacArray);
-                    break;
                 }
-            }
-            try (FileWriter file = new FileWriter("files/transactions.json")) {
-                file.write(entryArray.toString(4));
-            } catch (IOException f) {
-                f.printStackTrace();
-            }
-        } catch (Exception j) {
-            j.printStackTrace();
-        }*/
-
-        //Modification du solde de l'émetteur dans listeinscrits.json et écriture sur le fichier JSON des cryptos achetées
-
-        try {
-            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
-            for (int i = 0; i < usersArray.length(); i++) {
-                JSONObject userObject = usersArray.getJSONObject(i);
-                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
-                    JSONArray comptesArray = userObject.getJSONArray("COMPTES");
-                    JSONArray portefeuilleArray = userObject.getJSONArray("PORTEFEUILLE");
-                    for (int j = 0; j < comptesArray.length(); j++) {
-                        JSONObject compte = comptesArray.getJSONObject(j);
-                        if (ibanDebite == compte.optInt("IBAN")) {
-                            int currentSolde = compte.getInt("SOLDE");
-                            compte.put("SOLDE", currentSolde - Math.round(parseFloat(achatCrypto[4])));
-                            break;
-                        }
-                    }
-
-                    for(int j = 0; j < portefeuilleArray.length(); j++) {
-                        JSONObject portefeuille = portefeuilleArray.getJSONObject(j);
-                        if (portefeuille.getString("LIBELLE").equals(selectedWallet.getName())){
-                            JSONArray listCrypto = portefeuille.getJSONArray("CRYPTOS");
-                            listCrypto.put(newCrypto.createJSONObject_Crypto());
-                            portefeuille.put("CRYPTOS",listCrypto);
-                            portefeuilleArray.put(j,portefeuille);
-                        }
-                    }
-
+                try{
+                    JSONArray blockChain = new JSONArray(new JSONTokener(new FileReader("files/blockChain.json")));
+                    blockChain.put(currentBlock);
                     try (FileWriter file = new FileWriter("files/listeinscrits.json")) {
-                        file.write(usersArray.toString(4));
+                        file.write(blockChain.toString(4));
                         file.flush();
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    break;
+                    for (int i = 0 ; i<getTailleBlock() ; i++){
+                        currentBlock.remove(i);
+
+                    }
+                    try (FileWriter file = new FileWriter("files/currentBlock.json")) {
+                        file.write(currentBlock.toString(4));
+                        file.flush();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                } catch (Exception j) {
+                    j.printStackTrace();
                 }
+
+
             }
 
-        } catch (IOException | NumberFormatException f) {
-            f.printStackTrace();
+        }  catch (IOException w) {
+            w.printStackTrace();
         }
+
         AcheterCryptos_Controller.afficherAcheterCrypto();
 
         Node button = (Node) e.getSource();
