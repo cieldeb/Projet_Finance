@@ -121,7 +121,7 @@ public class ConfirmerAchatCrypto_Controller {
                     JSONObject cryptoTransactionJSON = currentBlock.getJSONObject(i).getJSONObject("CRYPTO");
                     Crypto cryptoTransaction = new Crypto(cryptoTransactionJSON.getString("Libellé"),cryptoTransactionJSON.getString("Symbole"),cryptoTransactionJSON.getFloat("Valeur initiale"),cryptoTransactionJSON.getFloat("Dernière valeur"),cryptoTransactionJSON.getFloat("Quantité"),cryptoTransactionJSON.getFloat("Valeur totale à l'achat"),cryptoTransactionJSON.getFloat("Dernière valeur totale"));
                     TransactionCrypto transactionToDo = new TransactionCrypto(selectedWallet,currentBlock.getJSONObject(i).getInt("IBAN"),cryptoTransaction,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()));
-                    transactionToDo.realiserTransactions();
+                    transactionToDo.realiserTransactions(ibanDebite,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()));
 
                 }
                 try{

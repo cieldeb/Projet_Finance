@@ -18,7 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
 import static java.lang.Float.parseFloat;
+import static java.lang.Integer.sum;
 
 public class TransactionCrypto {
     protected static Portefeuille selectedWallet = getSelectedWallet();
@@ -61,10 +63,9 @@ public class TransactionCrypto {
         this.crypto = crypto;
     }
 
-    public void realiserTransactions(){
-        /*      PARTIE TRANSACTION A MODIFIER (signé Gab) Je te laisse toutes cette partie en commenaire tu en fais ce que tu veux!
-        String[] parts = ibanCompteDebite.split("n° ");
-        int ibanDebite = Integer.parseInt(parts[1]);
+    public void realiserTransactions(int ibanDebite , int prix){
+        //String[] parts = ibanCompteDebite.split("n° ");
+        //int ibanDebite = Integer.parseInt(parts[1]);
 
         //Ajout de la transaction dans la partie TRANSACTIONS de l'émetteur dans transactions.json
 
@@ -92,8 +93,8 @@ public class TransactionCrypto {
                     newTransaction.put("ID", newID);
                     newTransaction.put("EMETTEUR", ibanDebite);
                     newTransaction.put("RECEPTEUR", 12345);
-                    newTransaction.put("MONTANT", montantValue);
-                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), montantValue);
+                    newTransaction.put("MONTANT", prix);
+                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), prix);
                     newTransaction.put("SOLDE",  newSoldeRecepteur);
 
 
@@ -110,7 +111,7 @@ public class TransactionCrypto {
             }
         } catch (Exception j) {
             j.printStackTrace();
-        }*/
+        }
 
         //Modification du solde de l'émetteur dans listeinscrits.json et écriture sur le fichier JSON des cryptos achetées
 
