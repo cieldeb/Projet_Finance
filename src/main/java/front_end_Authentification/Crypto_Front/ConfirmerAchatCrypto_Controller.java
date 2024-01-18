@@ -94,9 +94,7 @@ public class ConfirmerAchatCrypto_Controller {
         String[] parts = compteDebite.split("n° ");
         int ibanDebite = parseInt(parts[1]);
         float prix = parseFloat(achatCrypto[4]);
-        /*      PARTIE TRANSACTION A MODIFIER (signé Gab) Je te laisse toutes cette partie en commenaire tu en fais ce que tu veux!
-        String[] parts = ibanCompteDebite.split("n° ");
-        int ibanDebite = Integer.parseInt(parts[1]);
+        //PARTIE TRANSACTION A MODIFIER (signé Gab) Je te laisse toutes cette partie en commenaire tu en fais ce que tu veux!
 
         //Ajout de la transaction dans la partie TRANSACTIONS de l'émetteur dans transactions.json
 
@@ -124,8 +122,8 @@ public class ConfirmerAchatCrypto_Controller {
                     newTransaction.put("ID", newID);
                     newTransaction.put("EMETTEUR", ibanDebite);
                     newTransaction.put("RECEPTEUR", 12345);
-                    newTransaction.put("MONTANT", montantValue);
-                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), montantValue);
+                    newTransaction.put("MONTANT", prix);
+                    int newSoldeRecepteur = Integer.parseInt(extractedAmount) - Math.round(prix);
                     newTransaction.put("SOLDE",  newSoldeRecepteur);
 
 
@@ -142,7 +140,7 @@ public class ConfirmerAchatCrypto_Controller {
             }
         } catch (Exception j) {
             j.printStackTrace();
-        }*/
+        }
 
         //Modification du solde de l'émetteur dans listeinscrits.json et écriture sur le fichier JSON des cryptos achetées
 

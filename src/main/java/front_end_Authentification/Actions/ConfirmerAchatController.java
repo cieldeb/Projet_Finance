@@ -124,7 +124,7 @@ public class ConfirmerAchatController {
                     newTransaction.put("ID", newID);
                     newTransaction.put("EMETTEUR", ibanDebite);
                     newTransaction.put("RECEPTEUR", 12345);
-                    newTransaction.put("MONTANT", prix);
+                    newTransaction.put("MONTANT", Math.round(prix));
                     int newSoldeRecepteur = (int) sum(Integer.parseInt(extractedAmount), Math.round(prix));
                     newTransaction.put("SOLDE",  newSoldeRecepteur);
 
