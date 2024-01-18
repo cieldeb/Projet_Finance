@@ -35,7 +35,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static front_end_Authentification.Crypto_Front.VendreCrypto_Controller.afficherVendreCryptos;
 
 public class MainCryptoController {
@@ -79,6 +79,8 @@ public class MainCryptoController {
     private PieChart proportionCout = new PieChart(proportionCoutData);
     @FXML
     private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
         setUpTableColumn();
         LinkedList<Crypto> listCryptosFromWallet = selectedWallet.getListCrypto();
         ObservableList<Map<String, Object>> listCryptos = FXCollections.observableArrayList();

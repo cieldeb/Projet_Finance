@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static front_end_Authentification.Actions.AcheterActions_Controller.getAchatAction;
 import static front_end_Authentification.Actions.AcheterActions_Controller.setAchatAction;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
@@ -50,6 +50,8 @@ public class ConfirmerAchatController {
     private ChoiceBox compteChoiceBox;
     @FXML
     private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
         recapLabel.setText("Vous vous apprêtez à effectuer l'achat de " + achatAction[3] +" "+ achatAction[1] + ". La valeur d'un coin étant : " + achatAction[2] + "euros, vous allez payer : " + achatAction[4] + "euros. Donnez un libellé à votre ensemble de crypto que vous vous apprêtez à acheter en complétant le champ suivant. Cliquez sur Confirmer pour finaliser l'achat, sinon sur retour.");
         try {
             File jsonFile = new File("files/listeinscrits.json");

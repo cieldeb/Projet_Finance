@@ -34,7 +34,7 @@ import java.util.Map;
 
 import static com.example.projet_finance.back_end.Crypto.Block.getTailleBlock;
 import static com.example.projet_finance.back_end.Crypto.Crypto.vendreCryptoJSON;
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.sum;
@@ -68,6 +68,8 @@ public class VendreCrypto_Controller {
     private ChoiceBox compteChoiceBox;
     @FXML
     private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
         for (int i = 0; i < listCryptos.size(); i++) {
             cryptoChoiceBox.getItems().add(listCryptos.get(i).getName());
         }
@@ -189,14 +191,15 @@ public class VendreCrypto_Controller {
                         currentBlock.remove(i);
 
                     }*/
+                    currentBlock = new JSONArray();
 
                 } catch (Exception j) {
                     j.printStackTrace();
                 }
+
             }
-            JSONArray newCurrentBlock = new JSONArray();
             try (FileWriter file = new FileWriter("files/currentBlock.json")) {
-                file.write(newCurrentBlock.toString(4));
+                file.write(currentBlock.toString(4));
                 file.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();

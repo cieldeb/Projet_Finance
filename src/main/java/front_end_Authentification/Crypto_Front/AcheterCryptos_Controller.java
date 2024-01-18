@@ -2,6 +2,7 @@ package front_end_Authentification.Crypto_Front;
 
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Crypto.Crypto;
+import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Actions.Application_Action;
 import front_end_Authentification.Actions.ConfirmerAchatController;
@@ -25,10 +26,13 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterCryptos_Controller {
+    protected static Portefeuille selectedWallet = getSelectedWallet();
+
     protected static Crypto newCrypto;
     public static float getValueSimulation;
     private static boolean simulationValid = false;
@@ -53,6 +57,11 @@ public class AcheterCryptos_Controller {
     private TextField symboleTextField;
     @FXML
     private Label alertLabel;
+    @FXML
+    private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
+    }
     @FXML
     protected void chercherButton(){
         if (symboleCheckBox.isSelected() && !valeurCheckBox.isSelected()){

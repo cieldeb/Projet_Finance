@@ -1,5 +1,6 @@
 package front_end_Authentification.Actions;
 
+import com.example.projet_finance.back_end.Entite.Portefeuille;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,13 +20,14 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
 
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 public class AcheterActions_Controller {
     public static float getValueSimulation;
     private static boolean simulationValid = false;
-
+    protected static Portefeuille selectedWallet = getSelectedWallet();
     private static String[] achatAction = new String[5];
     private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
@@ -47,6 +49,11 @@ public class AcheterActions_Controller {
     private TextField symboleTextField;
     @FXML
     private Label alertLabel;
+    @FXML
+    private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
+    }
     @FXML
     protected void chercherButton(){
         if (symboleCheckBox.isSelected() && !valeurCheckBox.isSelected()){

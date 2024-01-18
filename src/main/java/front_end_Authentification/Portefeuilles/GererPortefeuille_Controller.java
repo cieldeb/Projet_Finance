@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
 
 public class GererPortefeuille_Controller {
 
@@ -30,6 +31,7 @@ public class GererPortefeuille_Controller {
     private void initialize(){
         libelleLabel.setText(selectedWallet.getName());
         mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
     }
     @FXML
     protected void accederActionButton(ActionEvent e) throws IOException {

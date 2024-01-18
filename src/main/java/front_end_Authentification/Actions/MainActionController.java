@@ -37,7 +37,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static front_end_Authentification.Actions.VendreAction_Controller.afficherVendreActions;
 
 public class MainActionController {
@@ -81,6 +81,8 @@ public class MainActionController {
     private PieChart proportionCout = new PieChart(proportionCoutData);
     @FXML
     private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
         setUpTableColumn();
         LinkedList<Action> listActionsFromWallet = selectedWallet.getListActions();
         ObservableList<Map<String, Object>> listActions = FXCollections.observableArrayList();

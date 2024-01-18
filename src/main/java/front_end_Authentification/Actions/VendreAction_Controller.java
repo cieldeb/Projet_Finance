@@ -30,7 +30,7 @@ import java.util.Objects;
 
 import static com.example.projet_finance.back_end.Actions.Action.vendreActionJSON;
 import static com.example.projet_finance.back_end.Crypto.Crypto.vendreCryptoJSON;
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.sum;
@@ -63,6 +63,8 @@ public class VendreAction_Controller {
     private ChoiceBox compteChoiceBox;
     @FXML
     private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
         for (int i = 0; i < listActions.size(); i++) {
             actionChoiceBox.getItems().add(listActions.get(i).getName());
         }

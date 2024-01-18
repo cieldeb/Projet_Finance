@@ -27,7 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static com.example.projet_finance.back_end.Crypto.Block.getTailleBlock;
-import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
+import static front_end_Authentification.Accueil.F_Accueil_Controller.*;
 import static front_end_Authentification.Crypto_Front.AcheterCryptos_Controller.*;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
 import static java.lang.Float.parseFloat;
@@ -50,6 +50,8 @@ public class ConfirmerAchatCrypto_Controller {
 
     @FXML
     private void initialize(){
+        mettreAjoursellectedWallet(getNomWallet());
+        selectedWallet=getSelectedWallet();
         recapLabel.setText("Vous vous apprêtez à effectuer l'achat de " + achatCrypto[3] +" "+ achatCrypto[1] + ". La valeur d'un coin étant : " + achatCrypto[2] + "euros, vous allez payer : " + achatCrypto[4] + "euros. Donnez un libellé à votre ensemble de crypto que vous vous apprêtez à acheter en complétant le champ suivant. Cliquez sur Confirmer pour finaliser l'achat, sinon sur retour.");
         try {
             File jsonFile = new File("files/listeinscrits.json");
@@ -140,14 +142,15 @@ public class ConfirmerAchatCrypto_Controller {
                         currentBlock.remove(i);
 
                     }*/
-
+                    currentBlock = new JSONArray();
                 } catch (Exception j) {
                     j.printStackTrace();
                 }
+
             }
-            JSONArray newCurrentBlock = new JSONArray();
+
             try (FileWriter file = new FileWriter("files/currentBlock.json")) {
-                file.write(newCurrentBlock.toString(4));
+                file.write(currentBlock.toString(4));
                 file.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();
