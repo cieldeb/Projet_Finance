@@ -95,6 +95,7 @@ public class AcheterCryptos_Controller {
                 JSONObject stockData = getStockData(apiUrlWithKey);
                 String suggestionsCrypto = "";
                 String latestPrice = String.valueOf(stockData.getJSONObject(stockSymbol).getInt("eur"));
+                getValueSimulation = stockData.getJSONObject(stockSymbol).getInt("eur");
                 suggestionsCrypto += "La plus récente valeur de la Crypto-Monnaie est : " + latestPrice + "€";
                 if (suggestionsCrypto == ""){
                     rechercheInfoCryptoLabel.setText("Aucun résultat trouvé");
@@ -122,6 +123,7 @@ public class AcheterCryptos_Controller {
             // Make API request and parse JSON response
             JSONObject stockData = getStockData(apiUrlWithKey);
             String cryptoValue = String.valueOf(stockData.getJSONObject(stockSymbol).getInt("eur"));
+
             if (cryptoValue == ""){
                 simulationLabel.setText("Aucun résultat trouvé");
             } else {

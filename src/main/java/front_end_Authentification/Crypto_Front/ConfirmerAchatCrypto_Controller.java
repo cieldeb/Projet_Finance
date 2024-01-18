@@ -26,8 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
-import static front_end_Authentification.Crypto_Front.AcheterCryptos_Controller.getAchatCrypto;
-import static front_end_Authentification.Crypto_Front.AcheterCryptos_Controller.setAchatCrypto;
+import static front_end_Authentification.Crypto_Front.AcheterCryptos_Controller.*;
 import static front_end_Authentification.Virement.F_Virement_Controller.getNextAvailableID;
 import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
@@ -39,9 +38,6 @@ public class ConfirmerAchatCrypto_Controller {
     String currentUser = authController.getIdentifCurrentUser();
 
     protected static String[] achatCrypto = getAchatCrypto();
-
-    float montantValueFloat = AcheterCryptos_Controller.getValueSimulation;
-    int montantValue = (int)Math.floor(montantValueFloat);
 
     @FXML
     private Label recapLabel;
@@ -142,10 +138,7 @@ public class ConfirmerAchatCrypto_Controller {
                         JSONObject compte = comptesArray.getJSONObject(j);
                         if (ibanCompteDebite == compte.optInt("IBAN")) {
                             int currentSolde = compte.getInt("SOLDE");
-                            //System.out.println("Solde du compte débité avant transaction: " + currentSolde);
-                            int updatedSolde = currentSolde - montantValue;
-                            //System.out.println("Solde du compte débité après transaction: " + updatedSolde);
-                            compte.put("SOLDE", updatedSolde);
+                            compte.put("SOLDE", currentSolde - Math.round(parseFloat(achatCrypto[4])));
                             break;
                         }
                     }
