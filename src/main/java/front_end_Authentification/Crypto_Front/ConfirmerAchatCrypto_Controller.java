@@ -49,23 +49,39 @@ public class ConfirmerAchatCrypto_Controller {
     @FXML
     private void initialize(){
         recapLabel.setText("Vous vous apprêtez à effectuer l'achat de " + achatCrypto[3] +" "+ achatCrypto[1] + ". La valeur d'un coin étant : " + achatCrypto[2] + "euros, vous allez payer : " + achatCrypto[4] + "euros. Donnez un libellé à votre ensemble de crypto que vous vous apprêtez à acheter en complétant le champ suivant. Cliquez sur Confirmer pour finaliser l'achat, sinon sur retour.");
-        try{
-            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
-            for (int i = 0; i < usersArray.length(); i++) {
-                JSONObject userObject = usersArray.getJSONObject(i);
+        try {
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+
+            boolean userFound = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
                 if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
                     JSONArray comptesArray = userObject.optJSONArray("COMPTES");
-                    if (comptesArray != null){
+                    if (comptesArray != null) {
                         for (int j = 0; j < comptesArray.length(); j++) {
-                            JSONObject libelle = comptesArray.getJSONObject(j);
-                            String ibanCompte = libelle.optString("IBAN");
+                            JSONObject account = comptesArray.getJSONObject(j);
+                            int type = account.optInt("TYPE");
+                            System.out.println("Type : " + type);
 
-                            compteChoiceBox.getItems().add(ibanCompte);
+                            StringBuilder displayValue = new StringBuilder("Compte " + j + " ");
+                            if (type == 1){
+                                displayValue.append(" - Courant - n° " + account.optInt("IBAN"));
+                            } else if (type == 2){
+                                displayValue.append(" - Epargne - n° " + account.optInt("IBAN"));
+                            }
+                            compteChoiceBox.getItems().add(displayValue.toString().trim());
                         }
+                        userFound = true;
                     }
+                    break;
                 }
             }
-        } catch(IOException e) {
+            if (!userFound) {
+                System.out.println("User not found");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -74,7 +90,10 @@ public class ConfirmerAchatCrypto_Controller {
     protected void confirmerButton(ActionEvent e) throws IOException{
         setAchatCrypto(libelleTextField.getText());
         Crypto newCrypto = new Crypto(achatCrypto[0],achatCrypto[1],parseFloat(achatCrypto[2]),parseFloat(achatCrypto[2]),parseFloat(achatCrypto[3]),parseFloat(achatCrypto[4]),parseFloat(achatCrypto[4]));
-        int ibanCompteDebite = parseInt((String)compteChoiceBox.getValue());
+        String compteDebite = (String) compteChoiceBox.getValue();
+        String[] parts = compteDebite.split("n° ");
+        int ibanDebite = parseInt(parts[1]);
+        float prix = parseFloat(achatCrypto[4]);
         /*      PARTIE TRANSACTION A MODIFIER (signé Gab) Je te laisse toutes cette partie en commenaire tu en fais ce que tu veux!
         String[] parts = ibanCompteDebite.split("n° ");
         int ibanDebite = Integer.parseInt(parts[1]);
@@ -136,7 +155,7 @@ public class ConfirmerAchatCrypto_Controller {
                     JSONArray portefeuilleArray = userObject.getJSONArray("PORTEFEUILLE");
                     for (int j = 0; j < comptesArray.length(); j++) {
                         JSONObject compte = comptesArray.getJSONObject(j);
-                        if (ibanCompteDebite == compte.optInt("IBAN")) {
+                        if (ibanDebite == compte.optInt("IBAN")) {
                             int currentSolde = compte.getInt("SOLDE");
                             compte.put("SOLDE", currentSolde - Math.round(parseFloat(achatCrypto[4])));
                             break;

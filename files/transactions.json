@@ -128,6 +128,13 @@
                 "SOLDE": 68,
                 "ID": 2,
                 "MONTANT": 12
+            },
+            {
+                "RECEPTEUR": 12345,
+                "EMETTEUR": 282089,
+                "SOLDE": 234,
+                "ID": 3,
+                "MONTANT": 165.999
             }
         ]
     },
