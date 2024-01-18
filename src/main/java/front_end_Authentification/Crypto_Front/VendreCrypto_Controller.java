@@ -21,9 +21,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -65,23 +68,39 @@ public class VendreCrypto_Controller {
         for (int i = 0; i < listCryptos.size(); i++) {
             cryptoChoiceBox.getItems().add(listCryptos.get(i).getName());
         }
-        try{
-            JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
-            for (int i = 0; i < usersArray.length(); i++) {
-                JSONObject userObject = usersArray.getJSONObject(i);
+        try {
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+
+            boolean userFound = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
                 if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
                     JSONArray comptesArray = userObject.optJSONArray("COMPTES");
-                    if (comptesArray != null){
+                    if (comptesArray != null) {
                         for (int j = 0; j < comptesArray.length(); j++) {
-                            JSONObject libelle = comptesArray.getJSONObject(j);
-                            String ibanCompte = libelle.optString("IBAN");
+                            JSONObject account = comptesArray.getJSONObject(j);
+                            int type = account.optInt("TYPE");
+                            System.out.println("Type : " + type);
 
-                            compteChoiceBox.getItems().add(ibanCompte);
+                            StringBuilder displayValue = new StringBuilder("Compte " + j + " ");
+                            if (type == 1){
+                                displayValue.append(" - Courant - n° " + account.optInt("IBAN"));
+                            } else if (type == 2){
+                                displayValue.append(" - Epargne - n° " + account.optInt("IBAN"));
+                            }
+                            compteChoiceBox.getItems().add(displayValue.toString().trim());
                         }
+                        userFound = true;
                     }
+                    break;
                 }
             }
-        } catch(IOException e) {
+            if (!userFound) {
+                System.out.println("User not found");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -121,6 +140,8 @@ public class VendreCrypto_Controller {
                 System.out.println(valeurTransaction);
             }
         }
+
+
 
         //Ajout de la transaction dans la partie TRANSACTIONS de l'iban sélectionné dans transactions.json
 
