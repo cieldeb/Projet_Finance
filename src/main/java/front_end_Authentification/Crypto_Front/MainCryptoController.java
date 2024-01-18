@@ -41,8 +41,8 @@ import static front_end_Authentification.Crypto_Front.VendreCrypto_Controller.af
 public class MainCryptoController {
     F_Authentification_Controller authController = new F_Authentification_Controller();
     String currentUser = authController.getIdentifCurrentUser();
-    String walletSelectionne = F_Accueil_Controller.getWalletSorti();
     protected static Portefeuille selectedWallet = getSelectedWallet();
+    String walletSelectionne = selectedWallet.getName();
     private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     @FXML

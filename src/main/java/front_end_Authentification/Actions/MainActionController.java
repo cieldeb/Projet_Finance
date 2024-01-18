@@ -43,8 +43,9 @@ import static front_end_Authentification.Actions.VendreAction_Controller.affiche
 public class MainActionController {
     F_Authentification_Controller authController = new F_Authentification_Controller();
     String currentUser = authController.getIdentifCurrentUser();
-    String walletSelectionne = F_Accueil_Controller.getWalletSorti();
+
     protected static Portefeuille selectedWallet = getSelectedWallet();
+    String walletSelectionne = selectedWallet.getName();
     private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     @FXML
