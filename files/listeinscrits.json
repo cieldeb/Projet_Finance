@@ -395,6 +395,15 @@
                     "Quantité": 5,
                     "Valeur initiale": 5,
                     "Dernière valeur": -1
+                },
+                {
+                    "Symbole": "bitcoin",
+                    "Dernière valeur totale": 39.061,
+                    "Valeur totale à l'achat": 39.061,
+                    "Libellé": "Testttt1",
+                    "Quantité": 0.001,
+                    "Valeur initiale": 39061,
+                    "Dernière valeur": 39061
                 }
             ]
         }],
