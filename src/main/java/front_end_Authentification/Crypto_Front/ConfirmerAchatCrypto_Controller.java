@@ -105,6 +105,7 @@ public class ConfirmerAchatCrypto_Controller {
         try{
             JSONArray currentBlock = new JSONArray(new JSONTokener(new FileReader("files/currentBlock.json")));
             if (currentBlock.length() < getTailleBlock()){
+                // transactionJSON = new JSONArray();
                 JSONObject crypto = newCrypto.createJSONObject_Crypto();
                 JSONObject transac = new JSONObject();
                 transac.put("DATE",transaction.getDate());
@@ -112,12 +113,14 @@ public class ConfirmerAchatCrypto_Controller {
                 transac.put("IBAN",transaction.getIban());
                 transac.put("CRYPTO", crypto);
                 transac.put("MONTANT",transaction.getValeur());
+                transac.put("TYPE",transaction.getTypeTransaction());
                 currentBlock.put(transac);
+                //currentBlock.put(transactionJSON);
 
             } if (currentBlock.length() == getTailleBlock()) {
 
 
-                for (int i = 0 ; i<currentBlock.length() ; i++){
+                for (int i = 0 ; i<getTailleBlock(); i++){
                     JSONObject cryptoTransactionJSON = currentBlock.getJSONObject(i).getJSONObject("CRYPTO");
                     Crypto cryptoTransaction = new Crypto(cryptoTransactionJSON.getString("Libellé"),cryptoTransactionJSON.getString("Symbole"),cryptoTransactionJSON.getFloat("Valeur initiale"),cryptoTransactionJSON.getFloat("Dernière valeur"),cryptoTransactionJSON.getFloat("Quantité"),cryptoTransactionJSON.getFloat("Valeur totale à l'achat"),cryptoTransactionJSON.getFloat("Dernière valeur totale"));
                     TransactionCrypto transactionToDo = new TransactionCrypto(selectedWallet,currentBlock.getJSONObject(i).getInt("IBAN"),cryptoTransaction,Math.round(cryptoTransaction.getValue()*cryptoTransaction.getQuantite()),transaction.getTypeTransaction());
@@ -133,17 +136,18 @@ public class ConfirmerAchatCrypto_Controller {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    for (int i = 0 ; i<getTailleBlock() ; i++){
+                    /*for (int i = 0 ; i<getTailleBlock() ; i++){
                         currentBlock.remove(i);
 
-                    }
+                    }*/
 
                 } catch (Exception j) {
                     j.printStackTrace();
                 }
             }
+            JSONArray newCurrentBlock = new JSONArray();
             try (FileWriter file = new FileWriter("files/currentBlock.json")) {
-                file.write(currentBlock.toString(4));
+                file.write(newCurrentBlock.toString(4));
                 file.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();

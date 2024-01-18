@@ -74,7 +74,7 @@ public class TransactionCrypto {
         //int ibanDebite = Integer.parseInt(parts[1]);
 
         //Ajout de la transaction dans la partie TRANSACTIONS de l'émetteur dans transactions.json
-
+        
         try {
             JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
             for (int i = 0; i < entryArray.length(); i++) {
@@ -97,12 +97,21 @@ public class TransactionCrypto {
 
                     JSONObject newTransaction = new JSONObject();
                     newTransaction.put("ID", newID);
-                    newTransaction.put("EMETTEUR", ibanDebite);
-                    newTransaction.put("RECEPTEUR", 12345);
-                    newTransaction.put("MONTANT", prix);
-                    int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), prix);
-                    newTransaction.put("SOLDE",  newSoldeRecepteur);
-
+                    //IF ACHAT
+                    if(this.getTypeTransaction()==-1){
+                        newTransaction.put("EMETTEUR", ibanDebite);
+                        newTransaction.put("RECEPTEUR", 67890);
+                        newTransaction.put("MONTANT", prix);
+                        int newSoldeRecepteur = Integer.parseInt(extractedAmount) - prix;
+                        newTransaction.put("SOLDE",  newSoldeRecepteur);
+                    }//IF VENTE
+                    else if (this.getTypeTransaction()==1) {
+                        newTransaction.put("EMETTEUR", 67890);
+                        newTransaction.put("RECEPTEUR", ibanDebite);
+                        newTransaction.put("MONTANT", prix);
+                        int newSoldeRecepteur = sum(Integer.parseInt(extractedAmount), prix);
+                        newTransaction.put("SOLDE",  newSoldeRecepteur);
+                    }
 
                     transacArray.put(newTransaction);
 
@@ -132,7 +141,11 @@ public class TransactionCrypto {
                         JSONObject compte = comptesArray.getJSONObject(j);
                         if (this.getIban() == compte.optInt("IBAN")) {
                             int currentSolde = compte.getInt("SOLDE");
-                            compte.put("SOLDE", currentSolde - Math.round(this.getValeur()));
+                            if (this.getTypeTransaction()==-1) {
+                                compte.put("SOLDE", currentSolde - Math.round(this.getValeur()));
+                            } else if (this.getTypeTransaction()==1) {
+                                compte.put("SOLDE", currentSolde + Math.round(this.getValeur()));
+                            }
                             break;
                         }
                     }
@@ -141,9 +154,20 @@ public class TransactionCrypto {
                         JSONObject portefeuille = portefeuilleArray.getJSONObject(j);
                         if (portefeuille.getString("LIBELLE").equals(selectedWallet.getName())){
                             JSONArray listCrypto = portefeuille.getJSONArray("CRYPTOS");
-                            listCrypto.put(this.getCrypto().createJSONObject_Crypto());
-                            portefeuille.put("CRYPTOS",listCrypto);
-                            portefeuilleArray.put(j,portefeuille);
+                            if (this.typeTransaction == -1){
+                                listCrypto.put(this.getCrypto().createJSONObject_Crypto());
+                                portefeuille.put("CRYPTOS",listCrypto);
+                                portefeuilleArray.put(j,portefeuille);
+                            } else if (this.typeTransaction == 1){
+                                for (int k = 0 ; k<listCrypto.length() ; k++){
+                                    if (listCrypto.getJSONObject(k).getString("Libellé").equals(this.getCrypto().getName()) ){
+                                        listCrypto.remove(k);
+                                    }
+                                }
+                                portefeuille.put("CRYPTOS",listCrypto);
+                                portefeuilleArray.put(j,portefeuille);
+                            }
+
                         }
                     }
 

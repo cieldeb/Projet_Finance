@@ -551,7 +551,7 @@
     {
         "COMPTES": [{
             "IBAN": 282089,
-            "SOLDE": 68,
+            "SOLDE": 80463,
             "TYPE": 1
         }],
         "TELEPHONE": "bn",
@@ -580,35 +580,15 @@
                 }
             ],
             "LIBELLE": "bn",
-            "CRYPTOS": [
-                {
-                    "Symbole": "bn",
-                    "Dernière valeur totale": -1,
-                    "Valeur totale à l'achat": -1,
-                    "Libellé": "nb",
-                    "Quantité": 43,
-                    "Valeur initiale": 4534,
-                    "Dernière valeur": -1
-                },
-                {
-                    "Symbole": "ty",
-                    "Dernière valeur totale": -1,
-                    "Valeur totale à l'achat": -1,
-                    "Libellé": "ty",
-                    "Quantité": 5,
-                    "Valeur initiale": 5,
-                    "Dernière valeur": -1
-                },
-                {
-                    "Symbole": "bitcoin",
-                    "Dernière valeur totale": 39.061,
-                    "Valeur totale à l'achat": 39.061,
-                    "Libellé": "Testttt1",
-                    "Quantité": 0.001,
-                    "Valeur initiale": 39061,
-                    "Dernière valeur": 39061
-                }
-            ]
+            "CRYPTOS": [{
+                "Symbole": "bitcoin",
+                "Dernière valeur totale": 11.263201,
+                "Valeur totale à l'achat": 11.263201,
+                "Libellé": "test3",
+                "Quantité": 0.0003,
+                "Valeur initiale": 37544,
+                "Dernière valeur": 37544
+            }]
         }],
         "DESTINATAIRES": []
     }

@@ -19,15 +19,4 @@ public class Block {
         this.fileTransaction = fileTransaction;
         this.valide = false;
     }
-
-    public void addTransaction(TransactionCrypto newTransaction){
-        this.fileTransaction.add(newTransaction);
-        if (this.fileTransaction.size() == tailleBlock ){
-            this.valide = true;
-            DateFormat format = new SimpleDateFormat("dd-MM-yyy hh:mm:ss a");
-            Date date = new Date();
-            this.date = format.format(date);
-
-        }
-    }
 }

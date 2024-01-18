@@ -135,12 +135,16 @@ public class VendreCrypto_Controller {
     }
     @FXML
     protected void vendreButton(ActionEvent e) throws IOException {
-        String selectedCompte = (String) compteChoiceBox.getValue();
         String selectedCrypto = (String) cryptoChoiceBox.getValue();
+        String compteDebite = (String) compteChoiceBox.getValue();
+        String[] parts = compteDebite.split("n° ");
+        String selectedCompte = parts[1];
+
+
         float valeurTransaction = 0 ;
         for (int i =0 ; i<listCryptos.size() ; i++){
             if (listCryptos.get(i).getName().equals(selectedCrypto)){
-                valeurTransaction = listCryptos.get(i).getInitialValue();
+                valeurTransaction = listCryptos.get(i).getActuelleValeurTotale();
                 System.out.println(valeurTransaction);
             }
         }
@@ -149,6 +153,7 @@ public class VendreCrypto_Controller {
         try{
             JSONArray currentBlock = new JSONArray(new JSONTokener(new FileReader("files/currentBlock.json")));
             if (currentBlock.length() < getTailleBlock()){
+                //JSONArray transactionJSON = new JSONArray();
                 JSONObject crypto = cryptoToSell.createJSONObject_Crypto();
                 JSONObject transac = new JSONObject();
                 transac.put("DATE",transaction.getDate());
@@ -156,9 +161,12 @@ public class VendreCrypto_Controller {
                 transac.put("IBAN",transaction.getIban());
                 transac.put("CRYPTO", crypto);
                 transac.put("MONTANT",transaction.getValeur());
+                transac.put("TYPE", transaction.getTypeTransaction());
                 currentBlock.put(transac);
+                //currentBlock.put(transactionJSON);
 
-            } if (currentBlock.length() == getTailleBlock()) {
+            }
+            if (currentBlock.length() == getTailleBlock()) {
 
 
                 for (int i = 0 ; i<currentBlock.length() ; i++){
@@ -177,17 +185,18 @@ public class VendreCrypto_Controller {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    for (int i = 0 ; i<getTailleBlock() ; i++){
+                    /*for (int i = 0 ; i<getTailleBlock() ; i++){
                         currentBlock.remove(i);
 
-                    }
+                    }*/
 
                 } catch (Exception j) {
                     j.printStackTrace();
                 }
             }
+            JSONArray newCurrentBlock = new JSONArray();
             try (FileWriter file = new FileWriter("files/currentBlock.json")) {
-                file.write(currentBlock.toString(4));
+                file.write(newCurrentBlock.toString(4));
                 file.flush();
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -196,7 +205,6 @@ public class VendreCrypto_Controller {
         }  catch (IOException w) {
             w.printStackTrace();
         }
-        ///CONTINUER ICI.
         vendreCryptoJSON(selectedCrypto,parseInt(selectedCompte),Math.round(valeurTransaction),selectedWallet.getName());
         front_end_Authentification.Crypto_Front.MainCryptoController.afficherMainCryptos();
         Node button = (Node) e.getSource();
