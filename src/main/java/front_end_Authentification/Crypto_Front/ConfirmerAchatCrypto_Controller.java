@@ -105,7 +105,6 @@ public class ConfirmerAchatCrypto_Controller {
         try{
             JSONArray currentBlock = new JSONArray(new JSONTokener(new FileReader("files/currentBlock.json")));
             if (currentBlock.length() < getTailleBlock()){
-                JSONArray transactionJSON = new JSONArray();
                 JSONObject crypto = newCrypto.createJSONObject_Crypto();
                 JSONObject transac = new JSONObject();
                 transac.put("DATE",transaction.getDate());
@@ -113,8 +112,9 @@ public class ConfirmerAchatCrypto_Controller {
                 transac.put("IBAN",transaction.getIban());
                 transac.put("CRYPTO", crypto);
                 transac.put("MONTANT",transaction.getValeur());
-                transactionJSON.put(transac);
-            } else if (currentBlock.length() == getTailleBlock()) {
+                currentBlock.put(transac);
+
+            } else {
 
 
                 for (int i = 0 ; i<currentBlock.length() ; i++){
@@ -127,7 +127,7 @@ public class ConfirmerAchatCrypto_Controller {
                 try{
                     JSONArray blockChain = new JSONArray(new JSONTokener(new FileReader("files/blockChain.json")));
                     blockChain.put(currentBlock);
-                    try (FileWriter file = new FileWriter("files/listeinscrits.json")) {
+                    try (FileWriter file = new FileWriter("files/blockChain.json")) {
                         file.write(blockChain.toString(4));
                         file.flush();
                     } catch (IOException ex) {
@@ -137,17 +137,16 @@ public class ConfirmerAchatCrypto_Controller {
                         currentBlock.remove(i);
 
                     }
-                    try (FileWriter file = new FileWriter("files/currentBlock.json")) {
-                        file.write(currentBlock.toString(4));
-                        file.flush();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
+
                 } catch (Exception j) {
                     j.printStackTrace();
                 }
-
-
+            }
+            try (FileWriter file = new FileWriter("files/currentBlock.json")) {
+                file.write(currentBlock.toString(4));
+                file.flush();
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
 
         }  catch (IOException w) {
