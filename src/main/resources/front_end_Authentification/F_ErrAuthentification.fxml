@@ -8,7 +8,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="269.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.F_ErrAuthentification_Controller">
    <children>
-      <Label fx:id="errLabel" text="Erreur! Mot de passe ou identifiant incorrect." textFill="#bc0000">
+      <Label fx:id="errLabel" text="Mot de passe ou identifiant incorrect." textFill="#bc0000">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

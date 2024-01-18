@@ -9,21 +9,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Portefeuilles.CreerPortefeuille_Controller">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Portefeuilles.CreerPortefeuille_Controller">
    <children>
-      <Label text="Créer un porte feuille">
+      <Label text="Créer un portefeuille">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Separator prefWidth="200.0" />
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin></Separator>
       <HBox alignment="CENTER" prefHeight="63.0" prefWidth="600.0">
          <children>
             <Label text="Libellé : " />
             <TextField fx:id="libellePorteFeuilleTextField" prefHeight="25.0" prefWidth="517.0" />
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </HBox>
-      <Separator prefWidth="200.0" />
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin></Separator>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="551.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="294.0">
@@ -34,47 +43,95 @@
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
-                  <Label text="Libellé : " />
+                  <Label text="Libellé : ">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="libelleATextField" prefHeight="25.0" prefWidth="517.0" />
-                  <Label text="Symbole :" />
+                  <Label text="Symbole :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="symboleATextField" />
-                  <Label text="Valeur à l'achat :" />
+                  <Label text="Valeur à l'achat :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="valeurATextField" />
-                  <Label text="Quantité possédée :" />
+                  <Label text="Quantité possédée :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="quantiteATextField" />
-                  <Button mnemonicParsing="false" onAction="#ajouterActionButton" text="Ajouter" />
+                  <Button mnemonicParsing="false" onAction="#ajouterActionButton" text="Ajouter">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
-            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin></Separator>
             <VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="279.0">
                <children>
-                  <Label text="Crypto">
+                  <Label text="Cryptomonnaies">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
-                  <Label text="Libellé : " />
+                  <Label text="Libellé : ">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="libelleCTextField" prefHeight="25.0" prefWidth="517.0" />
-                  <Label text="Symbole :" />
+                  <Label text="Symbole :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="symboleCTextField" />
-                  <Label text="Valeur à l'achat :" />
+                  <Label text="Valeur à l'achat :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="valeurCTextField" />
-                  <Label text="Quantité possédée :" />
+                  <Label text="Quantité possédée :">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <TextField fx:id="quantiteCTextField" />
-                  <Button mnemonicParsing="false" onAction="#ajouterCryptoButton" text="Ajouter" />
+                  <Button mnemonicParsing="false" onAction="#ajouterCryptoButton" text="Ajouter">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
       </HBox>
-      <Separator prefWidth="200.0" />
-      <Button mnemonicParsing="false" onAction="#creerPortefeuilleButton" text="Créer" />
+      <Separator prefWidth="200.0">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </VBox.margin></Separator>
       <HBox prefHeight="56.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+            <VBox prefHeight="35.0" prefWidth="280.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#creerPortefeuilleButton" text="Créer">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>

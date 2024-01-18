@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Crypto_Front.VendreCrypto_Controller">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Crypto_Front.VendreCrypto_Controller">
    <children>
-      <Label text="Vendre de la crypto">
+      <Label prefHeight="74.0" prefWidth="445.0" text="Vendre des cryptomonnaies">
          <font>
             <Font size="36.0" />
          </font>
@@ -49,8 +49,11 @@
                      </VBox.margin></Label>
                </children>
             </VBox>
-            <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></ChoiceBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="648.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#simulerButton" text="Voir">
                      <VBox.margin>
@@ -80,13 +83,22 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </TableView>
-      <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="78.0" prefWidth="73.0" text="Vendre" />
       <HBox prefHeight="20.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+            <VBox prefHeight="35.0" prefWidth="285.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="78.0" prefWidth="73.0" text="Vendre">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
       <Accordion />

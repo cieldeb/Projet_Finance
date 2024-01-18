@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.VendreAction_Controller">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="658.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end_Authentification.Actions.VendreAction_Controller">
    <children>
       <Label text="Vendre des actions">
          <font>
@@ -27,7 +27,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="56.0" prefWidth="600.0">
                <children>
-                  <Label text="Choissiez les actions à vendre :">
+                  <Label text="Choisissez les actions à vendre :">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin></Label>
@@ -43,13 +43,16 @@
          <children>
             <VBox alignment="CENTER" prefHeight="23.0" prefWidth="600.0">
                <children>
-                  <Label text="Choissiez le compte à créditer :">
+                  <Label text="Choisissez le compte à créditer :">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin></Label>
                </children>
             </VBox>
-            <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0" />
+            <ChoiceBox fx:id="compteChoiceBox" prefHeight="50.0" prefWidth="245.0">
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin></ChoiceBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#simulerButton" text="Voir">
@@ -80,13 +83,22 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </TableView>
-      <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="78.0" prefWidth="73.0" text="Vendre" />
       <HBox prefHeight="20.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+            <VBox prefHeight="35.0" prefWidth="285.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#retourButton" text="Retour">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#vendreButton" prefHeight="78.0" prefWidth="73.0" text="Vendre">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
       <Accordion />

@@ -42,7 +42,10 @@
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin></Separator>
-                  <Label text="Gérez vos actions : Achetez et Vendez" />
+                  <Label text="Gérez vos actions : achetez et vendez">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <Button mnemonicParsing="false" onAction="#accederActionButton" text="Accéder" />
                </children>
             </VBox>
@@ -52,7 +55,7 @@
                </HBox.margin></Separator>
             <VBox alignment="TOP_CENTER" prefHeight="195.0" prefWidth="279.0">
                <children>
-                  <Label text="Crypto">
+                  <Label text="Cryptomonnaies">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -61,7 +64,10 @@
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin></Separator>
-                  <Label text="Gérez vos cryptos : Achetez et Vendez" />
+                  <Label text="Gérez vos cryptos : achetez et vendez">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Label>
                   <Button mnemonicParsing="false" onAction="#accederCryptoButton" text="Accéder" />
                </children>
             </VBox>
