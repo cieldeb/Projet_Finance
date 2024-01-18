@@ -3,8 +3,10 @@ package front_end_Authentification.Crypto_Front;
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Crypto.Crypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
+import front_end_Authentification.Accueil.F_Accueil_Controller;
 import front_end_Authentification.Actions.AcheterActions_Controller;
 import front_end_Authentification.Actions.Application_Action;
+import front_end_Authentification.F_Authentification_Controller;
 import front_end_Authentification.Portefeuilles.GererPortefeuille_Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,16 +15,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -32,6 +39,9 @@ import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelecte
 import static front_end_Authentification.Crypto_Front.VendreCrypto_Controller.afficherVendreCryptos;
 
 public class MainCryptoController {
+    F_Authentification_Controller authController = new F_Authentification_Controller();
+    String currentUser = authController.getIdentifCurrentUser();
+    String walletSelectionne = F_Accueil_Controller.getWalletSorti();
     protected static Portefeuille selectedWallet = getSelectedWallet();
     private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
     private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
@@ -61,6 +71,12 @@ public class MainCryptoController {
     private TableColumn derniereValeurTTLTableColumn;
     @FXML
     TableView<Map<String, Object>> cryptosTableView;
+    private ObservableList<PieChart.Data> nbrAcheteData;
+    @FXML
+    private PieChart nbrAchete = new PieChart(nbrAcheteData);
+    private ObservableList<PieChart.Data> proportionCoutData;
+    @FXML
+    private PieChart proportionCout = new PieChart(proportionCoutData);
     @FXML
     private void initialize(){
         setUpTableColumn();
@@ -80,7 +96,62 @@ public class MainCryptoController {
         }
         cryptosTableView.setItems(listCryptos);
 
+        //Initialisation du camembert de répartition des symboles possédés
 
+        nbrAcheteData = FXCollections.observableArrayList();
+        nbrAchete.setTitle("Répartition des symboles");
+        nbrAchete.setLabelLineLength(15);
+        //nbrAchete.setLegendSide(Side.LEFT);
+        nbrAchete.setData(nbrAcheteData);
+
+        //Initialisation du camembert de répartition de la valeur des symboles possédés
+
+        proportionCoutData = FXCollections.observableArrayList();
+        proportionCout.setTitle("Répartition de la valeur");
+        proportionCout.setLabelLineLength(15);
+        //proportionCout.setLegendSide(Side.RIGHT);
+        proportionCout.setData(proportionCoutData);
+
+        try {
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray portefeuillesArray = userObject.optJSONArray("PORTEFEUILLE");
+
+                    if (portefeuillesArray != null) {
+                        System.out.println("Portefeuilles array: " + portefeuillesArray);
+
+                        for (int s = 0; s < portefeuillesArray.length(); s++) {
+                            JSONObject walletObject = portefeuillesArray.getJSONObject(s);
+                            String lookedAtWallet = walletObject.optString("LIBELLE");
+                            //System.out.println("Comparing: '" + lookedAtWallet + "' with '" + walletSelectionne + "'"); //Debug pour voir les comparaisons faites par la boucle suivante
+                            if (lookedAtWallet.equals(walletSelectionne)) {
+                                JSONArray cryptosArray = walletObject.optJSONArray("CRYPTOS");
+                                System.out.println("Actions array: " + cryptosArray);
+                                int poidsQ = 0;
+                                for(int r = 0; r < cryptosArray.length(); r++){
+                                    JSONObject objet = cryptosArray.getJSONObject(r);
+                                    String symbole = objet.optString("Symbole");
+                                    poidsQ = objet.optInt("Quantité");
+                                    nbrAcheteData.add(new PieChart.Data(symbole.toString(), poidsQ));
+                                    int poidsV = objet.optInt("Dernière valeur totale");
+                                    proportionCoutData.add(new PieChart.Data(symbole.toString(), poidsV));
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

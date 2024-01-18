@@ -2,17 +2,24 @@ package front_end_Authentification.Actions;
 
 import com.example.projet_finance.back_end.Actions.Action;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
-import front_end_Authentification.Portefeuilles.GererPortefeuille_Controller;
+import front_end_Authentification.Accueil.F_Accueil_Controller;
 import front_end_Authentification.F_Authentification_Controller;
+import front_end_Authentification.Portefeuilles.GererPortefeuille_Controller;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,9 +39,11 @@ import java.util.Scanner;
 
 import static front_end_Authentification.Accueil.F_Accueil_Controller.getSelectedWallet;
 import static front_end_Authentification.Actions.VendreAction_Controller.afficherVendreActions;
-import static front_end_Authentification.Crypto_Front.VendreCrypto_Controller.afficherVendreCryptos;
 
 public class MainActionController {
+    F_Authentification_Controller authController = new F_Authentification_Controller();
+    String currentUser = authController.getIdentifCurrentUser();
+    String walletSelectionne = F_Accueil_Controller.getWalletSorti();
     protected static Portefeuille selectedWallet = getSelectedWallet();
     private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
     private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
@@ -64,6 +73,12 @@ public class MainActionController {
     private TableColumn derniereValeurTTLTableColumn;
     @FXML
     TableView<Map<String, Object>> actionsTableView;
+    private ObservableList<PieChart.Data> nbrAcheteData;
+    @FXML
+    private PieChart nbrAchete = new PieChart(nbrAcheteData);
+    private ObservableList<PieChart.Data> proportionCoutData;
+    @FXML
+    private PieChart proportionCout = new PieChart(proportionCoutData);
     @FXML
     private void initialize(){
         setUpTableColumn();
@@ -83,6 +98,62 @@ public class MainActionController {
         }
         actionsTableView.setItems(listActions);
 
+        //Initialisation du camembert de répartition des symboles possédés
+
+        nbrAcheteData = FXCollections.observableArrayList();
+        nbrAchete.setTitle("Répartition des symboles");
+        nbrAchete.setLabelLineLength(15);
+        //nbrAchete.setLegendSide(Side.LEFT);
+        nbrAchete.setData(nbrAcheteData);
+
+        //Initialisation du camembert de répartition de la valeur des symboles possédés
+
+        proportionCoutData = FXCollections.observableArrayList();
+        proportionCout.setTitle("Répartition de la valeur");
+        proportionCout.setLabelLineLength(15);
+        //proportionCout.setLegendSide(Side.RIGHT);
+        proportionCout.setData(proportionCoutData);
+
+        try {
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray portefeuillesArray = userObject.optJSONArray("PORTEFEUILLE");
+
+                    if (portefeuillesArray != null) {
+                        System.out.println("Portefeuilles array: " + portefeuillesArray);
+
+                        for (int s = 0; s < portefeuillesArray.length(); s++) {
+                            JSONObject walletObject = portefeuillesArray.getJSONObject(s);
+                            String lookedAtWallet = walletObject.optString("LIBELLE");
+                            System.out.println("Comparing: '" + lookedAtWallet + "' with '" + walletSelectionne + "'"); //Debug pour voir les comparaisons faites par la boucle suivante
+                            if (lookedAtWallet.equals(walletSelectionne)) {
+                                JSONArray actionsArray = walletObject.optJSONArray("ACTIONS");
+                                System.out.println("Actions array: " + actionsArray);
+                                int poidsQ = 0;
+                                for(int r = 0; r < actionsArray.length(); r++){
+                                    JSONObject objet = actionsArray.getJSONObject(r);
+                                    String symbole = objet.optString("Symbole");
+                                    poidsQ = objet.optInt("Quantité");
+                                    nbrAcheteData.add(new PieChart.Data(symbole.toString(), poidsQ));
+                                    int poidsV = objet.optInt("Dernière valeur totale");
+                                    proportionCoutData.add(new PieChart.Data(symbole.toString(), poidsV));
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     protected void chercherButton(){

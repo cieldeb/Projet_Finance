@@ -7,9 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.AccessibleAttribute;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.stage.Stage;
@@ -44,10 +49,15 @@ public class F_gererCompte_Controller {
     private TableColumn montantCol;
     @FXML
     private TableColumn newSoldeCol;
+    private ObservableList<PieChart.Data> repComptesData;
+    @FXML
+    private PieChart repComptes = new PieChart(repComptesData);
+    private ObservableList<PieChart.Data> mouvSoldeData;
     @FXML
     private void initialize(){
         tableTransactions.setPlaceholder(new Label("Ce compte n'a effectué aucune transaction"));
         compteAffiche.setVisibleRowCount(3);
+
         try {
             File jsonFile = new File("files/listeinscrits.json");
             String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
@@ -81,6 +91,38 @@ public class F_gererCompte_Controller {
                 System.out.println("User not found");
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Remplissage du camembert
+
+        repComptesData = FXCollections.observableArrayList();
+        repComptes.setTitle("Répartition de la valeur entre les comptes");
+        repComptes.setLabelLineLength(15);
+        repComptes.setLegendSide(Side.LEFT);
+        repComptes.setData(repComptesData);
+
+        try {
+            File jsonFile = new File("files/listeinscrits.json");
+            String jsonContent = new String(Files.readAllBytes(Paths.get(jsonFile.getPath())));
+            JSONArray jsonArray = new JSONArray(jsonContent);
+
+            boolean userFound = false;
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject userObject = jsonArray.getJSONObject(i);
+                if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
+                    JSONArray comptesArray = userObject.optJSONArray("COMPTES");
+                    if (comptesArray != null) {
+                        for (int j = 0; j < comptesArray.length(); j++) {
+                            JSONObject account = comptesArray.getJSONObject(j);
+                            String IBAN = account.optString("IBAN");
+                            int poidsSolde = account.optInt("SOLDE");
+                            repComptesData.add(new PieChart.Data(IBAN.toString(), poidsSolde));
+                        }
+                    }
+                }
+            }
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -119,6 +161,7 @@ public class F_gererCompte_Controller {
         String compte = compteAffiche.getValue();
         String[] parts = compte.split("n° ");
         String compteObserve = parts[1];
+
         try {
             JSONArray entryArray = new JSONArray(new JSONTokener(new FileReader("files/transactions.json")));
             ObservableList<Map<String, Object>> transactions = FXCollections.observableArrayList();
@@ -131,11 +174,12 @@ public class F_gererCompte_Controller {
                     for (int j = transacArray.length() - 1; j > - 1 ; j--) {
                         JSONObject transactionObject = transacArray.getJSONObject(j);
                         Map<String, Object> rowData = new HashMap<>();
-
-                        rowData.put("ID", transactionObject.optInt("ID"));
+                        int id = transactionObject.optInt("ID");
+                        int solde = transactionObject.optInt("SOLDE");
+                        rowData.put("ID", id);
                         rowData.put("RECEPTEUR", transactionObject.optInt("RECEPTEUR"));
                         rowData.put("EMETTEUR", transactionObject.optInt("EMETTEUR"));
-                        rowData.put("SOLDE", transactionObject.optDouble("SOLDE"));
+                        rowData.put("SOLDE", solde);
                         rowData.put("MONTANT", transactionObject.optDouble("MONTANT"));
 
                         transactions.add(rowData);
