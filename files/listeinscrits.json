@@ -1,32 +1,28 @@
 [{
-    "COMPTES": [
-        {
-            "IBAN": 447539,
-            "SOLDE": 50000,
-            "TYPE": 0
-        },
-        {
-            "IBAN": 171236,
-            "SOLDE": 48175,
-            "TYPE": 1
-        }
-    ],
-    "TELEPHONE": "0649512028",
-    "MAIL": "@gmail",
-    "IDENTIFIANT": "LV",
-    "MOT DE PASSE": "260520",
-    "PORTEFEUILLE": [{
-        "ACTIONS": [{
-            "Symbole": "AAPL",
-            "Dernière valeur totale": 1824.7,
-            "Valeur totale à l'achat": 1824.7,
-            "Libellé": "luce",
-            "Quantité": 10,
-            "Valeur initiale": 182.47,
-            "Dernière valeur": 182.47
-        }],
-        "LIBELLE": "luce",
-        "CRYPTOS": []
+    "COMPTES": [{
+        "IBAN": 769992,
+        "SOLDE": 4876,
+        "TYPE": 1
     }],
-    "DESTINATAIRES": []
+    "TELEPHONE": "bn",
+    "MAIL": "bn",
+    "IDENTIFIANT": "bn",
+    "MOT DE PASSE": "bn",
+    "PORTEFEUILLE": [{
+        "ACTIONS": [],
+        "LIBELLE": "oui",
+        "CRYPTOS": [{
+            "Symbole": "bitcoin",
+            "Dernière valeur totale": 3.7733,
+            "Valeur totale à l'achat": 3.7733,
+            "Libellé": "test2",
+            "Quantité": 0.0001,
+            "Valeur initiale": 37733,
+            "Dernière valeur": 37733
+        }]
+    }],
+    "DESTINATAIRES": [{
+        "IBAN": 14982,
+        "NOM": "Luca"
+    }]
 }]
