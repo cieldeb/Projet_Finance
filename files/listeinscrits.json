@@ -1,1 +1,20 @@
-[]
+[{
+    "COMPTES": [
+        {
+            "IBAN": 500603,
+            "SOLDE": 58,
+            "TYPE": 1
+        },
+        {
+            "IBAN": 936996,
+            "SOLDE": 84,
+            "TYPE": 1
+        }
+    ],
+    "TELEPHONE": "s",
+    "MAIL": "s",
+    "IDENTIFIANT": "s",
+    "MOT DE PASSE": "s",
+    "PORTEFEUILLE": [],
+    "DESTINATAIRES": []
+}]

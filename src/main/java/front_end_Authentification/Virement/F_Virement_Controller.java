@@ -214,28 +214,37 @@ public class F_Virement_Controller {
     protected void vir_account_select() {
         String selectedAccount = vir_account.getValue();
         if (selectedAccount != null) {
+            System.out.println("Selected Account: " + selectedAccount);
+            String[] parts = selectedAccount.split("n° ");
             try {
+                int ibanVoulu = Integer.parseInt(parts[1]);
                 JSONArray usersArray = new JSONArray(new JSONTokener(new FileReader("files/listeinscrits.json")));
                 for (int i = 0; i < usersArray.length(); i++) {
                     JSONObject userObject = usersArray.getJSONObject(i);
                     if (userObject.optString("IDENTIFIANT").equals(currentUser)) {
-
                         if (userObject.has("COMPTES")) {
                             JSONArray comptesArray = userObject.getJSONArray("COMPTES");
-                            int accountIndex = Integer.parseInt(selectedAccount.split(" ")[1]);
 
-                            if (accountIndex >= 0 && accountIndex < comptesArray.length()) {
-                                JSONObject selectedCompte = comptesArray.getJSONObject(accountIndex);
-                                int solde = selectedCompte.getInt("SOLDE");
-                                if (solde > 0) {
-                                    vir_account_montant.setText("+" + solde + "€");
-                                    vir_account_montant.setFill(Color.web("#12ab1f"));
-                                } else {
-                                    vir_account_montant.setText("0€");
-                                    vir_account_montant.setFill(Color.web("#00004d"));
+                            // Look for the account with matching IBAN
+                            boolean accountFound = false;
+                            for (int j = 0; j < comptesArray.length(); j++) {
+                                JSONObject compte = comptesArray.getJSONObject(j);
+                                if (compte.getInt("IBAN") == ibanVoulu) {
+                                    int solde = compte.getInt("SOLDE");
+                                    if (solde > 0) {
+                                        vir_account_montant.setText("+" + solde + "€");
+                                        vir_account_montant.setFill(Color.web("#12ab1f"));
+                                    } else {
+                                        vir_account_montant.setText("0€");
+                                        vir_account_montant.setFill(Color.web("#00004d"));
+                                    }
+                                    accountFound = true;
+                                    break;
                                 }
-                            } else {
-                                System.err.println("L'index de compte sélectionné n'existe pas pour cet utilisateur");
+                            }
+
+                            if (!accountFound) {
+                                System.err.println("IBAN not found for this user.");
                             }
                         } else {
                             System.err.println("La clé 'COMPTES' n'existe pas dans l'objet JSON de l'utilisateur.");
@@ -243,13 +252,14 @@ public class F_Virement_Controller {
                         break;
                     }
                 }
-            } catch (IOException | NumberFormatException e) {
+            } catch (IOException | NumberFormatException | JSONException e) {
                 e.printStackTrace();
             }
         } else {
             System.out.println("No account selected");
         }
     }
+
     @FXML
     protected void btnValider(ActionEvent e) throws IOException {
 
