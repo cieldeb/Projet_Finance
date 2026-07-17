@@ -1,5 +1,6 @@
 package front_end_Authentification.Actions;
 
+import com.example.projet_finance.back_end.Config.EnvConfig;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,8 +30,8 @@ public class AcheterActions_Controller {
     private static boolean simulationValid = false;
     protected static Portefeuille selectedWallet = getSelectedWallet();
     private static String[] achatAction = new String[5];
-    private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
-    private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=P5LEJHFFCZKVAI88" ;
+    private static String API_URL_SymbolSearch = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=SEARCH_SYMBOL&interval=1min&apikey=" + EnvConfig.get("ALPHAVANTAGE_API_KEY");
+    private static String API_URL_TimeSeriesIntraDay = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=SEARCH_SYMBOL&interval=1min&apikey=" + EnvConfig.get("ALPHAVANTAGE_API_KEY");
     @FXML
     private TextField searchField;
     @FXML

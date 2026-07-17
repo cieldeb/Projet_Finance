@@ -1,6 +1,7 @@
 package front_end_Authentification.Crypto_Front;
 
 import com.example.projet_finance.back_end.Actions.Action;
+import com.example.projet_finance.back_end.Config.EnvConfig;
 import com.example.projet_finance.back_end.Crypto.Crypto;
 import com.example.projet_finance.back_end.Entite.Portefeuille;
 import front_end_Authentification.Actions.AcheterActions_Controller;
@@ -37,8 +38,8 @@ public class AcheterCryptos_Controller {
     public static float getValueSimulation;
     private static boolean simulationValid = false;
     private static String[] achatCrypto = new String[5];
-    private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
-    private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=CG-Hpntb6pauGUVcNfBZb4R3idc" ;
+    private static String API_URL_SymbolSearch = "https://api.coingecko.com/api/v3/search?query=SEARCH_SYMBOL&x_cg_api_key=" + EnvConfig.get("COINGECKO_API_KEY");
+    private static String API_URL_TimeSeriesIntraDay = "https://api.coingecko.com/api/v3/simple/price?ids=SEARCH_SYMBOL&vs_currencies=eur&x_cg_api_key=" + EnvConfig.get("COINGECKO_API_KEY");
     @FXML
     private TextField searchField;
     @FXML
