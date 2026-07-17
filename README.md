@@ -2,7 +2,7 @@
 
 A desktop financial portfolio management application built with **Java** and **JavaFX**. It lets a user register, authenticate, manage one or more portfolios, and trade **stocks (Actions)** and **cryptocurrencies**, with crypto purchases recorded on a simple custom blockchain.
 
-> Student project by **Gabgab58** and **loursblancgithub**.
+> Student project by **Gabgab58** and **cieldeb**.
 
 ## Features
 
@@ -97,4 +97,4 @@ The app persists its state locally in the `files/` directory:
 ## Authors
 
 - [Gabgab58](https://github.com/Gabgab58)
-- [loursblancgithub](https://github.com/loursblancgithub)
+- [cieldeb](https://github.com/lcieldeb)
